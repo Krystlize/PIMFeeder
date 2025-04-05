@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/pimfeeder/static/css/main.e6c13ad2.css",
+    "main.js": "/pimfeeder/static/js/main.377212e0.js",
+    "static/js/453.171bcf80.chunk.js": "/pimfeeder/static/js/453.171bcf80.chunk.js",
+    "index.html": "/pimfeeder/index.html",
+    "static/media/construction-icon.svg": "/pimfeeder/static/media/construction-icon.190acc59224bc21ae86fdcf4516457c3.svg",
+    "main.e6c13ad2.css.map": "/pimfeeder/static/css/main.e6c13ad2.css.map",
+    "main.377212e0.js.map": "/pimfeeder/static/js/main.377212e0.js.map",
+    "453.171bcf80.chunk.js.map": "/pimfeeder/static/js/453.171bcf80.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.377212e0.js"
+  ]
+}
