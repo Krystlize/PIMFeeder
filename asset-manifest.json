@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/PIMFeeder/static/css/main.e6c13ad2.css",
-    "main.js": "/PIMFeeder/static/js/main.27b9c4fc.js",
-    "static/js/453.171bcf80.chunk.js": "/PIMFeeder/static/js/453.171bcf80.chunk.js",
-    "index.html": "/PIMFeeder/index.html",
-    "static/media/construction-icon.svg": "/PIMFeeder/static/media/construction-icon.190acc59224bc21ae86fdcf4516457c3.svg",
-    "main.e6c13ad2.css.map": "/PIMFeeder/static/css/main.e6c13ad2.css.map",
-    "main.27b9c4fc.js.map": "/PIMFeeder/static/js/main.27b9c4fc.js.map",
-    "453.171bcf80.chunk.js.map": "/PIMFeeder/static/js/453.171bcf80.chunk.js.map"
+    "main.css": "./static/css/main.e6c13ad2.css",
+    "main.js": "./static/js/main.bb408187.js",
+    "static/js/453.171bcf80.chunk.js": "./static/js/453.171bcf80.chunk.js",
+    "index.html": "./index.html",
+    "static/media/construction-icon.svg": "./static/media/construction-icon.190acc59224bc21ae86fdcf4516457c3.svg",
+    "main.e6c13ad2.css.map": "./static/css/main.e6c13ad2.css.map",
+    "main.bb408187.js.map": "./static/js/main.bb408187.js.map",
+    "453.171bcf80.chunk.js.map": "./static/js/453.171bcf80.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.27b9c4fc.js"
+    "static/js/main.bb408187.js"
   ]
 }
