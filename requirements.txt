@@ -1,0 +1,7 @@
+requests
+pandas
+python-dotenv
+vllm
+torch
+transformers
+accelerate 
