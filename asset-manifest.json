@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/PIMFeeder/static/css/main.e6c13ad2.css",
-    "main.js": "/PIMFeeder/static/js/main.6f9337f4.js",
-    "static/js/488.a4dcbc67.chunk.js": "/PIMFeeder/static/js/488.a4dcbc67.chunk.js",
+    "main.css": "/PIMFeeder/static/css/main.6cc29b8b.css",
+    "main.js": "/PIMFeeder/static/js/main.45c13a28.js",
+    "static/js/453.773635da.chunk.js": "/PIMFeeder/static/js/453.773635da.chunk.js",
     "index.html": "/PIMFeeder/index.html",
-    "static/media/construction-icon.svg": "/PIMFeeder/static/media/construction-icon.190acc59224bc21ae86fdcf4516457c3.svg",
-    "main.e6c13ad2.css.map": "/PIMFeeder/static/css/main.e6c13ad2.css.map",
-    "main.6f9337f4.js.map": "/PIMFeeder/static/js/main.6f9337f4.js.map",
-    "488.a4dcbc67.chunk.js.map": "/PIMFeeder/static/js/488.a4dcbc67.chunk.js.map"
+    "main.6cc29b8b.css.map": "/PIMFeeder/static/css/main.6cc29b8b.css.map",
+    "main.45c13a28.js.map": "/PIMFeeder/static/js/main.45c13a28.js.map",
+    "453.773635da.chunk.js.map": "/PIMFeeder/static/js/453.773635da.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.6f9337f4.js"
+    "static/css/main.6cc29b8b.css",
+    "static/js/main.45c13a28.js"
   ]
 }
