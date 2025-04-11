@@ -100,11 +100,6 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: docs
-          clean: true
-          clean-exclude: |
-            CNAME
-            .nojekyll
+          artifact_name: docs
         timeout-minutes: 5
         continue-on-error: false
