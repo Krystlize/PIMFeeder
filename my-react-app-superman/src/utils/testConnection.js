@@ -6,8 +6,7 @@ export const testBackendConnection = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      mode: 'cors',
-      credentials: 'include'
+      mode: 'cors'
     });
     if (response.ok) {
       const data = await response.json();
