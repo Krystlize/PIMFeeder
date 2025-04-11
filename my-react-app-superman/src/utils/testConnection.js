@@ -1,7 +1,14 @@
 export const testBackendConnection = async () => {
   try {
     console.log('Testing connection to:', process.env.REACT_APP_API_URL);
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/health`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/health`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'include'
+    });
     if (response.ok) {
       const data = await response.json();
       console.log('Backend connection successful:', data);
