@@ -27,82 +27,51 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: my-react-app-superman/package-lock.json
-
-      - name: Debug workspace
-        run: |
-          echo "Workspace contents:"
-          ls -la
-          echo "my-react-app-superman contents:"
-          ls -la my-react-app-superman || echo "Directory not found"
-          echo "Current location:"
-          pwd
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: my-react-app-superman
         run: |
-          echo "Node version: $(node -v)"
-          echo "NPM version: $(npm -v)"
-          echo "Package.json contents:"
-          cat package.json
-          echo "Installing dependencies..."
-          npm install --no-audit --no-fund --legacy-peer-deps
+          npm install --no-audit --no-fund --legacy-peer-deps > npm-install.log 2>&1
           if [ $? -ne 0 ]; then
-            echo "Failed to install dependencies"
-            npm ls
-            exit 1
-          fi
-          echo "Dependencies installed successfully"
-          npm ls --depth=0
-
-      - name: Verify build prerequisites
-        working-directory: my-react-app-superman
-        run: |
-          echo "Verifying build prerequisites..."
-          if [ ! -f "package.json" ]; then
-            echo "Error: package.json not found"
-            exit 1
-          fi
-          if [ ! -d "node_modules" ]; then
-            echo "Error: node_modules not found"
-            exit 1
-          fi
-          if [ ! -f "node_modules/react-scripts/scripts/build.js" ]; then
-            echo "Error: react-scripts build script not found"
+            echo "Failed to install dependencies. Check npm-install.log for details"
+            cat npm-install.log
             exit 1
           fi
 
       - name: Build
-        working-directory: my-react-app-superman
         run: |
-          echo "Starting build process..."
-          echo "Environment variables:"
-          echo "REACT_APP_API_URL: $REACT_APP_API_URL"
-          echo "REACT_APP_ENV: $REACT_APP_ENV"
-          echo "NODE_ENV: $NODE_ENV"
-          echo "Current directory contents:"
-          ls -la
           export NODE_OPTIONS="--max-old-space-size=4096"
-          DISABLE_ESLINT_PLUGIN=true CI=false npm run build --verbose
-          BUILD_EXIT_CODE=$?
-          if [ $BUILD_EXIT_CODE -ne 0 ]; then
-            echo "Build failed with exit code $BUILD_EXIT_CODE"
-            echo "npm error log (if exists):"
-            cat npm-debug.log || true
-            echo "Error output (if exists):"
-            cat /tmp/build-error.log || true
-            echo "Build output directory contents (if exists):"
-            ls -la build || true
+          DISABLE_ESLINT_PLUGIN=true CI=false npm run build > build.log 2>&1
+          if [ $? -ne 0 ]; then
+            echo "Build failed. Last 50 lines of build log:"
+            tail -n 50 build.log
             exit 1
           fi
-          echo "Build completed successfully"
-          echo "Build output directory contents:"
-          ls -la build
         env:
           REACT_APP_API_URL: 'https://pimfeeder.vercel.app'
           REACT_APP_ENV: 'production'
           NODE_ENV: 'production'
-          DEBUG: '*'
+
+      - name: Save logs
+        if: always()
+        run: |
+          echo "=== Build Logs ===" > logs.txt
+          cat build.log >> logs.txt
+          echo "=== NPM Install Logs ===" >> logs.txt
+          cat npm-install.log >> logs.txt
+          echo "=== Package.json ===" >> logs.txt
+          cat package.json >> logs.txt
+          echo "=== Node Version ===" >> logs.txt
+          node -v >> logs.txt
+          echo "=== NPM Version ===" >> logs.txt
+          npm -v >> logs.txt
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-logs
+          path: logs.txt
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -110,7 +79,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: my-react-app-superman/build
+          path: build
 
       - name: Deploy to GitHub Pages
         id: deployment
