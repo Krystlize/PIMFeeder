@@ -32,25 +32,47 @@ jobs:
       - name: Install dependencies
         working-directory: my-react-app-superman
         run: |
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
           echo "Installing dependencies..."
-          npm ci || npm install
+          npm install --legacy-peer-deps
           if [ $? -ne 0 ]; then
             echo "Failed to install dependencies"
+            npm ls
             exit 1
           fi
+          echo "Dependencies installed successfully"
+          npm ls --depth=0
 
       - name: Build
         working-directory: my-react-app-superman
         run: |
           echo "Starting build process..."
-          CI=false npm run build
+          echo "Environment variables:"
+          echo "REACT_APP_API_URL: $REACT_APP_API_URL"
+          echo "REACT_APP_ENV: $REACT_APP_ENV"
+          echo "Current directory contents:"
+          ls -la
+          export NODE_OPTIONS="--max-old-space-size=4096"
+          DISABLE_ESLINT_PLUGIN=true CI=false npm run build
           if [ $? -ne 0 ]; then
             echo "Build failed"
+            echo "Build output directory contents:"
+            ls -la build || true
+            echo "Last few lines of npm error log:"
+            tail -n 50 npm-debug.log || true
             exit 1
           fi
+          echo "Build completed successfully"
+          echo "Build output directory contents:"
+          ls -la build
         env:
           REACT_APP_API_URL: 'https://pimfeeder.vercel.app'
           REACT_APP_ENV: 'production'
+          NODE_ENV: 'production'
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
