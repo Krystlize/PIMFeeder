@@ -20,6 +20,8 @@ import SyncToPim from './components/SyncToPim';
 import { ProcessedAttribute, ProcessingResult } from './types';
 import { processPdf } from './services/pdfProcessingService';
 import { divisions, categories } from './services/mockData';
+import { testBackendConnection } from './utils/testConnection';
+import './App.css';
 
 // Create a theme instance
 const theme = createTheme({
@@ -138,6 +140,16 @@ function App() {
     });
   };
 
+  const handleTestConnection = async () => {
+    console.log('Testing backend connection...');
+    const isConnected = await testBackendConnection();
+    if (isConnected) {
+      alert('Backend connection successful!');
+    } else {
+      alert('Backend connection failed. Check console for details.');
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -200,6 +212,17 @@ function App() {
           </Box>
         </Paper>
       </Container>
+      <button 
+        onClick={handleTestConnection}
+        style={{
+          padding: '10px 20px',
+          fontSize: '16px',
+          margin: '20px',
+          cursor: 'pointer'
+        }}
+      >
+        Test Backend Connection
+      </button>
     </ThemeProvider>
   );
 }
