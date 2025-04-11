@@ -1,14 +1,32 @@
-# PIMFeeder
+# PIM Feeder
 
-A React application for extracting product attributes from PDF documents and syncing them to PIM (Product Information Management) systems.
+A React application for processing and managing product information.
+
+## Deployment
+
+- Frontend: Deployed to GitHub Pages at https://krystlize.github.io/PIMFeeder
+- Backend API: Deployed to Vercel at https://pimfeederplus-git-main-krystlizes-projects.vercel.app
 
 ## Features
 
-- Upload PDF files through a drag-and-drop interface
-- Select product division and category (plumbing, HVAC, electrical, etc.)
-- Extract product attributes using OCR and LLM technology
-- Review and modify extracted attributes via chat interface
-- Sync product data to PIM systems
+- PDF processing with AI
+- Product attribute extraction
+- Interactive chat interface for modifying attributes
+
+## Development
+
+To run locally:
+
+```bash
+npm install
+npm start
+```
+
+## Environment Variables
+
+- REACT_APP_API_URL: API base URL
+- REACT_APP_API_BASE_URL: API endpoint base URL
+- REACT_APP_HUGGING_FACE_TOKEN: For AI features
 
 ## Technologies Used
 
