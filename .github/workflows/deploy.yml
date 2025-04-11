@@ -29,16 +29,24 @@ jobs:
           cache: 'npm'
           cache-dependency-path: my-react-app-superman/package-lock.json
 
+      - name: Debug workspace
+        run: |
+          echo "Workspace contents:"
+          ls -la
+          echo "my-react-app-superman contents:"
+          ls -la my-react-app-superman || echo "Directory not found"
+          echo "Current location:"
+          pwd
+
       - name: Install dependencies
         working-directory: my-react-app-superman
         run: |
           echo "Node version: $(node -v)"
           echo "NPM version: $(npm -v)"
-          echo "Current directory: $(pwd)"
-          echo "Directory contents:"
-          ls -la
+          echo "Package.json contents:"
+          cat package.json
           echo "Installing dependencies..."
-          npm install --legacy-peer-deps
+          npm install --no-audit --no-fund --legacy-peer-deps
           if [ $? -ne 0 ]; then
             echo "Failed to install dependencies"
             npm ls
@@ -47,6 +55,23 @@ jobs:
           echo "Dependencies installed successfully"
           npm ls --depth=0
 
+      - name: Verify build prerequisites
+        working-directory: my-react-app-superman
+        run: |
+          echo "Verifying build prerequisites..."
+          if [ ! -f "package.json" ]; then
+            echo "Error: package.json not found"
+            exit 1
+          fi
+          if [ ! -d "node_modules" ]; then
+            echo "Error: node_modules not found"
+            exit 1
+          fi
+          if [ ! -f "node_modules/react-scripts/scripts/build.js" ]; then
+            echo "Error: react-scripts build script not found"
+            exit 1
+          fi
+
       - name: Build
         working-directory: my-react-app-superman
         run: |
@@ -54,16 +79,20 @@ jobs:
           echo "Environment variables:"
           echo "REACT_APP_API_URL: $REACT_APP_API_URL"
           echo "REACT_APP_ENV: $REACT_APP_ENV"
+          echo "NODE_ENV: $NODE_ENV"
           echo "Current directory contents:"
           ls -la
           export NODE_OPTIONS="--max-old-space-size=4096"
-          DISABLE_ESLINT_PLUGIN=true CI=false npm run build
-          if [ $? -ne 0 ]; then
-            echo "Build failed"
-            echo "Build output directory contents:"
+          DISABLE_ESLINT_PLUGIN=true CI=false npm run build --verbose
+          BUILD_EXIT_CODE=$?
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then
+            echo "Build failed with exit code $BUILD_EXIT_CODE"
+            echo "npm error log (if exists):"
+            cat npm-debug.log || true
+            echo "Error output (if exists):"
+            cat /tmp/build-error.log || true
+            echo "Build output directory contents (if exists):"
             ls -la build || true
-            echo "Last few lines of npm error log:"
-            tail -n 50 npm-debug.log || true
             exit 1
           fi
           echo "Build completed successfully"
@@ -73,6 +102,7 @@ jobs:
           REACT_APP_API_URL: 'https://pimfeeder.vercel.app'
           REACT_APP_ENV: 'production'
           NODE_ENV: 'production'
+          DEBUG: '*'
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
