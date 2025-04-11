@@ -31,10 +31,11 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: my-react-app-superman/package-lock.json
 
       - name: Install dependencies
         run: |
+          cd my-react-app-superman
           npm install --no-audit --no-fund --legacy-peer-deps > npm-install.log 2>&1
           if [ $? -ne 0 ]; then
             echo "Failed to install dependencies. Check npm-install.log for details"
@@ -44,6 +45,7 @@ jobs:
 
       - name: Build
         run: |
+          cd my-react-app-superman
           export NODE_OPTIONS="--max-old-space-size=4096"
           DISABLE_ESLINT_PLUGIN=true CI=false npm run build > build.log 2>&1
           if [ $? -ne 0 ]; then
@@ -60,11 +62,11 @@ jobs:
         if: always()
         run: |
           echo "=== Build Logs ===" > logs.txt
-          cat build.log >> logs.txt
+          cat my-react-app-superman/build.log >> logs.txt
           echo "=== NPM Install Logs ===" >> logs.txt
-          cat npm-install.log >> logs.txt
+          cat my-react-app-superman/npm-install.log >> logs.txt
           echo "=== Package.json ===" >> logs.txt
-          cat package.json >> logs.txt
+          cat my-react-app-superman/package.json >> logs.txt
           echo "=== Node Version ===" >> logs.txt
           node -v >> logs.txt
           echo "=== NPM Version ===" >> logs.txt
@@ -86,7 +88,7 @@ jobs:
       - name: Create docs directory
         run: |
           mkdir -p docs
-          cp -r build/* docs/
+          cp -r my-react-app-superman/build/* docs/
           touch docs/.nojekyll
 
       - name: Upload Pages artifact
