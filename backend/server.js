@@ -5,6 +5,7 @@ const multer = require('multer');
 const { OpenAI } = require('openai');
 const pdfParse = require('pdf-parse');
 const { createWorker } = require('tesseract.js');
+const path = require('path');
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -15,8 +16,17 @@ const openai = new OpenAI({
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://krystlize.github.io' 
+    : 'http://localhost:3000'
+}));
 app.use(express.json());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' });
+});
 
 // PDF Processing Endpoint
 app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
@@ -143,6 +153,6 @@ function parseGPTResponse(response) {
 }
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 }); 
