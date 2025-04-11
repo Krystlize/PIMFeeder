@@ -53,7 +53,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ attributes, onAttributesU
 
     try {
       // Update attributes based on user message
-      const updatedAttributes = updateAttributeBasedOnChat(newMessage, attributes);
+      const updatedAttributes = await updateAttributeBasedOnChat(newMessage, attributes, JSON.stringify(attributes));
       
       // If attributes changed, update them
       if (JSON.stringify(updatedAttributes) !== JSON.stringify(attributes)) {
@@ -61,7 +61,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ attributes, onAttributesU
       }
 
       // Get response from LLM
-      const response = await sendMessageToLLM(newMessage, updatedAttributes);
+      const response = await sendMessageToLLM(newMessage, updatedAttributes, JSON.stringify(updatedAttributes));
       
       // Add system response to the list
       const systemMessage = createNewMessage(response, 'system');
