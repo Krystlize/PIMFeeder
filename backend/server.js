@@ -2,17 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const { OpenAI } = require('openai');
+const { HfInference } = require('@huggingface/inference');
 const pdfParse = require('pdf-parse');
 const { createWorker } = require('tesseract.js');
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+// Initialize Hugging Face
+const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
 // Middleware
 app.use(cors({
@@ -31,7 +29,7 @@ app.get('/health', (req, res) => {
 // PDF Processing Endpoint
 app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   try {
-    const { file, division, category } = req.body;
+    const { division, category } = req.body;
     
     // Extract text from PDF
     const pdfBuffer = req.file.buffer;
@@ -48,25 +46,21 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     // Combine PDF text and OCR text
     const combinedText = `${pdfText}\n${ocrText}`;
 
-    // Use GPT to extract attributes
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `You are a product information extraction assistant. Extract key attributes from the following text for a ${division} product in the ${category} category. Return the attributes in a structured format.`
-        },
-        {
-          role: "user",
-          content: combinedText
-        }
-      ],
-      temperature: 0.3,
-      max_tokens: 1000
+    // Use Hugging Face to extract attributes
+    const prompt = `Extract key attributes from the following text for a ${division} product in the ${category} category. Return the attributes in a structured JSON format. Text: ${combinedText}`;
+    
+    const response = await hf.textGeneration({
+      model: 'mistralai/Mistral-7B-Instruct-v0.1',
+      inputs: prompt,
+      parameters: {
+        max_new_tokens: 1000,
+        temperature: 0.3,
+        return_full_text: false
+      }
     });
 
-    // Parse the GPT response to extract attributes
-    const attributes = parseGPTResponse(completion.choices[0].message.content);
+    // Parse the response to extract attributes
+    const attributes = parseHuggingFaceResponse(response.generated_text);
 
     res.json({
       attributes,
@@ -83,23 +77,19 @@ app.post('/api/chat', async (req, res) => {
   try {
     const { message, attributes, context } = req.body;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `You are a product information assistant. Help the user review and modify product attributes. Current attributes: ${JSON.stringify(attributes)}. Context: ${context}`
-        },
-        {
-          role: "user",
-          content: message
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 500
+    const prompt = `You are a product information assistant. Help the user review and modify product attributes. Current attributes: ${JSON.stringify(attributes)}. Context: ${context}. User message: ${message}`;
+    
+    const response = await hf.textGeneration({
+      model: 'mistralai/Mistral-7B-Instruct-v0.1',
+      inputs: prompt,
+      parameters: {
+        max_new_tokens: 500,
+        temperature: 0.7,
+        return_full_text: false
+      }
     });
 
-    res.json({ response: completion.choices[0].message.content });
+    res.json({ response: response.generated_text });
   } catch (error) {
     console.error('Error in chat:', error);
     res.status(500).json({ error: 'Failed to process chat message' });
@@ -111,23 +101,19 @@ app.post('/api/update-attributes', async (req, res) => {
   try {
     const { message, attributes, context } = req.body;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `Update the product attributes based on the user's request. Current attributes: ${JSON.stringify(attributes)}. Context: ${context}. Return only the updated attributes in JSON format.`
-        },
-        {
-          role: "user",
-          content: message
-        }
-      ],
-      temperature: 0.3,
-      max_tokens: 1000
+    const prompt = `Update the product attributes based on the user's request. Current attributes: ${JSON.stringify(attributes)}. Context: ${context}. User request: ${message}. Return only the updated attributes in JSON format.`;
+    
+    const response = await hf.textGeneration({
+      model: 'mistralai/Mistral-7B-Instruct-v0.1',
+      inputs: prompt,
+      parameters: {
+        max_new_tokens: 1000,
+        temperature: 0.3,
+        return_full_text: false
+      }
     });
 
-    const updatedAttributes = JSON.parse(completion.choices[0].message.content);
+    const updatedAttributes = JSON.parse(response.generated_text);
     res.json({ updatedAttributes });
   } catch (error) {
     console.error('Error updating attributes:', error);
@@ -135,8 +121,8 @@ app.post('/api/update-attributes', async (req, res) => {
   }
 });
 
-// Helper function to parse GPT response
-function parseGPTResponse(response) {
+// Helper function to parse Hugging Face response
+function parseHuggingFaceResponse(response) {
   try {
     // Try to parse as JSON first
     return JSON.parse(response);
