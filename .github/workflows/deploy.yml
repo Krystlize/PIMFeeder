@@ -83,14 +83,16 @@ jobs:
           enablement: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create .nojekyll
+      - name: Create docs directory
         run: |
-          touch build/.nojekyll
+          mkdir -p docs
+          cp -r build/* docs/
+          touch docs/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: docs
           retention-days: 1
 
       - name: Deploy to GitHub Pages
@@ -99,10 +101,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: build
+          folder: docs
           clean: true
           clean-exclude: |
             CNAME
             .nojekyll
         timeout-minutes: 5
-        continue-on-error: false 
+        continue-on-error: false
