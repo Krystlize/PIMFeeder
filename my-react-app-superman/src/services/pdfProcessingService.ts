@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { ProcessingResult } from '../types';
+import { processPdfWithAI } from './backendService';
 
 // Mock API for demo purposes - in a real app, this would call your backend
 export const processPdf = async (
@@ -7,29 +7,12 @@ export const processPdf = async (
   division: string,
   category: string
 ): Promise<ProcessingResult> => {
-  // In a real app, you would upload the file to your server and process it with OCR
-  // For this demo, we'll use a mock response based on the inputs
-  
-  // Simulate API call delay
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  // Mock response - this would normally come from your backend LLM processing
-  const mockAttributes = [
-    { name: 'Product Name', value: `Sample ${category} Product` },
-    { name: 'Material', value: 'Stainless Steel' },
-    { name: 'Dimensions', value: '12" x 8" x 6"' },
-    { name: 'Weight', value: '5.7 lbs' },
-    { name: 'Color', value: 'Silver' },
-    { name: 'Warranty', value: '5 years' },
-    { name: 'Model Number', value: 'ABC-123-XYZ' },
-    { name: 'Category', value: category },
-    { name: 'Division', value: division },
-  ];
-  
-  return {
-    attributes: mockAttributes,
-    rawText: `This is a sample ${division} product in the ${category} category. It features premium materials and construction.`
-  };
+  try {
+    return await processPdfWithAI(file, division, category);
+  } catch (error) {
+    console.error('Error in processPdf:', error);
+    throw error;
+  }
 };
 
 export const syncToPim = async (
