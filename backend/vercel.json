@@ -1,8 +1,17 @@
 {
   "version": 2,
+  "buildCommand": "",
+  "devCommand": "",
+  "installCommand": "npm install",
+  "outputDirectory": "",
+  "public": true,
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/health", "destination": "/api/health" },
-    { "source": "/api/health", "destination": "/api/health" }
+    { "source": "/api/health", "destination": "/api/health" },
+    { "source": "/api/process-pdf", "destination": "/api/process-pdf" },
+    { "source": "/api", "destination": "/api/index" },
+    { "source": "/", "destination": "/index.html" }
   ],
   "headers": [
     {
