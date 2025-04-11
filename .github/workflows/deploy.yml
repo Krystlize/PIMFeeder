@@ -83,6 +83,10 @@ jobs:
           enablement: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create .nojekyll
+        run: |
+          touch build/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
