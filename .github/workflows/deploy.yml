@@ -96,5 +96,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: build
+          clean: true
+          clean-exclude: |
+            CNAME
+            .nojekyll
         timeout-minutes: 5
         continue-on-error: false 
