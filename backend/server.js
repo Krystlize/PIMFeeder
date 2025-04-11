@@ -12,32 +12,46 @@ const upload = multer({ storage: multer.memoryStorage() });
 // Initialize Hugging Face
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
-// Middleware - use a simpler CORS configuration
-app.use(cors({
-  origin: '*',
+// CORS configuration
+const corsOptions = {
+  origin: ['https://krystlize.github.io', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
 
-// Add explicit CORS headers to all responses
+// Apply CORS middleware
+app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions));
+
+// Add CORS headers to all responses
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle OPTIONS method
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  
   next();
 });
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Handle preflight requests
-app.options('*', cors());
-
-// Health check endpoints
+// Root endpoint
 app.get('/', (req, res) => {
   res.status(200).json({ status: 'API is healthy', version: '1.0' });
 });
 
+// Health check endpoints
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'healthy' });
 });
