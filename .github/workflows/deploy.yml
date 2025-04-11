@@ -27,12 +27,14 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: my-react-app-superman/package-lock.json
 
       - name: Install dependencies
+        working-directory: my-react-app-superman
         run: npm install
 
       - name: Build
+        working-directory: my-react-app-superman
         run: npm run build
         env:
           REACT_APP_API_URL: 'https://pimfeeder.vercel.app'
@@ -44,7 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: build
+          path: my-react-app-superman/build
 
       - name: Deploy to GitHub Pages
         id: deployment
