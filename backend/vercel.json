@@ -2,19 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "methods": ["OPTIONS"],
-      "dest": "server.js"
+      "dest": "index.js"
+    },
+    {
+      "src": "/health",
+      "dest": "index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "server.js",
+      "dest": "index.js",
       "headers": {
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Origin": "*",
