@@ -1,5 +1,5 @@
 import { ProcessingResult } from '../types';
-import { processPdfWithAI } from './backendService';
+import { processPDFWithAI } from './backendService';
 
 // Mock API for demo purposes - in a real app, this would call your backend
 export const processPdf = async (
@@ -8,7 +8,7 @@ export const processPdf = async (
   category: string
 ): Promise<ProcessingResult> => {
   try {
-    return await processPdfWithAI(file, division, category);
+    return await processPDFWithAI(file, division, category);
   } catch (error) {
     console.error('Error in processPdf:', error);
     throw error;
