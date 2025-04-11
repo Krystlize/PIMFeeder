@@ -26,6 +26,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Debug directory structure
+        run: |
+          echo "Current directory structure:"
+          ls -la
+          echo "my-react-app-superman directory structure:"
+          ls -la my-react-app-superman
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,23 +43,25 @@ jobs:
       - name: Install dependencies
         run: |
           cd my-react-app-superman
-          npm install --no-audit --no-fund --legacy-peer-deps > npm-install.log 2>&1
+          echo "Installing dependencies..."
+          npm install --no-audit --no-fund --legacy-peer-deps
           if [ $? -ne 0 ]; then
-            echo "Failed to install dependencies. Check npm-install.log for details"
-            cat npm-install.log
+            echo "Failed to install dependencies"
             exit 1
           fi
+          echo "Dependencies installed successfully"
 
       - name: Build
         run: |
           cd my-react-app-superman
+          echo "Starting build process..."
           export NODE_OPTIONS="--max-old-space-size=4096"
-          DISABLE_ESLINT_PLUGIN=true CI=false npm run build > build.log 2>&1
+          DISABLE_ESLINT_PLUGIN=true CI=false npm run build
           if [ $? -ne 0 ]; then
-            echo "Build failed. Last 50 lines of build log:"
-            tail -n 50 build.log
+            echo "Build failed"
             exit 1
           fi
+          echo "Build completed successfully"
         env:
           REACT_APP_API_URL: 'https://pimfeeder.vercel.app'
           REACT_APP_ENV: 'production'
@@ -62,9 +71,17 @@ jobs:
         if: always()
         run: |
           echo "=== Build Logs ===" > logs.txt
-          cat my-react-app-superman/build.log >> logs.txt
+          if [ -f my-react-app-superman/build.log ]; then
+            cat my-react-app-superman/build.log >> logs.txt
+          else
+            echo "No build log found" >> logs.txt
+          fi
           echo "=== NPM Install Logs ===" >> logs.txt
-          cat my-react-app-superman/npm-install.log >> logs.txt
+          if [ -f my-react-app-superman/npm-install.log ]; then
+            cat my-react-app-superman/npm-install.log >> logs.txt
+          else
+            echo "No npm install log found" >> logs.txt
+          fi
           echo "=== Package.json ===" >> logs.txt
           cat my-react-app-superman/package.json >> logs.txt
           echo "=== Node Version ===" >> logs.txt
@@ -88,8 +105,14 @@ jobs:
       - name: Create docs directory
         run: |
           mkdir -p docs
-          cp -r my-react-app-superman/build/* docs/
-          touch docs/.nojekyll
+          if [ -d my-react-app-superman/build ]; then
+            cp -r my-react-app-superman/build/* docs/
+            touch docs/.nojekyll
+            echo "Build files copied successfully"
+          else
+            echo "Build directory not found"
+            exit 1
+          fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
