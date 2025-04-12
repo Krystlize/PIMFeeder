@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 2025-04-11 (Update 5)
+
+### Simplified Attribute Display
+
+* **Unified attribute table**:
+  * Combined regular attributes and suffixes into single consolidated table
+  * Added dedicated suffix code column that only displays when relevant
+  * Maintained special styling for suffix code chips
+  
+* **Improved attribute formatting**:
+  * Simplified the display of attribute names for suffix options
+  * Applied subtle background highlighting to suffix rows
+  * Preserved suffix code extraction and cleaning logic
+  
+* **Enhanced user experience**:
+  * Removed separate tables for better information scanning
+  * Maintained search functionality across all attributes
+  * Improved visual consistency for the entire dataset
+
 ## 2025-04-11 (Update 4)
 
 ### Improved Suffix Code Display
