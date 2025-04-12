@@ -13,7 +13,6 @@ import {
   InputAdornment,
   IconButton,
   Chip,
-  Divider
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -34,17 +33,6 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
       )
     : attributes;
   
-  // Group suffixes for separate display
-  const suffixAttributes = filteredAttributes.filter(attr => 
-    attr.name.toLowerCase().includes('suffix') || 
-    attr.name.toLowerCase().includes('option')
-  );
-  
-  const nonSuffixAttributes = filteredAttributes.filter(attr => 
-    !attr.name.toLowerCase().includes('suffix') && 
-    !attr.name.toLowerCase().includes('option')
-  );
-  
   // Handle search input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -53,6 +41,63 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
   // Clear search
   const handleClearSearch = () => {
     setSearchQuery('');
+  };
+
+  // Helper function to extract suffix code from attribute name or value
+  const extractSuffixCode = (attr: ProcessedAttribute) => {
+    // Check if this is a suffix-related attribute
+    const isSuffixAttribute = attr.name.toLowerCase().includes('suffix') || 
+                              attr.name.toLowerCase().includes('option');
+    
+    if (!isSuffixAttribute) return null;
+    
+    // Extract from attribute name
+    const suffixMatch = attr.name.match(/(?:Suffix|Option)(?:s)?(?:\s*)?(?::|-)?\s*([-]?[A-Z0-9-]+)/i);
+    
+    // Clean up the suffix code - remove any JSON artifacts
+    let suffixCode = suffixMatch ? suffixMatch[1] : '';
+    
+    // Handle cases where the code might be wrapped in quotes, brackets, or braces
+    suffixCode = suffixCode
+      .replace(/[\[\]"'{}\s]/g, '') // Remove brackets, quotes, braces, spaces
+      .replace(/^Suffix$/i, '')     // Remove word "Suffix" if it's all that's left
+      .replace(/^Option$/i, '');    // Remove word "Option" if it's all that's left
+    
+    // Ensure dash prefix for consistency
+    if (suffixCode && !suffixCode.startsWith('-')) {
+      suffixCode = '-' + suffixCode;
+    }
+    
+    // If we still don't have a good code, extract from the attribute value 
+    if (!suffixCode || suffixCode === '-') {
+      // Try to extract a suffix code from the start of the value
+      const valueCodeMatch = attr.value.match(/^(?:["'\[\{])?(-[A-Z0-9-]+)/i);
+      if (valueCodeMatch) {
+        suffixCode = valueCodeMatch[1];
+      }
+    }
+    
+    return suffixCode || null;
+  };
+  
+  // Helper function to clean attribute value
+  const cleanAttributeValue = (value: string, isSuffix: boolean) => {
+    let cleanValue = value;
+    
+    // For suffix values, remove the code part if present
+    if (isSuffix) {
+      cleanValue = cleanValue
+        .replace(/^(?:["'\[\{])?-[A-Z0-9-]+\s*/, '')
+        .replace(/["\]\}]$/, '');
+    }
+    
+    // Clean up the value - remove any quotes or brackets
+    cleanValue = cleanValue
+      .replace(/^["'\[\{]+/, '') // Remove leading quotes/brackets
+      .replace(/["'\]\}]+$/, '') // Remove trailing quotes/brackets
+      .trim();
+    
+    return cleanValue;
   };
 
   return (
@@ -91,120 +136,75 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
         </Typography>
       ) : (
         <>
-          {/* Main Attributes Table */}
-          <Typography variant="subtitle1" sx={{ mt: 2, mb: 1, fontWeight: 'bold' }}>
-            Product Information
-          </Typography>
+          {/* Unified Attributes Table */}
           <TableContainer component={Paper} variant="outlined">
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell width="40%"><strong>Attribute</strong></TableCell>
-                  <TableCell width="60%"><strong>Value</strong></TableCell>
+                  <TableCell width="30%"><strong>Attribute</strong></TableCell>
+                  <TableCell width="50%"><strong>Value</strong></TableCell>
+                  <TableCell width="20%"><strong>Suffix Code</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {nonSuffixAttributes.map((attr, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell>
-                      {attr.name}
-                      {attr.updated && (
-                        <Chip 
-                          label="Updated" 
-                          color="primary" 
-                          size="small" 
-                          sx={{ ml: 1, height: 20, fontSize: '0.7rem' }} 
-                        />
-                      )}
-                    </TableCell>
-                    <TableCell>{attr.value}</TableCell>
-                  </TableRow>
-                ))}
+                {filteredAttributes.map((attr, index) => {
+                  const isSuffixAttribute = attr.name.toLowerCase().includes('suffix') || 
+                                            attr.name.toLowerCase().includes('option');
+                  const suffixCode = extractSuffixCode(attr);
+                  const cleanValue = cleanAttributeValue(attr.value, isSuffixAttribute);
+                  
+                  // Display attribute name without the suffix/option prefix for suffix attributes
+                  let displayName = attr.name;
+                  if (isSuffixAttribute) {
+                    displayName = displayName
+                      .replace(/Options Suffix: /i, '')
+                      .replace(/Option Suffix: /i, '')
+                      .replace(/Suffix: /i, '');
+                  }
+                  
+                  return (
+                    <TableRow 
+                      key={index} 
+                      hover
+                      sx={{
+                        backgroundColor: isSuffixAttribute ? 'rgba(25, 118, 210, 0.04)' : 'inherit'
+                      }}
+                    >
+                      <TableCell>
+                        {isSuffixAttribute ? 'Suffix Option' : displayName}
+                        {attr.updated && (
+                          <Chip 
+                            label="Updated" 
+                            color="primary" 
+                            size="small" 
+                            sx={{ ml: 1, height: 20, fontSize: '0.7rem' }} 
+                          />
+                        )}
+                      </TableCell>
+                      <TableCell>{cleanValue}</TableCell>
+                      <TableCell>
+                        {suffixCode ? (
+                          <Chip 
+                            label={suffixCode} 
+                            variant="outlined" 
+                            color="primary" 
+                            size="small"
+                            title={attr.name}
+                            sx={{ 
+                              fontWeight: 'bold',
+                              ...(suffixCode.split('-').length > 2 && {
+                                bgcolor: 'rgba(25, 118, 210, 0.1)'
+                              })
+                            }}
+                          />
+                        ) : null}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
-          
-          {/* Suffixes Table */}
-          {suffixAttributes.length > 0 && (
-            <>
-              <Divider sx={{ mt: 4, mb: 3 }} />
-              <Typography variant="h6" sx={{ mb: 1 }}>
-                Options and Suffixes ({suffixAttributes.length})
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Product options are specified using suffix codes added to the base model number
-              </Typography>
-              <TableContainer component={Paper} variant="outlined">
-                <Table size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell width="20%"><strong>Suffix Code</strong></TableCell>
-                      <TableCell width="80%"><strong>Description</strong></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {suffixAttributes.map((attr, index) => {
-                      // Extract the suffix code from the attribute name
-                      const suffixMatch = attr.name.match(/(?:Suffix|Option)(?:s)?(?:\s*)?(?::|-)?\s*([-]?[A-Z0-9-]+)/i);
-                      
-                      // Clean up the suffix code - remove any JSON artifacts
-                      let suffixCode = suffixMatch ? suffixMatch[1] : '';
-                      
-                      // Handle cases where the code might be wrapped in quotes, brackets, or braces
-                      suffixCode = suffixCode
-                        .replace(/[\[\]"'{}\s]/g, '') // Remove brackets, quotes, braces, spaces
-                        .replace(/^Suffix$/i, '')     // Remove word "Suffix" if it's all that's left
-                        .replace(/^Option$/i, '');    // Remove word "Option" if it's all that's left
-                      
-                      // Ensure dash prefix for consistency
-                      if (suffixCode && !suffixCode.startsWith('-')) {
-                        suffixCode = '-' + suffixCode;
-                      }
-                      
-                      // If we still don't have a good code, extract from the attribute value 
-                      // (some suffixes store code in value field)
-                      if (!suffixCode || suffixCode === '-') {
-                        // Try to extract a suffix code from the start of the value
-                        const valueCodeMatch = attr.value.match(/^(?:["'\[\{])?(-[A-Z0-9-]+)/i);
-                        if (valueCodeMatch) {
-                          suffixCode = valueCodeMatch[1];
-                          // Remove the code part from the displayed value
-                          attr.value = attr.value.replace(/^(?:["'\[\{])?-[A-Z0-9-]+\s*/, '').replace(/["\]\}]$/, '');
-                        }
-                      }
-                      
-                      // Clean up the value - remove any quotes or brackets
-                      const cleanValue = attr.value
-                        .replace(/^["'\[\{]+/, '') // Remove leading quotes/brackets
-                        .replace(/["'\]\}]+$/, '') // Remove trailing quotes/brackets
-                        .trim();
-                      
-                      return (
-                        <TableRow key={index} hover>
-                          <TableCell>
-                            <Chip 
-                              label={suffixCode || attr.name} 
-                              variant="outlined" 
-                              color="primary" 
-                              size="small"
-                              title={attr.name}
-                              sx={{ 
-                                fontWeight: 'bold',
-                                ...(suffixCode.split('-').length > 2 && {
-                                  bgcolor: 'rgba(25, 118, 210, 0.1)'
-                                })
-                              }}
-                            />
-                          </TableCell>
-                          <TableCell>{cleanValue}</TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </>
-          )}
         </>
       )}
     </Paper>
