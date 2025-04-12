@@ -14,6 +14,7 @@ export interface ProcessedAttribute {
   value: string;
   updated?: boolean;
   oldValue?: string;
+  suffix?: string;
 }
 
 export interface AttributeGroup {
