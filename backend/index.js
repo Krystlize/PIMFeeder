@@ -71,6 +71,66 @@ app.get('/api', (req, res) => {
   });
 });
 
+// Add these common plumbing product attributes to the mock data
+const commonPlumbingAttributes = [
+  { name: "Flow Rate Capacity", value: "Varies by pipe size (see Free Area table)" },
+  { name: "Body Material", value: "Cast Iron" },
+  { name: "Top/Grate Material", value: "Nickel Bronze" },
+  { name: "Outlet Connection Type", value: "No-Hub (standard), also available with Push-On, Threaded, Inside Caulk" },
+  { name: "Outlet Orientation", value: "Bottom (standard)" },
+  { name: "Load Rating", value: "Medium Duty (MD)" }
+];
+
+// Function to normalize attribute names for better matching
+function normalizeAttributeName(name) {
+  // Convert to lowercase for comparison
+  const normalized = name.toLowerCase()
+    // Remove parentheses and their contents
+    .replace(/\([^)]*\)/g, '')
+    // Remove common filler words
+    .replace(/\b(with|and|or|the|for|a|an)\b/g, '')
+    // Replace slashes and hyphens with spaces
+    .replace(/[\/\-]/g, ' ')
+    // Remove duplicate spaces
+    .replace(/\s+/g, ' ')
+    .trim();
+  
+  return normalized;
+}
+
+// Function to check if two attribute names match semantically
+function attributeNamesMatch(name1, name2) {
+  const norm1 = normalizeAttributeName(name1);
+  const norm2 = normalizeAttributeName(name2);
+  
+  // Direct match
+  if (norm1 === norm2) return true;
+  
+  // Common attribute name mappings (add more as needed)
+  const attributeMappings = {
+    'flow rate': ['flow rate capacity', 'capacity', 'flow capacity', 'gpm'],
+    'capacity': ['flow rate', 'flow rate capacity', 'flow capacity', 'gpm'],
+    'material': ['body material', 'construction', 'composition', 'made of'],
+    'top material': ['grate material', 'strainer material', 'top grate material'],
+    'outlet type': ['outlet connection', 'connection type', 'outlet connection type'],
+    'load rating': ['traffic rating', 'duty rating', 'load classification', 'weight rating']
+  };
+  
+  // Check if either normalized name is in a mapping that includes the other
+  for (const [key, aliases] of Object.entries(attributeMappings)) {
+    // Check if norm1 is the key or in its aliases
+    const norm1Matches = (norm1 === key || aliases.some(alias => norm1.includes(alias)));
+    // Check if norm2 is the key or in its aliases
+    const norm2Matches = (norm2 === key || aliases.some(alias => norm2.includes(alias)));
+    
+    // If both match this attribute category, they're semantically equivalent
+    if (norm1Matches && norm2Matches) return true;
+  }
+  
+  // Check for containing relationship (for partial matches)
+  return norm1.includes(norm2) || norm2.includes(norm1);
+}
+
 // Process PDF endpoint
 app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   try {
@@ -144,7 +204,7 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     
     // Create a mock response for testing that includes manufacturer "Watts Drains"
     // This ensures we always have the correct manufacturer in our data
-    const mockAttributes = [
+    let mockAttributes = [
       { name: "Product Number", value: "FD-100-A" },
       { name: "Product Name", value: "Floor Drain with Round Strainer" },
       { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
@@ -185,11 +245,25 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
       { name: "Strainer Suffix: A10", value: "10\"(254) Dia. Nickel Bronze" }
     ];
     
+    // Add common plumbing attributes for drains if appropriate
+    if (division === '22' || division.toLowerCase().includes('plumb')) {
+      mockAttributes = [...mockAttributes, ...commonPlumbingAttributes];
+    }
+    
     // Extract tabular data from the PDF text if we have any
     let extractedAttributes = [];
     if (pdfText && pdfText.length > 0) {
       // Try to extract tabular data
       extractedAttributes = extractTabularData(pdfText);
+      
+      // Extract technical data like flow rates
+      const technicalData = extractTechnicalData(pdfText);
+      
+      // Add technical data to extracted attributes
+      if (technicalData.length > 0) {
+        console.log(`Extracted ${technicalData.length} technical attributes from the PDF`);
+        extractedAttributes = [...extractedAttributes, ...technicalData];
+      }
       
       // If we found some attributes through extraction, log them
       if (extractedAttributes.length > 0) {
@@ -216,7 +290,14 @@ INSTRUCTIONS:
    - Be careful with the AR suffix - it should be "AR" not "ARA" and means "Acid Resistant Epoxy Coated Cast Iron"
 6. If there are pipe sizing options, extract them as "Pipe Size Suffix: X" where X is the size indicator
 7. The manufacturer is Watts Drains - not Wade Drains
-8. Common suffixes to look for include:
+8. Use these EXACT attribute names for plumbing products:
+   - "Flow Rate Capacity" (not just "Capacity")
+   - "Body Material" (not just "Material")
+   - "Top/Grate Material" (not "Strainer Material")
+   - "Outlet Connection Type" (not just "Connection Type")
+   - "Outlet Orientation"
+   - "Load Rating"
+9. Common suffixes to look for include:
    -5: Sediment Bucket
    -6: Vandal Proof
    -7: Trap Primer Tapping
@@ -224,6 +305,7 @@ INSTRUCTIONS:
    -13: Galvanized Coating
    -15: Strainer Extension
    -AR: Acid Resistant Epoxy Coated Cast Iron
+10. For flow rate capacity, look for values in GPM (gallons per minute) or references to a "Free Area" table
 
 Expected attributes for ${division} products include but are not limited to:
 - Product Number / Model Number
@@ -232,7 +314,7 @@ Expected attributes for ${division} products include but are not limited to:
 - Material
 - Dimensions
 ${division === "22" ? 
-"- Flow Rate\n- Connection Type\n- Drainage Features\n- Pipe Size Options\n- Material Compatibility\n- Suffix Codes and their descriptions\n- Optional Features\n- Outlet Type Options\n- Load Rating" : ""}
+"- Flow Rate Capacity\n- Body Material\n- Top/Grate Material\n- Outlet Connection Type\n- Outlet Orientation\n- Suffix Codes and their descriptions\n- Load Rating" : ""}
 
 Text from the PDF:
 ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
@@ -271,15 +353,24 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
     
     // Add any extracted attributes that don't conflict with mock data or provide additional suffix info
     for (const extractedAttr of extractedAttributes) {
-      // Check if this attribute type is already in our mock data
+      // Check if this attribute type is already in our mock data using semantic matching
       const existingAttrIndex = attributes.findIndex(attr => 
-        attr.name.toLowerCase() === extractedAttr.name.toLowerCase());
+        attributeNamesMatch(attr.name, extractedAttr.name));
       
       // If it's a suffix attribute that doesn't exist in our mock data, add it
-      if (existingAttrIndex === -1 && 
-          (extractedAttr.name.toLowerCase().includes('suffix') || 
-           !mockAttributes.some(a => a.name.toLowerCase() === extractedAttr.name.toLowerCase()))) {
-        attributes.push(extractedAttr);
+      if (existingAttrIndex === -1) {
+        // Check if it's a suffix or non-conflicting attribute
+        if (extractedAttr.name.toLowerCase().includes('suffix') || 
+            !mockAttributes.some(a => attributeNamesMatch(a.name, extractedAttr.name))) {
+          attributes.push(extractedAttr);
+        }
+      }
+      // If the existing attribute has N/A, or empty value, replace it with the extracted value
+      else if (attributes[existingAttrIndex].value === 'N/A' || 
+               attributes[existingAttrIndex].value === '' ||
+               attributes[existingAttrIndex].value.toLowerCase() === 'not applicable') {
+        // Keep the original attribute name to maintain consistency
+        attributes[existingAttrIndex].value = extractedAttr.value;
       }
     }
     
@@ -923,7 +1014,7 @@ function extractSuffixesFromOcrText(ocrText) {
   // Look for acid resistant coating specifically
   if (cleanedText.toLowerCase().includes('acid resistant') || 
       cleanedText.toLowerCase().includes('acid-resistant') ||
-      cleanedText.toLowerCase().includes('epoxy coat')) {
+      cleanedText.includes('epoxy coat')) {
     
     // Check if we already added this suffix
     if (!suffixes.some(s => s.name.includes('AR'))) {
@@ -935,4 +1026,89 @@ function extractSuffixesFromOcrText(ocrText) {
   }
   
   return suffixes;
+}
+
+// Function to extract technical data like flow rates from tables in the text
+function extractTechnicalData(text) {
+  const technicalData = [];
+  const cleanedText = cleanOcrText(text);
+  
+  // Look for flow rate information
+  const flowRateRegex = /(?:flow|free area|gpm|gallons per minute|discharge)\s+(?:rate|capacity)?[\s:]*([0-9.,]+)\s*(?:gpm|gallons|g\.p\.m\.|sq\. in\.)/gi;
+  let flowMatch;
+  
+  while ((flowMatch = flowRateRegex.exec(cleanedText)) !== null) {
+    const flowValue = flowMatch[1].trim();
+    
+    if (flowValue && !isNaN(parseFloat(flowValue))) {
+      technicalData.push({
+        name: "Flow Rate Capacity",
+        value: `${flowValue} GPM`
+      });
+      break; // Just get the first valid flow rate
+    }
+  }
+  
+  // Look for "Free Area" table data which relates to flow capacity
+  const freeAreaPattern = /free area.*?(\d+).*?sq\. in\./i;
+  const freeAreaMatch = cleanedText.match(freeAreaPattern);
+  
+  if (freeAreaMatch && freeAreaMatch[1]) {
+    if (!technicalData.some(attr => attr.name === "Flow Rate Capacity")) {
+      technicalData.push({
+        name: "Flow Rate Capacity",
+        value: `Varies based on free area (${freeAreaMatch[1]} sq. in.)`
+      });
+    }
+  }
+  
+  // Look for load rating information
+  const loadRatingPattern = /(?:load|traffic)\s+(?:rating|class|classification)[\s:]*([A-Za-z\s]+duty|[A-Z]{1,2})/i;
+  const loadRatingMatch = cleanedText.match(loadRatingPattern);
+  
+  if (loadRatingMatch && loadRatingMatch[1]) {
+    technicalData.push({
+      name: "Load Rating",
+      value: loadRatingMatch[1].trim()
+    });
+  } else if (cleanedText.match(/medium duty|MD/i)) {
+    technicalData.push({
+      name: "Load Rating",
+      value: "Medium Duty (MD)"
+    });
+  } else if (cleanedText.match(/heavy duty|HD/i)) {
+    technicalData.push({
+      name: "Load Rating",
+      value: "Heavy Duty (HD)"
+    });
+  } else if (cleanedText.match(/light duty|LD/i)) {
+    technicalData.push({
+      name: "Load Rating",
+      value: "Light Duty (LD)"
+    });
+  }
+  
+  // Look for material information
+  const materialPattern = /(?:body|frame|drain)\s+material[\s:]*(cast iron|pvc|abs|stainless steel|bronze|brass|[a-z\s]+)/i;
+  const materialMatch = cleanedText.match(materialPattern);
+  
+  if (materialMatch && materialMatch[1]) {
+    technicalData.push({
+      name: "Body Material",
+      value: materialMatch[1].trim().replace(/^(.)/, match => match.toUpperCase())
+    });
+  }
+  
+  // Look for grate/top material
+  const gratePattern = /(?:grate|top|strainer)\s+material[\s:]*(cast iron|nickel bronze|stainless steel|bronze|brass|[a-z\s]+)/i;
+  const grateMatch = cleanedText.match(gratePattern);
+  
+  if (grateMatch && grateMatch[1]) {
+    technicalData.push({
+      name: "Top/Grate Material",
+      value: grateMatch[1].trim().replace(/^(.)/, match => match.toUpperCase())
+    });
+  }
+  
+  return technicalData;
 } 
