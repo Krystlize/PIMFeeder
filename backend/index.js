@@ -10,20 +10,27 @@ const app = express();
 // Initialize Hugging Face inference
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
-// Enable CORS
+// Enable CORS with proper configuration
 app.use(cors({
   origin: ['https://krystlize.github.io', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 204
 }));
 
-// Add CORS headers to all responses
+// Add CORS headers to all responses explicitly for preflight requests
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://krystlize.github.io');
+  res.header('Access-Control-Allow-Origin', req.headers.origin || 'https://krystlize.github.io');
   res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(204).send();
+  }
+  
   next();
 });
 
@@ -323,6 +330,8 @@ app.post('/api/update-attributes', async (req, res) => {
 });
 
 // Generate attribute template endpoint
+app.options('/api/generate-template', cors());  // Enable preflight for this specific route
+
 app.post('/api/generate-template', async (req, res) => {
   try {
     const { prompt, division, category, productDescription } = req.body;
