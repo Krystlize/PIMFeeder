@@ -127,34 +127,76 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
           {/* Suffixes Table */}
           {suffixAttributes.length > 0 && (
             <>
-              <Typography variant="subtitle1" sx={{ mt: 4, mb: 1, fontWeight: 'bold' }}>
+              <Divider sx={{ mt: 4, mb: 3 }} />
+              <Typography variant="h6" sx={{ mb: 1 }}>
                 Options and Suffixes ({suffixAttributes.length})
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Product options are specified using suffix codes added to the base model number
               </Typography>
               <TableContainer component={Paper} variant="outlined">
                 <Table size="small">
                   <TableHead>
                     <TableRow>
-                      <TableCell width="30%"><strong>Suffix Code</strong></TableCell>
-                      <TableCell width="70%"><strong>Description</strong></TableCell>
+                      <TableCell width="20%"><strong>Suffix Code</strong></TableCell>
+                      <TableCell width="80%"><strong>Description</strong></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {suffixAttributes.map((attr, index) => {
                       // Extract the suffix code from the attribute name
-                      const suffixMatch = attr.name.match(/:\s*([-]?[A-Z0-9]+)/i);
-                      const suffixCode = suffixMatch ? suffixMatch[1] : attr.name;
+                      const suffixMatch = attr.name.match(/(?:Suffix|Option)(?:s)?(?:\s*)?(?::|-)?\s*([-]?[A-Z0-9-]+)/i);
+                      
+                      // Clean up the suffix code - remove any JSON artifacts
+                      let suffixCode = suffixMatch ? suffixMatch[1] : '';
+                      
+                      // Handle cases where the code might be wrapped in quotes, brackets, or braces
+                      suffixCode = suffixCode
+                        .replace(/[\[\]"'{}\s]/g, '') // Remove brackets, quotes, braces, spaces
+                        .replace(/^Suffix$/i, '')     // Remove word "Suffix" if it's all that's left
+                        .replace(/^Option$/i, '');    // Remove word "Option" if it's all that's left
+                      
+                      // Ensure dash prefix for consistency
+                      if (suffixCode && !suffixCode.startsWith('-')) {
+                        suffixCode = '-' + suffixCode;
+                      }
+                      
+                      // If we still don't have a good code, extract from the attribute value 
+                      // (some suffixes store code in value field)
+                      if (!suffixCode || suffixCode === '-') {
+                        // Try to extract a suffix code from the start of the value
+                        const valueCodeMatch = attr.value.match(/^(?:["'\[\{])?(-[A-Z0-9-]+)/i);
+                        if (valueCodeMatch) {
+                          suffixCode = valueCodeMatch[1];
+                          // Remove the code part from the displayed value
+                          attr.value = attr.value.replace(/^(?:["'\[\{])?-[A-Z0-9-]+\s*/, '').replace(/["\]\}]$/, '');
+                        }
+                      }
+                      
+                      // Clean up the value - remove any quotes or brackets
+                      const cleanValue = attr.value
+                        .replace(/^["'\[\{]+/, '') // Remove leading quotes/brackets
+                        .replace(/["'\]\}]+$/, '') // Remove trailing quotes/brackets
+                        .trim();
                       
                       return (
                         <TableRow key={index} hover>
                           <TableCell>
                             <Chip 
-                              label={suffixCode} 
+                              label={suffixCode || attr.name} 
                               variant="outlined" 
                               color="primary" 
                               size="small"
+                              title={attr.name}
+                              sx={{ 
+                                fontWeight: 'bold',
+                                ...(suffixCode.split('-').length > 2 && {
+                                  bgcolor: 'rgba(25, 118, 210, 0.1)'
+                                })
+                              }}
                             />
                           </TableCell>
-                          <TableCell>{attr.value}</TableCell>
+                          <TableCell>{cleanValue}</TableCell>
                         </TableRow>
                       );
                     })}
