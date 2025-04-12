@@ -75,71 +75,107 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   try {
     const { division, category } = req.body;
     
-    // Mock response for a floor drain based on PDF content
-    // In a real implementation, this would use OCR and AI to extract data from the PDF
-    const attributes = [
-      { name: "Product Number", value: "FD-100-A" },
-      { name: "Product Name", value: "Floor Drain with Round Strainer" },
-      { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
-      { name: "Specification Number", value: "ES-WD-FD-100-A" },
-      { name: "Manufacturer", value: "Wade Drains" },
-      
-      // Pipe Sizing attributes with suffixes
-      { name: "Pipe Size Suffix: 2", value: "2\"(51) Pipe Size" },
-      { name: "Pipe Size Suffix: 3", value: "3\"(76) Pipe Size" },
-      { name: "Pipe Size Suffix: 4", value: "4\"(102) Pipe Size" },
-      { name: "Pipe Size Suffix: 6", value: "6\"(152) Pipe Size (MI Only)" },
-      
-      // Options with suffixes
-      { name: "Options Suffix: -5", value: "Sediment Bucket" },
-      { name: "Options Suffix: -6", value: "Vandal Proof" },
-      { name: "Options Suffix: -7", value: "Trap Primer Tapping" },
-      { name: "Options Suffix: -8", value: "Backwater Valve" },
-      { name: "Options Suffix: -13", value: "Galvanized Coating" },
-      { name: "Options Suffix: -15", value: "Strainer Extension (DD-50)" },
-      { name: "Options Suffix: -H4-50", value: "4\" Round Cast Iron Funnel" },
-      { name: "Options Suffix: -H4-1", value: "4\" Round Nickel Bronze Funnel" },
-      { name: "Options Suffix: -F6-1", value: "6\" Round Nickel Bronze Funnel" },
-      { name: "Options Suffix: -6-50", value: "4\" x 9\" Oval Nickel Bronze Funnel" },
-      { name: "Options Suffix: -90", value: "Special Strainer" },
-      
-      // Outlet Type with suffixes
-      { name: "Outlet Type Suffix: MH", value: "No Hub (MI)" },
-      { name: "Outlet Type Suffix: P", value: "Push On" },
-      { name: "Outlet Type Suffix: T", value: "Threaded Outlet" },
-      { name: "Outlet Type Suffix: X", value: "Inside Caulk" },
-      
-      // Strainer with suffixes
-      { name: "Strainer Suffix: A5", value: "5\"(127) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A6", value: "6\"(152) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A7", value: "7\"(178) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A8", value: "8\"(203) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A10", value: "10\"(254) Dia. Nickel Bronze" },
-      
-      // Optional Body Material with suffixes
-      { name: "Optional Body Material Suffix: -60", value: "PVC Body w/Socket Outlet" },
-      { name: "Optional Body Material Suffix: -61", value: "ABS Body w/Socket Outlet" },
-      
-      // Load Rating with suffixes
-      { name: "Load Rating", value: "MD (Medium Duty)" },
-      
-      // Strainer Size Chart Information
-      { name: "Strainer Size: 5\"(127)", value: "Min Throat: 13/16\"(21), Max Throat: 3-1/4\"(83), Load Rating: MD, Free Area Sq. In.: 9" },
-      { name: "Strainer Size: 6\"(152)", value: "Min Throat: 7/8\"(22), Max Throat: 3-3/8\"(86), Load Rating: MD, Free Area Sq. In.: 13" },
-      { name: "Strainer Size: 7\"(178)", value: "Min Throat: 1-1/16\"(17), Max Throat: 3-1/2\"(83), Load Rating: MD, Free Area Sq. In.: 16" },
-      { name: "Strainer Size: 8\"(203)", value: "Min Throat: 7/8\"(22), Max Throat: 3-1/4\"(83), Load Rating: MD, Free Area Sq. In.: 18" },
-      { name: "Strainer Size: 10\"(254)", value: "Min Throat: 1-1/4\"(32), Max Throat: 3-1/4\"(83), Load Rating: MD, Free Area Sq. In.: 26" },
-      
-      // Chart B information
-      { name: "Pipe Size: 2\"(51)", value: "Std. Size: 3-5/8\"(92), Push On: 4-1/4\"(108), Female Thread: 4-1/4\"(108), Inside Caulk: 4-1/2\"(114), 60/61 PVC/ABS: 4\"(102)" },
-      { name: "Pipe Size: 3\"(76)", value: "Std. Size: 3-5/8\"(92), Push On: 4-1/4\"(108), Female Thread: 4-1/4\"(108), Inside Caulk: 4-1/2\"(114), 60/61 PVC/ABS: 4\"(102)" },
-      { name: "Pipe Size: 4\"(102)", value: "Std. Size: 3-5/8\"(92), Push On: 4-1/4\"(108), Female Thread: 4-1/4\"(108), Inside Caulk: 4-1/2\"(114), 60/61 PVC/ABS: 4\"(102)" },
-      { name: "Pipe Size: 6\"(152)", value: "Std. Size: 3-1/2\"(89), Push On: -, Female Thread: -, Inside Caulk: -, 60/61 PVC/ABS: -" },
-      
-      // Standards Information
-      { name: "Standards Compliance", value: "Manufactured specifications are in accordance with the American National Standards ASME A112.36.2M-91(R2012) ASME Standard as a rule" },
-      { name: "Load Rating Classification", value: "MD - Safe Live Load 2000-4999 lbs. (900-2250 kg)" }
-    ];
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    
+    console.log('File received:', req.file.originalname);
+    
+    // Extract text from the PDF
+    const pdfBuffer = req.file.buffer;
+    let pdfText = '';
+    
+    try {
+      const pdfParse = require('pdf-parse');
+      const pdfData = await pdfParse(pdfBuffer);
+      pdfText = pdfData.text;
+    } catch (pdfError) {
+      console.error('Error parsing PDF:', pdfError);
+      return res.status(500).json({ error: 'Failed to parse PDF file' });
+    }
+    
+    // Extract tabular data from the PDF text
+    let attributes = extractTabularData(pdfText);
+    
+    // If no attributes were found or if we need more attributes, use the AI model
+    if (attributes.length < 5) {
+      try {
+        // Create a prompt for the Hugging Face model
+        const prompt = `
+Extract key product attributes from the following text for a ${division} product in the ${category} category.
+
+INSTRUCTIONS:
+1. Return results in JSON format with attribute names as keys and their values as strings.
+2. Extract each attribute individually - DO NOT group multiple attributes into a single field.
+3. Be specific and detailed with attribute names - use full descriptive names.
+4. Separate any complex information into individual attributes.
+5. Pay special attention to tables and lists that contain product options, suffixes, or codes:
+   - For any suffix codes like "-7", "-5", "-A3", etc., extract both the code and its description
+   - Format these as "Options Suffix: -7" with the value being the full description
+   - Look for tables with patterns like "Code | Description" or "Suffix | Description"
+6. If there are pipe sizing options, extract them as "Pipe Size Suffix: X" where X is the size indicator
+
+Expected attributes for ${division} products include but are not limited to:
+- Product Number / Model Number
+- Product Name
+- Manufacturer
+- Material
+- Dimensions
+${division === "22" ? 
+"- Flow Rate\n- Connection Type\n- Drainage Features\n- Pipe Size Options\n- Material Compatibility\n- Suffix Codes and their descriptions\n- Optional Features\n- Outlet Type Options\n- Load Rating" : ""}
+
+Text from the PDF:
+${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
+`;
+
+        // Call Hugging Face model
+        const aiResponse = await hf.textGeneration({
+          model: 'mistralai/Mistral-7B-Instruct-v0.2',
+          inputs: prompt,
+          parameters: {
+            max_new_tokens: 1000,
+            temperature: 0.3,
+            return_full_text: false
+          }
+        });
+        
+        // Parse the response to extract attributes
+        const aiAttributes = parseAttributesFromModel(aiResponse.generated_text);
+        
+        // Merge with directly extracted table attributes, avoiding duplicates
+        for (const aiAttr of aiAttributes) {
+          if (!attributes.some(attr => attr.name.toLowerCase() === aiAttr.name.toLowerCase())) {
+            attributes.push(aiAttr);
+          }
+        }
+      } catch (aiError) {
+        console.error('Error using AI model:', aiError);
+        // Continue with just the attributes we extracted directly
+      }
+    }
+    
+    // Add basic product information if it's missing
+    if (!attributes.some(attr => attr.name.includes('Product Number'))) {
+      // Try to find product number in the first few lines
+      const productNumberMatch = pdfText.substring(0, 500).match(/([A-Z0-9]+-[A-Z0-9]+)/);
+      if (productNumberMatch) {
+        attributes.push({
+          name: "Product Number",
+          value: productNumberMatch[1]
+        });
+      }
+    }
+    
+    if (!attributes.some(attr => attr.name.includes('Product Name'))) {
+      // Try to find product name in the first few lines
+      const productNameMatch = pdfText.substring(0, 500).match(/^(.*(?:Drain|Valve|Fitting).*?)$/m);
+      if (productNameMatch) {
+        attributes.push({
+          name: "Product Name",
+          value: productNameMatch[1].trim()
+        });
+      }
+    }
     
     // Generate the attribute template based on division and category
     let template = [];
@@ -152,7 +188,7 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     
     return res.status(200).json({
       attributes,
-      rawText: "FD-100-A Floor Drain with Round Strainer\nSpecification\nFD-100-A epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet",
+      rawText: pdfText.substring(0, 1000),
       template
     });
   } catch (error) {
@@ -160,6 +196,133 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     return res.status(500).json({ error: 'Failed to process PDF' });
   }
 });
+
+// Function to extract tabular data that might contain suffix information
+function extractTabularData(text) {
+  const tableData = [];
+  
+  // Pattern 1: Look for lines that appear to be part of a table with suffix codes
+  // This looks for patterns like "-7 | Trap Primer Tapping" or "A5 | 5"(127) Dia. Nickel Bronze"
+  const tableLineRegex = /^\s*([A-Z0-9-]+)\s*[\|:]\s*(.*?)$/gm;
+  let tableMatch;
+  
+  while ((tableMatch = tableLineRegex.exec(text)) !== null) {
+    const code = tableMatch[1].trim();
+    const description = tableMatch[2].trim();
+    
+    if (code && description) {
+      // Determine the type of suffix based on the pattern
+      let type = 'Option';
+      
+      if (code.match(/^[0-9]+$/) || code.match(/^[0-9]+\"$/)) {
+        type = 'Pipe Size';
+      } else if (code.match(/^[A-Z][0-9]+$/)) {
+        type = 'Strainer';
+      } else if (code.match(/^[A-Z]+$/)) {
+        type = 'Outlet Type';
+      }
+      
+      tableData.push({
+        name: `${type} Suffix: ${code}`,
+        value: description
+      });
+    }
+  }
+  
+  // Pattern 2: Look for dash-prefixed options often found in specification sheets
+  const optionRegex = /-([0-9A-Z]+(?:-[0-9A-Z]+)?)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/g;
+  let optionMatch;
+  
+  while ((optionMatch = optionRegex.exec(text)) !== null) {
+    const code = optionMatch[1].trim();
+    const description = optionMatch[2].trim();
+    
+    if (code && description) {
+      tableData.push({
+        name: `Options Suffix: -${code}`,
+        value: description
+      });
+    }
+  }
+  
+  return tableData;
+}
+
+// Function to parse attributes from the model's response
+function parseAttributesFromModel(text) {
+  try {
+    // Try to extract a JSON object from the text
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    let attributes = [];
+
+    if (jsonMatch) {
+      try {
+        const jsonData = JSON.parse(jsonMatch[0]);
+        
+        // Convert the parsed JSON to our attribute format
+        for (const [key, value] of Object.entries(jsonData)) {
+          if (typeof value === 'object') {
+            // Handle nested objects
+            for (const [subKey, subValue] of Object.entries(value)) {
+              attributes.push({
+                name: `${key} - ${subKey}`,
+                value: String(subValue)
+              });
+            }
+          } else {
+            attributes.push({
+              name: key,
+              value: String(value)
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Failed to parse JSON from model response:", e);
+      }
+    }
+    
+    // Fallback: Extract key-value pairs using regex if JSON parsing failed
+    if (attributes.length === 0) {
+      const attributeRegex = /([A-Za-z\s]+):\s*(.+?)(?=\n[A-Za-z\s]+:|$)/gs;
+      let match;
+      
+      while ((match = attributeRegex.exec(text)) !== null) {
+        const name = match[1].trim();
+        const value = match[2].trim();
+        if (name && value) {
+          attributes.push({ name, value });
+        }
+      }
+    }
+    
+    // Extract suffix codes from the raw text using regex
+    const suffixRegex = /(?:(?:suffix|option|code)[\s:-]*)([-A-Z0-9]+)(?:[\s:])*((?:[^\n,]+))/gi;
+    let suffixMatch;
+    
+    while ((suffixMatch = suffixRegex.exec(text)) !== null) {
+      const suffixCode = suffixMatch[1].trim();
+      const suffixValue = suffixMatch[2].trim();
+      
+      if (suffixCode && suffixValue && suffixCode.match(/^[-A-Z0-9]+$/)) {
+        // Check if this suffix is not already in the attributes
+        if (!attributes.some(attr => 
+          attr.name.toLowerCase().includes('suffix') && 
+          attr.name.includes(suffixCode))) {
+          
+          attributes.push({
+            name: `Options Suffix: ${suffixCode}`,
+            value: suffixValue
+          });
+        }
+      }
+    }
+    
+    return attributes;
+  } catch (error) {
+    console.error("Error parsing attributes from model response:", error);
+    return [];
+  }
+}
 
 // Function to generate attribute templates based on division and category
 const generateAttributeTemplate = async (division, category, productDescription) => {

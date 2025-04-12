@@ -35,6 +35,57 @@ async function extractTextFromPDF(pdfBuffer) {
   }
 }
 
+// Function to extract tabular data that might contain suffix information
+function extractTabularData(text) {
+  const tableData = [];
+  
+  // Pattern 1: Look for lines that appear to be part of a table with suffix codes
+  // This looks for patterns like "-7 | Trap Primer Tapping" or "A5 | 5"(127) Dia. Nickel Bronze"
+  const tableLineRegex = /^\s*([A-Z0-9-]+)\s*[\|:]\s*(.*?)$/gm;
+  let tableMatch;
+  
+  while ((tableMatch = tableLineRegex.exec(text)) !== null) {
+    const code = tableMatch[1].trim();
+    const description = tableMatch[2].trim();
+    
+    if (code && description) {
+      // Determine the type of suffix based on the pattern
+      let type = 'Option';
+      
+      if (code.match(/^[0-9]+$/) || code.match(/^[0-9]+\"$/)) {
+        type = 'Pipe Size';
+      } else if (code.match(/^[A-Z][0-9]+$/)) {
+        type = 'Strainer';
+      } else if (code.match(/^[A-Z]+$/)) {
+        type = 'Outlet Type';
+      }
+      
+      tableData.push({
+        name: `${type} Suffix: ${code}`,
+        value: description
+      });
+    }
+  }
+  
+  // Pattern 2: Look for dash-prefixed options often found in specification sheets
+  const optionRegex = /-([0-9A-Z]+(?:-[0-9A-Z]+)?)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/g;
+  let optionMatch;
+  
+  while ((optionMatch = optionRegex.exec(text)) !== null) {
+    const code = optionMatch[1].trim();
+    const description = optionMatch[2].trim();
+    
+    if (code && description) {
+      tableData.push({
+        name: `Options Suffix: -${code}`,
+        value: description
+      });
+    }
+  }
+  
+  return tableData;
+}
+
 // Function to sanitize attributes and ensure they have the correct format
 function sanitizeAttributes(attributes) {
   if (!Array.isArray(attributes)) {
@@ -125,10 +176,11 @@ function parseAttributesFromResponse(text, division, category) {
   try {
     // Try to extract a JSON object from the text
     const jsonMatch = text.match(/\{[\s\S]*\}/);
+    let attributes = [];
+
     if (jsonMatch) {
       try {
         const jsonData = JSON.parse(jsonMatch[0]);
-        const attributes = [];
         
         // Convert the parsed JSON to our attribute format
         for (const [key, value] of Object.entries(jsonData)) {
@@ -172,38 +224,64 @@ function parseAttributesFromResponse(text, division, category) {
         
         // Expand any complex attributes
         const expandedAttributes = expandComplexAttributes(attributes);
-        return sanitizeAttributes(expandedAttributes);
+        attributes = sanitizeAttributes(expandedAttributes);
       } catch (e) {
         console.error("Failed to parse JSON from model response:", e);
       }
     }
     
     // Fallback: Extract key-value pairs using regex
-    const attributeRegex = /([A-Za-z\s]+):\s*(.+?)(?=\n[A-Za-z\s]+:|$)/gs;
-    const attributes = [];
-    let match;
+    if (attributes.length === 0) {
+      const attributeRegex = /([A-Za-z\s]+):\s*(.+?)(?=\n[A-Za-z\s]+:|$)/gs;
+      let match;
+      
+      while ((match = attributeRegex.exec(text)) !== null) {
+        const name = match[1].trim();
+        const value = match[2].trim();
+        if (name && value) {
+          attributes.push({ name, value });
+        }
+      }
+      
+      // Expand any complex attributes
+      const expandedAttributes = expandComplexAttributes(attributes);
+      attributes = sanitizeAttributes(expandedAttributes);
+    }
     
-    while ((match = attributeRegex.exec(text)) !== null) {
-      const name = match[1].trim();
-      const value = match[2].trim();
-      if (name && value) {
-        attributes.push({ name, value });
+    // Extract suffix codes from raw text using regex
+    // This targets patterns like "-7 Trap Primer Tapping" or "Suffix: -7 Trap Primer"
+    const rawText = text;
+    const suffixRegex = /(?:(?:suffix|option|code)[\s:-]*)([-A-Z0-9]+)(?:[\s:])*((?:[^\n,]+))/gi;
+    let suffixMatch;
+    
+    while ((suffixMatch = suffixRegex.exec(rawText)) !== null) {
+      const suffixCode = suffixMatch[1].trim();
+      const suffixValue = suffixMatch[2].trim();
+      
+      if (suffixCode && suffixValue && suffixCode.match(/^[-A-Z0-9]+$/)) {
+        // Check if this suffix is not already in the attributes
+        if (!attributes.some(attr => 
+          attr.name.toLowerCase().includes('suffix') && 
+          attr.name.includes(suffixCode))) {
+          
+          attributes.push({
+            name: `Options Suffix: ${suffixCode}`,
+            value: suffixValue
+          });
+        }
       }
     }
     
-    // Expand any complex attributes
-    const expandedAttributes = expandComplexAttributes(attributes);
-    
     // Add division and category if they're not already included
-    if (!expandedAttributes.some(attr => attr.name.toLowerCase() === 'division')) {
-      expandedAttributes.push({ name: 'Division', value: division });
+    if (!attributes.some(attr => attr.name.toLowerCase() === 'division')) {
+      attributes.push({ name: 'Division', value: division });
     }
     
-    if (!expandedAttributes.some(attr => attr.name.toLowerCase() === 'category')) {
-      expandedAttributes.push({ name: 'Category', value: category });
+    if (!attributes.some(attr => attr.name.toLowerCase() === 'category')) {
+      attributes.push({ name: 'Category', value: category });
     }
     
-    return sanitizeAttributes(expandedAttributes);
+    return attributes;
   } catch (error) {
     console.error("Error parsing attributes from response:", error);
     return sanitizeAttributes([
@@ -248,6 +326,9 @@ module.exports = async (req, res) => {
     const pdfBuffer = req.file.buffer;
     const pdfText = await extractTextFromPDF(pdfBuffer);
     
+    // Extract any tabular data from the PDF text before AI processing
+    const tableAttributes = extractTabularData(pdfText);
+    
     // Create a prompt for the model
     const prompt = `
 Extract key product attributes from the following text for a ${division} product in the ${category} category.
@@ -260,11 +341,17 @@ INSTRUCTIONS:
 5. Separate any complex information into individual attributes.
 6. If multiple values belong to the same category, give them individual, unique attribute names.
 7. Do not create an "Additional Attributes" or "Other" field that contains multiple attributes.
+8. Pay special attention to tables and lists in the document that contain product options, suffixes, or codes:
+   - For any suffix codes like "-7", "-5", "-A3", etc., extract both the code and its description
+   - Format these as "Options Suffix: -7" with the value being the full description (e.g., "Trap Primer Tapping")
+   - Look for tables with patterns like "Code | Description" or "Suffix | Description"
+9. If there are pipe sizing options, extract them as "Pipe Size Suffix: X" where X is the size indicator
 
 Expected attributes for ${division} products include but are not limited to:
-- Product Name / Model
+- Product Number / Model Number
+- Product Name
 - Manufacturer
-- Material 
+- Material
 - Dimensions (width, height, depth as separate attributes)
 - Color/Finish
 - Weight
@@ -272,7 +359,8 @@ Expected attributes for ${division} products include but are not limited to:
 - Installation Requirements
 - Compliance Standards
 - Warranty Information
-${division === "22" ? "- Flow Rate\n- Connection Type\n- Drainage Features\n- Pipe Size\n- Material Compatibility" : ""}
+${division === "22" ? 
+"- Flow Rate\n- Connection Type\n- Drainage Features\n- Pipe Size Options\n- Material Compatibility\n- Suffix Codes and their descriptions\n- Optional Features\n- Outlet Type Options\n- Load Rating" : ""}
 
 Text from the PDF:
 ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
@@ -291,7 +379,18 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
     
     // Parse the response to extract attributes
     const generatedText = response.generated_text;
-    const attributes = parseAttributesFromResponse(generatedText, division, category);
+    let attributes = parseAttributesFromResponse(generatedText, division, category);
+    
+    // Merge with directly extracted table attributes, avoiding duplicates
+    for (const tableAttr of tableAttributes) {
+      if (!attributes.some(attr => 
+          attr.name.toLowerCase() === tableAttr.name.toLowerCase() ||
+          (attr.name.toLowerCase().includes('suffix') && 
+           tableAttr.name.toLowerCase().includes('suffix') &&
+           attr.name.includes(tableAttr.name.split(':')[1].trim())))) {
+        attributes.push(tableAttr);
+      }
+    }
     
     return res.status(200).json({
       attributes,
