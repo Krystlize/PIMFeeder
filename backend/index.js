@@ -113,7 +113,20 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
         
         if (data.text && data.text.length > 0) {
           console.log('OCR successful, text length:', data.text.length);
-          pdfText = data.text;
+          
+          // Apply post-processing specifically for suffix extraction
+          const ocrSuffixes = extractSuffixesFromOcrText(data.text);
+          if (ocrSuffixes.length > 0) {
+            console.log(`Extracted ${ocrSuffixes.length} suffixes directly from OCR text`);
+            extractedAttributes.push(...ocrSuffixes);
+          }
+          
+          // Combine OCR text with any text extracted from PDF
+          if (pdfText && pdfText.length > 0) {
+            pdfText = pdfText + '\n\n' + data.text;
+          } else {
+            pdfText = data.text;
+          }
         }
         
         await worker.terminate();
@@ -151,6 +164,7 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
       { name: "Options Suffix: -8", value: "Backwater Valve" },
       { name: "Options Suffix: -13", value: "Galvanized Coating" },
       { name: "Options Suffix: -15", value: "Strainer Extension (DD-50)" },
+      { name: "Options Suffix: -AR", value: "Acid Resistant Epoxy Coated Cast Iron" },
       { name: "Options Suffix: -H4-50", value: "4\" Round Cast Iron Funnel" },
       { name: "Options Suffix: -H4-1", value: "4\" Round Nickel Bronze Funnel" },
       { name: "Options Suffix: -F6-1", value: "6\" Round Nickel Bronze Funnel" },
@@ -196,11 +210,20 @@ INSTRUCTIONS:
 3. Be specific and detailed with attribute names - use full descriptive names.
 4. Separate any complex information into individual attributes.
 5. Pay special attention to tables and lists that contain product options, suffixes, or codes:
-   - For any suffix codes like "-7", "-5", "-A3", etc., extract both the code and its description
+   - For any suffix codes like "-7", "-5", "-AR", "-A3", etc., extract both the code and its description
    - Format these as "Options Suffix: -7" with the value being the full description
    - Look for tables with patterns like "Code | Description" or "Suffix | Description"
+   - Be careful with the AR suffix - it should be "AR" not "ARA" and means "Acid Resistant Epoxy Coated Cast Iron"
 6. If there are pipe sizing options, extract them as "Pipe Size Suffix: X" where X is the size indicator
 7. The manufacturer is Watts Drains - not Wade Drains
+8. Common suffixes to look for include:
+   -5: Sediment Bucket
+   -6: Vandal Proof
+   -7: Trap Primer Tapping
+   -8: Backwater Valve
+   -13: Galvanized Coating
+   -15: Strainer Extension
+   -AR: Acid Resistant Epoxy Coated Cast Iron
 
 Expected attributes for ${division} products include but are not limited to:
 - Product Number / Model Number
@@ -284,14 +307,20 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
 function extractTabularData(text) {
   const tableData = [];
   
+  // First, clean up the text to fix common OCR issues
+  const cleanedText = cleanOcrText(text);
+  
   // Pattern 1: Look for lines that appear to be part of a table with suffix codes
   // This looks for patterns like "-7 | Trap Primer Tapping" or "A5 | 5"(127) Dia. Nickel Bronze"
-  const tableLineRegex = /^\s*([A-Z0-9-]+)\s*[\|:]\s*(.*?)$/gm;
+  const tableLineRegex = /^\s*([A-Z0-9-]+)\s*[\|:\t]\s*(.*?)$/gm;
   let tableMatch;
   
-  while ((tableMatch = tableLineRegex.exec(text)) !== null) {
-    const code = tableMatch[1].trim();
+  while ((tableMatch = tableLineRegex.exec(cleanedText)) !== null) {
+    const rawCode = tableMatch[1].trim();
     const description = tableMatch[2].trim();
+    
+    // Normalize the code to fix common OCR errors
+    const code = normalizeCode(rawCode);
     
     if (code && description) {
       // Determine the type of suffix based on the pattern
@@ -313,12 +342,16 @@ function extractTabularData(text) {
   }
   
   // Pattern 2: Look for dash-prefixed options often found in specification sheets
+  // Updated to better handle OCR errors like "-ARA" that should be "-AR"
   const optionRegex = /-([0-9A-Z]+(?:-[0-9A-Z]+)?)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/g;
   let optionMatch;
   
-  while ((optionMatch = optionRegex.exec(text)) !== null) {
-    const code = optionMatch[1].trim();
+  while ((optionMatch = optionRegex.exec(cleanedText)) !== null) {
+    const rawCode = optionMatch[1].trim();
     const description = optionMatch[2].trim();
+    
+    // Normalize the code to fix common OCR errors
+    const code = normalizeCode(rawCode);
     
     if (code && description) {
       tableData.push({
@@ -328,7 +361,129 @@ function extractTabularData(text) {
     }
   }
   
-  return tableData;
+  // Pattern 3: Look for tabular data with "Suffix" or "Option" headers
+  const optionTableRegex = /(?:Option|Suffix)s?(?:\s+Code)?[\s:]*([A-Z0-9-]+)[\s\n]*(?:Option|Suffix)?s?(?:\s+Description)?[\s:]*([^\n]+)/gi;
+  let optionTableMatch;
+  
+  while ((optionTableMatch = optionTableRegex.exec(cleanedText)) !== null) {
+    const rawCode = optionTableMatch[1].trim();
+    const description = optionTableMatch[2].trim();
+    
+    // Normalize the code to fix common OCR errors
+    const code = normalizeCode(rawCode);
+    
+    if (code && description && code !== 'CODE' && description !== 'DESCRIPTION') {
+      tableData.push({
+        name: `Options Suffix: ${code.startsWith('-') ? code : '-' + code}`,
+        value: description
+      });
+    }
+  }
+  
+  // Pattern 4: Look specifically for the "-AR" case and similar patterns
+  const knownOptionsRegex = /[-–—]\s*([A-Z]{2,4})\s+(Acid Resistant|.*?Coating|.*?Finish|.*?Material)/gi;
+  let knownOptionMatch;
+  
+  while ((knownOptionMatch = knownOptionsRegex.exec(cleanedText)) !== null) {
+    const rawCode = knownOptionMatch[1].trim();
+    const description = knownOptionMatch[2].trim();
+    const code = normalizeCode(rawCode);
+    
+    if (code && description) {
+      // Check if we already have this code
+      if (!tableData.some(item => item.name.includes(code))) {
+        tableData.push({
+          name: `Options Suffix: -${code}`,
+          value: description
+        });
+      }
+    }
+  }
+  
+  // Deduplicate the data based on suffix codes
+  return deduplicateAttributes(tableData);
+}
+
+// Function to clean OCR text by fixing common OCR errors
+function cleanOcrText(text) {
+  // Replace curly braces that might be from JSON fragments in OCR output
+  let cleaned = text.replace(/[{}"]/g, ' ');
+  
+  // Normalize spaces and line breaks
+  cleaned = cleaned.replace(/\s+/g, ' ').replace(/\n\s+/g, '\n');
+  
+  // Fix common OCR errors in option codes
+  cleaned = cleaned.replace(/\bARA\b/g, 'AR').replace(/\bAR[^A-Z]/g, 'AR ');
+  
+  // Fix common OCR errors in option descriptions
+  cleaned = cleaned.replace(/Options Description/gi, 'Description');
+  cleaned = cleaned.replace(/Options Suffix/gi, 'Suffix');
+  
+  return cleaned;
+}
+
+// Function to normalize option codes by fixing common OCR errors
+function normalizeCode(code) {
+  // Trim the code again to be safe
+  let normalized = code.trim();
+  
+  // Remove any non-alphanumeric characters except dash
+  normalized = normalized.replace(/[^A-Z0-9-]/gi, '');
+  
+  // Handle common OCR errors for specific codes
+  const codeMap = {
+    'ARA': 'AR',
+    'ARR': 'AR',
+    'ARD': 'AR',
+    'OASH': 'A5H',
+    'O5': '05',
+    'O6': '06',
+    'O7': '07',
+    'O8': '08',
+  };
+  
+  if (codeMap[normalized]) {
+    normalized = codeMap[normalized];
+  }
+  
+  // If it's longer than 4 characters and not a compound code like "H4-50", 
+  // it's likely an OCR error
+  if (normalized.length > 4 && !normalized.includes('-')) {
+    // Try to determine the correct code based on common patterns
+    if (normalized.startsWith('AR')) {
+      normalized = 'AR';
+    }
+    // Add more special cases as needed
+  }
+  
+  return normalized;
+}
+
+// Function to deduplicate attributes based on suffix codes
+function deduplicateAttributes(attributes) {
+  const uniqueAttributes = [];
+  const seenCodes = new Set();
+  
+  for (const attr of attributes) {
+    // Extract the code from the name (e.g., "Options Suffix: -AR" -> "AR")
+    const nameMatch = attr.name.match(/Suffix:\s*([-A-Z0-9]+)/i);
+    if (nameMatch) {
+      const code = nameMatch[1].trim();
+      // Normalize the code for comparison
+      const normalizedCode = code.replace(/^-/, '').toUpperCase();
+      
+      // If we haven't seen this code before, add it
+      if (!seenCodes.has(normalizedCode)) {
+        seenCodes.add(normalizedCode);
+        uniqueAttributes.push(attr);
+      }
+    } else {
+      // If it doesn't match our pattern, keep it
+      uniqueAttributes.push(attr);
+    }
+  }
+  
+  return uniqueAttributes;
 }
 
 // Function to parse attributes from the model's response
@@ -691,4 +846,93 @@ if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
+}
+
+// Add the new function for OCR suffix extraction
+// Function to extract suffixes specifically from OCR text
+function extractSuffixesFromOcrText(ocrText) {
+  const suffixes = [];
+  
+  // First clean the text
+  const cleanedText = cleanOcrText(ocrText);
+  
+  // Common suffix mappings based on known product options
+  const knownSuffixes = {
+    'AR': 'Acid Resistant Epoxy Coated Cast Iron',
+    '5': 'Sediment Bucket',
+    '6': 'Vandal Proof',
+    '7': 'Trap Primer Tapping',
+    '8': 'Backwater Valve',
+    '13': 'Galvanized Coating',
+    '15': 'Strainer Extension',
+  };
+  
+  // Look for patterns like "-AR" or "AR" near "Acid Resistant" or similar descriptive text
+  const suffixDescriptionRegex = /[-–—]?\s*([A-Z0-9]{1,4})\s+([A-Za-z].*?)(?=\n|\s{2,}|$)/g;
+  let match;
+  
+  while ((match = suffixDescriptionRegex.exec(cleanedText)) !== null) {
+    const rawCode = match[1].trim();
+    let description = match[2].trim();
+    
+    // Normalize the code
+    const normalizedCode = normalizeCode(rawCode);
+    
+    // Check if this is a known suffix or if the description matches known patterns
+    const isAcidResistant = description.toLowerCase().includes('acid') || 
+                           description.toLowerCase().includes('resistant') ||
+                           description.toLowerCase().includes('epoxy');
+    
+    const isSedimentBucket = description.toLowerCase().includes('sediment') || 
+                            description.toLowerCase().includes('bucket');
+    
+    const isTrapPrimer = description.toLowerCase().includes('trap') || 
+                         description.toLowerCase().includes('primer');
+    
+    // Use known description if we have a match
+    if (normalizedCode === 'AR' || isAcidResistant) {
+      suffixes.push({
+        name: `Options Suffix: -AR`,
+        value: knownSuffixes['AR']
+      });
+    } else if (normalizedCode === '5' || isSedimentBucket) {
+      suffixes.push({
+        name: `Options Suffix: -5`,
+        value: knownSuffixes['5']
+      });
+    } else if (normalizedCode === '7' || isTrapPrimer) {
+      suffixes.push({
+        name: `Options Suffix: -7`,
+        value: knownSuffixes['7']
+      });
+    } else if (knownSuffixes[normalizedCode]) {
+      // Use the known description for other recognized suffix codes
+      suffixes.push({
+        name: `Options Suffix: -${normalizedCode}`,
+        value: knownSuffixes[normalizedCode]
+      });
+    } else if (description.length > 5 && normalizedCode.length <= 4) {
+      // For other suffix-like patterns, keep them as detected
+      suffixes.push({
+        name: `Options Suffix: -${normalizedCode}`,
+        value: description
+      });
+    }
+  }
+  
+  // Look for acid resistant coating specifically
+  if (cleanedText.toLowerCase().includes('acid resistant') || 
+      cleanedText.toLowerCase().includes('acid-resistant') ||
+      cleanedText.toLowerCase().includes('epoxy coat')) {
+    
+    // Check if we already added this suffix
+    if (!suffixes.some(s => s.name.includes('AR'))) {
+      suffixes.push({
+        name: `Options Suffix: -AR`,
+        value: knownSuffixes['AR']
+      });
+    }
+  }
+  
+  return suffixes;
 } 
