@@ -44,8 +44,12 @@ export const processPDFWithAI = async (
     
     return {
       attributes: [
-        { name: "Product Name", value: "Example Product" },
-        { name: "Description", value: "This is a sample product description." },
+        { name: "Product Number", value: "FD-100-A" },
+        { name: "Product Name", value: "Floor Drain with Round Strainer" },
+        { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
+        { name: "Specification Number", value: "ES-WD-FD-100-A" },
+        { name: "Manufacturer", value: "Wade Drains" },
+        { name: "Division", value: division },
         { name: "Category", value: category }
       ],
       rawText: "Sample text content from PDF. Backend connection failed - using mock data.",
@@ -136,6 +140,17 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
     
     return [
       {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Specification Number',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
         groupName: 'Essential Attributes',
         attributes: [
           'Load rating/traffic classification (light duty, medium duty, heavy duty)',
@@ -155,24 +170,93 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         isEssential: true
       },
       {
-        groupName: 'Additional Important Attributes',
+        groupName: 'Pipe Sizing Options',
         attributes: [
-          'Flow rate capacity (GPM)',
-          'Anti-ponding design (slope to drain)',
-          'Membrane clamp/flashing collar (for waterproofing areas)',
-          'Height adjustability (fixed or adjustable)',
-          'Backwater valve (if required)',
-          'ADA compliance (where applicable)',
-          'Heel-proof requirements (if in pedestrian areas)',
-          'Anti-bacterial coating (for healthcare facilities)',
-          'Chemical resistance (for industrial applications)',
-          'Fire rating (if penetrating fire-rated floors)'
+          'Pipe Size Suffix: 2 (2" Pipe Size)',
+          'Pipe Size Suffix: 3 (3" Pipe Size)',
+          'Pipe Size Suffix: 4 (4" Pipe Size)',
+          'Pipe Size Suffix: 6 (6" Pipe Size)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Outlet Types',
+        attributes: [
+          'Outlet Type Suffix: MH (No Hub)',
+          'Outlet Type Suffix: P (Push On)',
+          'Outlet Type Suffix: T (Threaded Outlet)',
+          'Outlet Type Suffix: X (Inside Caulk)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Strainer Options',
+        attributes: [
+          'Strainer Suffix: A5 (5" Dia. Nickel Bronze)',
+          'Strainer Suffix: A6 (6" Dia. Nickel Bronze)',
+          'Strainer Suffix: A7 (7" Dia. Nickel Bronze)',
+          'Strainer Suffix: A8 (8" Dia. Nickel Bronze)',
+          'Strainer Suffix: A10 (10" Dia. Nickel Bronze)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Options',
+        attributes: [
+          'Options Suffix: -5 (Sediment Bucket)',
+          'Options Suffix: -6 (Vandal Proof)',
+          'Options Suffix: -7 (Trap Primer Tapping)',
+          'Options Suffix: -8 (Backwater Valve)',
+          'Options Suffix: -13 (Galvanized Coating)',
+          'Options Suffix: -15 (Strainer Extension)',
+          'Options Suffix: -H4-50 (4" Round Cast Iron Funnel)',
+          'Options Suffix: -H4-1 (4" Round Nickel Bronze Funnel)',
+          'Options Suffix: -F6-1 (6" Round Nickel Bronze Funnel)',
+          'Options Suffix: -6-50 (4" x 9" Oval Nickel Bronze Funnel)'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Body Material Options',
+        attributes: [
+          'Optional Body Material Suffix: -60 (PVC Body w/Socket Outlet)',
+          'Optional Body Material Suffix: -61 (ABS Body w/Socket Outlet)'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Load Rating',
+        attributes: [
+          'Load Rating',
+          'Load Rating Classification'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Strainer Size Specifications',
+        attributes: [
+          'Strainer Size: 5"(127)',
+          'Strainer Size: 6"(152)',
+          'Strainer Size: 7"(178)',
+          'Strainer Size: 8"(203)',
+          'Strainer Size: 10"(254)'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Dimensional Data',
+        attributes: [
+          'Pipe Size: 2"(51)',
+          'Pipe Size: 3"(76)',
+          'Pipe Size: 4"(102)',
+          'Pipe Size: 6"(152)'
         ],
         isEssential: false
       },
       {
         groupName: 'Code and Standards Compliance',
         attributes: [
+          'Standards Compliance',
           'ASME A112.6.3 (Floor and Trench Drains)',
           'ASME A112.21.2M (Roof Drains)',
           'CSA B79 (Commercial and Residential Drains in Canada)',

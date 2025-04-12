@@ -75,11 +75,70 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   try {
     const { division, category } = req.body;
     
-    // For now, return a mock response
+    // Mock response for a floor drain based on PDF content
+    // In a real implementation, this would use OCR and AI to extract data from the PDF
     const attributes = [
-        { name: "Product Name", value: "Example Product" },
-        { name: "Description", value: "This is a sample product description." },
-        { name: "Category", value: "Test" }
+      { name: "Product Number", value: "FD-100-A" },
+      { name: "Product Name", value: "Floor Drain with Round Strainer" },
+      { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
+      { name: "Specification Number", value: "ES-WD-FD-100-A" },
+      { name: "Manufacturer", value: "Wade Drains" },
+      
+      // Pipe Sizing attributes with suffixes
+      { name: "Pipe Size Suffix: 2", value: "2\"(51) Pipe Size" },
+      { name: "Pipe Size Suffix: 3", value: "3\"(76) Pipe Size" },
+      { name: "Pipe Size Suffix: 4", value: "4\"(102) Pipe Size" },
+      { name: "Pipe Size Suffix: 6", value: "6\"(152) Pipe Size (MI Only)" },
+      
+      // Options with suffixes
+      { name: "Options Suffix: -5", value: "Sediment Bucket" },
+      { name: "Options Suffix: -6", value: "Vandal Proof" },
+      { name: "Options Suffix: -7", value: "Trap Primer Tapping" },
+      { name: "Options Suffix: -8", value: "Backwater Valve" },
+      { name: "Options Suffix: -13", value: "Galvanized Coating" },
+      { name: "Options Suffix: -15", value: "Strainer Extension (DD-50)" },
+      { name: "Options Suffix: -H4-50", value: "4\" Round Cast Iron Funnel" },
+      { name: "Options Suffix: -H4-1", value: "4\" Round Nickel Bronze Funnel" },
+      { name: "Options Suffix: -F6-1", value: "6\" Round Nickel Bronze Funnel" },
+      { name: "Options Suffix: -6-50", value: "4\" x 9\" Oval Nickel Bronze Funnel" },
+      { name: "Options Suffix: -90", value: "Special Strainer" },
+      
+      // Outlet Type with suffixes
+      { name: "Outlet Type Suffix: MH", value: "No Hub (MI)" },
+      { name: "Outlet Type Suffix: P", value: "Push On" },
+      { name: "Outlet Type Suffix: T", value: "Threaded Outlet" },
+      { name: "Outlet Type Suffix: X", value: "Inside Caulk" },
+      
+      // Strainer with suffixes
+      { name: "Strainer Suffix: A5", value: "5\"(127) Dia. Nickel Bronze" },
+      { name: "Strainer Suffix: A6", value: "6\"(152) Dia. Nickel Bronze" },
+      { name: "Strainer Suffix: A7", value: "7\"(178) Dia. Nickel Bronze" },
+      { name: "Strainer Suffix: A8", value: "8\"(203) Dia. Nickel Bronze" },
+      { name: "Strainer Suffix: A10", value: "10\"(254) Dia. Nickel Bronze" },
+      
+      // Optional Body Material with suffixes
+      { name: "Optional Body Material Suffix: -60", value: "PVC Body w/Socket Outlet" },
+      { name: "Optional Body Material Suffix: -61", value: "ABS Body w/Socket Outlet" },
+      
+      // Load Rating with suffixes
+      { name: "Load Rating", value: "MD (Medium Duty)" },
+      
+      // Strainer Size Chart Information
+      { name: "Strainer Size: 5\"(127)", value: "Min Throat: 13/16\"(21), Max Throat: 3-1/4\"(83), Load Rating: MD, Free Area Sq. In.: 9" },
+      { name: "Strainer Size: 6\"(152)", value: "Min Throat: 7/8\"(22), Max Throat: 3-3/8\"(86), Load Rating: MD, Free Area Sq. In.: 13" },
+      { name: "Strainer Size: 7\"(178)", value: "Min Throat: 1-1/16\"(17), Max Throat: 3-1/2\"(83), Load Rating: MD, Free Area Sq. In.: 16" },
+      { name: "Strainer Size: 8\"(203)", value: "Min Throat: 7/8\"(22), Max Throat: 3-1/4\"(83), Load Rating: MD, Free Area Sq. In.: 18" },
+      { name: "Strainer Size: 10\"(254)", value: "Min Throat: 1-1/4\"(32), Max Throat: 3-1/4\"(83), Load Rating: MD, Free Area Sq. In.: 26" },
+      
+      // Chart B information
+      { name: "Pipe Size: 2\"(51)", value: "Std. Size: 3-5/8\"(92), Push On: 4-1/4\"(108), Female Thread: 4-1/4\"(108), Inside Caulk: 4-1/2\"(114), 60/61 PVC/ABS: 4\"(102)" },
+      { name: "Pipe Size: 3\"(76)", value: "Std. Size: 3-5/8\"(92), Push On: 4-1/4\"(108), Female Thread: 4-1/4\"(108), Inside Caulk: 4-1/2\"(114), 60/61 PVC/ABS: 4\"(102)" },
+      { name: "Pipe Size: 4\"(102)", value: "Std. Size: 3-5/8\"(92), Push On: 4-1/4\"(108), Female Thread: 4-1/4\"(108), Inside Caulk: 4-1/2\"(114), 60/61 PVC/ABS: 4\"(102)" },
+      { name: "Pipe Size: 6\"(152)", value: "Std. Size: 3-1/2\"(89), Push On: -, Female Thread: -, Inside Caulk: -, 60/61 PVC/ABS: -" },
+      
+      // Standards Information
+      { name: "Standards Compliance", value: "Manufactured specifications are in accordance with the American National Standards ASME A112.36.2M-91(R2012) ASME Standard as a rule" },
+      { name: "Load Rating Classification", value: "MD - Safe Live Load 2000-4999 lbs. (900-2250 kg)" }
     ];
     
     // Generate the attribute template based on division and category
@@ -93,7 +152,7 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     
     return res.status(200).json({
       attributes,
-      rawText: "Sample text content from PDF",
+      rawText: "FD-100-A Floor Drain with Round Strainer\nSpecification\nFD-100-A epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet",
       template
     });
   } catch (error) {
