@@ -84,6 +84,30 @@ jobs:
             exit 1
           fi
 
+      # Save logs if build fails
+      - name: Save logs
+        if: failure()
+        run: |
+          echo "=== Build Logs ===" > logs.txt
+          if [ -f my-react-app-superman/build.log ]; then
+            cat my-react-app-superman/build.log >> logs.txt
+          else
+            echo "No build log found" >> logs.txt
+          fi
+          echo "=== NPM Install Logs ===" >> logs.txt
+          if [ -f my-react-app-superman/npm-install.log ]; then
+            cat my-react-app-superman/npm-install.log >> logs.txt
+          else
+            echo "No npm install log found" >> logs.txt
+          fi
+
+      - name: Upload logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-logs
+          path: logs.txt
+
       # GitHub Pages deployment
       - name: Setup Pages
         uses: actions/configure-pages@v4
