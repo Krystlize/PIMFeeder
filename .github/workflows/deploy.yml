@@ -3,52 +3,34 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # Allow manual triggering
+  workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 # Allow only one concurrent deployment
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Debug workspace
-        run: |
-          pwd
-          echo "Files in current directory:"
-          ls -la
-          echo "Checking if my-react-app-superman exists:"
-          ls -la my-react-app-superman || echo "Directory not found"
-
-      - name: Navigate to correct directory
-        run: |
-          if [ -d "my-react-app-superman" ]; then
-            cd my-react-app-superman
-            echo "Moved to my-react-app-superman directory"
-            ls -la
-          else
-            echo "Using current directory"
-            ls -la
-          fi
-          
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: |
@@ -113,10 +95,10 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./${{ steps.build-path.outputs.path }}
+          path: ${{ steps.build-path.outputs.path }}
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2 
+        uses: actions/deploy-pages@v3 
