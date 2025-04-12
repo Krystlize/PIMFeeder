@@ -131,30 +131,212 @@ function attributeNamesMatch(name1, name2) {
   return norm1.includes(norm2) || norm2.includes(norm1);
 }
 
-// Add a new function to detect the manufacturer from the PDF text
+// Add manufacturer-specific templates for different PDF formats
+const manufacturerTemplates = {
+  // Watts Drains template
+  "Watts Drains": {
+    productNumberPattern: /\b(FD|RD|FS|CO|DS|HD)[-]?[0-9]{1,5}[-]?[A-Z0-9]{0,3}\b/,
+    productNamePattern: /^(.*?(?:Floor|Roof|Fixture|Cleanout|Drain|Carrier).*?)(?:\n|$)/im,
+    specificationPattern: /\bES-WD-(?:[A-Z0-9-]+)\b/i,
+    suffixSectionMarkers: ["SUFFIX", "OPTIONS", "VARIATIONS"],
+    suffixPattern: /-([0-9A-Z]+(?:-[0-9A-Z]+)?)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/,
+    tableHeaders: ["PIPE SIZE", "OUTLET", "STRAINER", "MATERIAL"],
+    flowRateIdentifiers: ["FREE AREA", "GPM", "FLOW RATE"],
+    sectionOrder: ["product info", "pipe size", "options", "outlet", "material"]
+  },
+  
+  // Wade Drains template
+  "Wade Drains": {
+    productNumberPattern: /\b(?:W-|C-)?[0-9]{1,4}(?:-[A-Z0-9]{1,3})?\b/,
+    productNamePattern: /^(.*?(?:FLOOR|ROOF|AREA|DRAIN|CARRIER).*?)(?:\n|$)/im,
+    specificationPattern: /SPEC\s*(?:NO\.?|NUMBER)?\s*(?::|=)?\s*([A-Z0-9-]+)/i,
+    suffixSectionMarkers: ["SUFFIX", "OPTION", "TYPE"],
+    suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
+    tableHeaders: ["SIZE", "OUTLET", "TOP", "BODY"],
+    flowRateIdentifiers: ["FLOW", "CAPACITY", "CFS", "GPM"],
+    sectionOrder: ["product info", "suffix", "body material", "grate"]
+  },
+  
+  // Zurn template
+  "Zurn": {
+    productNumberPattern: /\b[Z][0-9]{3,5}(?:-[A-Z0-9]{1,5})?\b/,
+    productNamePattern: /^(Z[0-9]{3,5}.*?(?:FLOOR|ROOF|DRAIN|CARRIER|WATER).*?)(?:\n|$)/im,
+    specificationPattern: /ZURN\s*SPEC\s*(?::|=)?\s*([A-Z0-9-]+)/i,
+    suffixSectionMarkers: ["SUFFIX", "OPTION", "PREFIX"],
+    suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
+    tableHeaders: ["SIZE", "CONNECTION", "MATERIAL", "FINISH"],
+    flowRateIdentifiers: ["FLOW RATE", "GPM", "GALLONS PER MINUTE"],
+    sectionOrder: ["product info", "materials", "options", "connections"]
+  },
+  
+  // Jay R. Smith template
+  "Jay R. Smith": {
+    productNumberPattern: /\b(?:SMITH|JRS)?\s*(?:FIGURE|FIG\.?)?\s*([0-9]{3,5}(?:-[A-Z0-9]{1,3})?)\b/i,
+    productNamePattern: /^(.*?(?:FLOOR|ROOF|DRAIN|FIXTURE|CARRIER).*?)(?:\n|$)/im,
+    specificationPattern: /SMITH\s*SPEC\s*(?::|=)?\s*([A-Z0-9-]+)/i,
+    suffixSectionMarkers: ["VARIATIONS", "OPTIONS", "SUFFIX"],
+    suffixPattern: /[-]([0-9A-Z]+)\s+([^-\n].*?)(?=\n[-])/,
+    tableHeaders: ["BODY", "TOP", "CONNECTION", "MATERIAL"],
+    flowRateIdentifiers: ["CAPACITY", "FLOW RATE", "GALLONS"],
+    sectionOrder: ["product info", "options", "materials", "connections"]
+  },
+  
+  // MIFAB template
+  "MIFAB": {
+    productNumberPattern: /\b(?:F|R|C|T)(?:1|2|3|D)-(?:[A-Z0-9-]+)\b/i,
+    productNamePattern: /^(.*?(?:FLOOR|ROOF|DRAIN|TRAP|CARRIER).*?)(?:\n|$)/im,
+    specificationPattern: /MIFAB\s*(?:SPEC|SPECIFICATION)\s*(?::|=)?\s*([A-Z0-9-]+)/i,
+    suffixSectionMarkers: ["SUFFIX", "VARIATIONS", "OPTIONS"],
+    suffixPattern: /-([0-9A-Z]+)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/,
+    tableHeaders: ["PIPE SIZE", "OUTLET", "STRAINER", "BODY"],
+    flowRateIdentifiers: ["FLOW RATE", "GPM", "GALLONS PER MINUTE"],
+    sectionOrder: ["product info", "options", "dimensions", "materials"]
+  },
+  
+  // Josam template
+  "Josam": {
+    productNumberPattern: /\b(?:JOSAM|J)?\s*(?:SERIES)?\s*([0-9]{3,5}(?:-[A-Z0-9]{1,3})?)\b/i,
+    productNamePattern: /^(.*?(?:FLOOR|ROOF|DRAIN|CLEANOUT|CARRIER).*?)(?:\n|$)/im,
+    specificationPattern: /JOSAM\s*SPEC\s*(?::|=)?\s*([A-Z0-9-]+)/i,
+    suffixSectionMarkers: ["PREFIX", "SUFFIX", "OPTIONS"],
+    suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
+    tableHeaders: ["SIZE", "CONNECTION", "MATERIAL", "FINISH"],
+    flowRateIdentifiers: ["DISCHARGE RATE", "FLOW RATE", "GPM"],
+    sectionOrder: ["product info", "options", "sizing"]
+  }
+};
+
+// Add a function to apply manufacturer-specific extraction templates
+function extractWithManufacturerTemplate(text, manufacturer) {
+  const results = [];
+  
+  // Get the template for this manufacturer, or use a generic one
+  const template = manufacturerTemplates[manufacturer] || manufacturerTemplates["Watts Drains"];
+  
+  console.log(`Using ${manufacturer} template for extraction`);
+  
+  // Extract product number using manufacturer-specific pattern
+  const productNumberMatch = text.match(template.productNumberPattern);
+  if (productNumberMatch) {
+    results.push({
+      name: "Product Number",
+      value: productNumberMatch[0].trim()
+    });
+  }
+  
+  // Extract product name using manufacturer-specific pattern
+  const productNameMatch = text.match(template.productNamePattern);
+  if (productNameMatch) {
+    results.push({
+      name: "Product Name",
+      value: productNameMatch[1].trim()
+    });
+  }
+  
+  // Extract specification number
+  const specMatch = text.match(template.specificationPattern);
+  if (specMatch) {
+    results.push({
+      name: "Specification Number",
+      value: specMatch[0].trim()
+    });
+  }
+  
+  // Find section with suffixes/options based on the marker words
+  let optionsSection = '';
+  for (const marker of template.suffixSectionMarkers) {
+    const sectionMatch = text.match(new RegExp(`(?:${marker})[^\\n]*(?:\\n|\\r)+((?:[^\\n]+\\n)+)`, 'i'));
+    if (sectionMatch) {
+      optionsSection = sectionMatch[1];
+      break;
+    }
+  }
+  
+  // Extract suffixes using the manufacturer-specific pattern
+  if (optionsSection) {
+    const suffixMatches = [...optionsSection.matchAll(new RegExp(template.suffixPattern, 'g'))];
+    for (const match of suffixMatches) {
+      const code = match[1].trim();
+      const description = match[2].trim();
+      
+      if (code && description) {
+        results.push({
+          name: `Options Suffix: -${code}`,
+          value: description
+        });
+      }
+    }
+  }
+  
+  // Look for table headers specific to this manufacturer
+  for (const header of template.tableHeaders) {
+    const tableColumnMatch = text.match(new RegExp(`${header}[\\s:]*([^\\n]+)`, 'i'));
+    if (tableColumnMatch) {
+      results.push({
+        name: header.charAt(0).toUpperCase() + header.slice(1).toLowerCase(),
+        value: tableColumnMatch[1].trim()
+      });
+    }
+  }
+  
+  // Extract flow rate using manufacturer-specific identifiers
+  for (const flowId of template.flowRateIdentifiers) {
+    const flowMatch = text.match(new RegExp(`${flowId}[\\s:]*([0-9.,]+)\\s*(?:GPM|CFS|GALLONS)?`, 'i'));
+    if (flowMatch) {
+      results.push({
+        name: "Flow Rate Capacity",
+        value: `${flowMatch[1].trim()} GPM`
+      });
+      break;
+    }
+  }
+  
+  return results;
+}
+
+// Now modify the detectManufacturer function to return more brand information
 function detectManufacturer(text) {
   const cleanedText = text.toLowerCase();
   
-  // Check for known manufacturer names
-  if (cleanedText.includes('wade') && 
-     (cleanedText.includes('drain') || cleanedText.includes('plumbing'))) {
-    return "Wade Drains";
-  } else if (cleanedText.includes('watts') && 
-            (cleanedText.includes('drain') || cleanedText.includes('plumbing'))) {
-    return "Watts Drains";
-  } else if (cleanedText.includes('zurn') && 
-            (cleanedText.includes('drain') || cleanedText.includes('plumbing'))) {
-    return "Zurn";
-  } else if (cleanedText.includes('josam')) {
-    return "Josam";
-  } else if (cleanedText.includes('mifab')) {
-    return "MIFAB";
-  } else if (cleanedText.includes('smith')) {
-    return "Jay R. Smith";
+  const manufacturers = [
+    { name: "Wade Drains", keywords: ['wade', 'drain'], confidence: 0 },
+    { name: "Watts Drains", keywords: ['watts', 'drain'], confidence: 0 },
+    { name: "Zurn", keywords: ['zurn'], confidence: 0 },
+    { name: "Josam", keywords: ['josam'], confidence: 0 },
+    { name: "MIFAB", keywords: ['mifab'], confidence: 0 },
+    { name: "Jay R. Smith", keywords: ['smith', 'jay r. smith', 'smith mfg'], confidence: 0 }
+  ];
+  
+  // Calculate confidence score for each manufacturer
+  for (const mfr of manufacturers) {
+    let score = 0;
+    
+    // Check for manufacturer name mentions
+    for (const keyword of mfr.keywords) {
+      if (cleanedText.includes(keyword)) {
+        score += 10;
+        
+        // Bonus points for the manufacturer being in the first 500 characters
+        if (cleanedText.substring(0, 500).includes(keyword)) {
+          score += 5;
+        }
+      }
+    }
+    
+    // Check for manufacturer-specific product number patterns
+    const template = manufacturerTemplates[mfr.name];
+    if (template && cleanedText.match(template.productNumberPattern)) {
+      score += 20;
+    }
+    
+    mfr.confidence = score;
   }
   
-  // Default to null if no manufacturer detected
-  return null;
+  // Sort by confidence score (descending)
+  manufacturers.sort((a, b) => b.confidence - a.confidence);
+  
+  // Return the detected manufacturer or null if no confident match
+  return manufacturers[0].confidence > 0 ? manufacturers[0].name : null;
 }
 
 // Extract product number from text
@@ -192,7 +374,7 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
       // Continue with empty text - we'll try OCR
     }
     
-    // Check if we need to perform OCR (either no text was extracted or very little text)
+    // Check if we need to perform OCR
     if (!pdfText || pdfText.length < 100) {
       try {
         console.log('Attempting OCR on PDF...');
@@ -240,63 +422,34 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     
     // Detect manufacturer from PDF text
     const detectedManufacturer = detectManufacturer(pdfText);
+    console.log(`Detected manufacturer: ${detectedManufacturer || 'Unknown'}`);
     
-    // Extract product number directly from text
-    const detectedProductNumber = extractProductNumber(pdfText);
-    
-    // Create product-specific attributes based on detected info
+    // Use template-based extraction for the detected manufacturer
     let extractedProductInfo = [];
-    
     if (detectedManufacturer) {
-      console.log(`Detected manufacturer: ${detectedManufacturer}`);
-      extractedProductInfo.push({
-        name: "Manufacturer",
-        value: detectedManufacturer
-      });
-    }
-    
-    if (detectedProductNumber) {
-      console.log(`Detected product number: ${detectedProductNumber}`);
-      extractedProductInfo.push({
-        name: "Product Number",
-        value: detectedProductNumber
-      });
+      // Use the manufacturer-specific template for extraction
+      const templateResults = extractWithManufacturerTemplate(pdfText, detectedManufacturer);
       
-      // Try to extract product name based on product number
-      const productNameMatch = pdfText.match(new RegExp(`${detectedProductNumber}[\\s\\n]*(.*?)(floor|drain|valve|fitting|water|closet|lavatory)`, 'i'));
-      if (productNameMatch) {
-        const productName = `${productNameMatch[0]}`.trim();
-        extractedProductInfo.push({
-          name: "Product Name",
-          value: productName
+      // Add manufacturer to the extracted info if not already present
+      if (!templateResults.some(attr => attr.name === "Manufacturer")) {
+        templateResults.push({
+          name: "Manufacturer",
+          value: detectedManufacturer
         });
       }
-    }
-    
-    // Use baseline mock data for optional attributes but not for product-specific info
-    let baselineMockAttributes = [];
-    
-    // Add mock pipe sizing attributes
-    const mockSuffixAttributes = [
-      // Pipe Sizing attributes with suffixes
-      { name: "Pipe Size Suffix: 2", value: "2\"(51) Pipe Size" },
-      { name: "Pipe Size Suffix: 3", value: "3\"(76) Pipe Size" },
-      { name: "Pipe Size Suffix: 4", value: "4\"(102) Pipe Size" },
-      { name: "Pipe Size Suffix: 6", value: "6\"(152) Pipe Size" },
       
-      // Options with suffixes (generic versions)
-      { name: "Options Suffix: -5", value: "Sediment Bucket" },
-      { name: "Options Suffix: -6", value: "Vandal Proof" },
-      { name: "Options Suffix: -7", value: "Trap Primer Tapping" },
-      { name: "Options Suffix: -8", value: "Backwater Valve" },
-      { name: "Options Suffix: -13", value: "Galvanized Coating" },
-      { name: "Options Suffix: -15", value: "Strainer Extension" },
-      { name: "Options Suffix: -AR", value: "Acid Resistant Epoxy Coated Cast Iron" },
-    ];
-    
-    // Add common plumbing attributes for drains if appropriate
-    if (division === '22' || division.toLowerCase().includes('plumb')) {
-      baselineMockAttributes = [...commonPlumbingAttributes];
+      extractedProductInfo = templateResults;
+      console.log(`Extracted ${extractedProductInfo.length} attributes using ${detectedManufacturer} template`);
+    } else {
+      // Fall back to generic extraction if no manufacturer detected
+      const detectedProductNumber = extractProductNumber(pdfText);
+      if (detectedProductNumber) {
+        console.log(`Detected product number: ${detectedProductNumber}`);
+        extractedProductInfo.push({
+          name: "Product Number",
+          value: detectedProductNumber
+        });
+      }
     }
     
     // Extract tabular data from the PDF text
@@ -314,20 +467,13 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
         extractedAttributes = [...extractedAttributes, ...technicalData];
       }
       
-      // If we found some attributes through extraction, log them
-      if (extractedAttributes.length > 0) {
-        console.log(`Extracted ${extractedAttributes.length} attributes from tables`);
-      }
-      
-      // After all extraction is done, add product info to extracted attributes
-      extractedAttributes = [...extractedAttributes, ...extractedProductInfo];
-      
       // If very few attributes were found, try using the AI model
-      if (extractedAttributes.length < 5) {
+      if (extractedAttributes.length < 5 && (extractedProductInfo.length + extractedAttributes.length) < 10) {
         try {
           console.log('Using AI model to extract additional attributes...');
-          // Create a prompt for the Hugging Face model
-          const prompt = `
+          
+          // Create a prompt for the Hugging Face model that includes manufacturer info
+          let prompt = `
 Extract key product attributes from the following text for a ${division} product in the ${category} category.
 
 INSTRUCTIONS:
@@ -341,6 +487,23 @@ INSTRUCTIONS:
    - Look for tables with patterns like "Code | Description" or "Suffix | Description"
    - Be careful with the AR suffix - it should be "AR" not "ARA" and means "Acid Resistant Epoxy Coated Cast Iron"
 6. If there are pipe sizing options, extract them as "Pipe Size Suffix: X" where X is the size indicator
+`;
+
+          // Add manufacturer-specific instructions if detected
+          if (detectedManufacturer) {
+            prompt += `
+7. IMPORTANT: I've detected this is a ${detectedManufacturer} product - extract attributes specific to this manufacturer's format
+8. Use these EXACT attribute names for plumbing products:
+   - "Flow Rate Capacity" (not just "Capacity")
+   - "Body Material" (not just "Material")
+   - "Top/Grate Material" (not "Strainer Material")
+   - "Outlet Connection Type" (not just "Connection Type")
+   - "Outlet Orientation"
+   - "Load Rating"
+9. Look for common ${detectedManufacturer} suffix codes and their meanings
+`;
+          } else {
+            prompt += `
 7. IMPORTANT: Look for the correct manufacturer name in the text (e.g., Watts Drains, Wade Drains, Zurn, Josam, MIFAB, Jay R. Smith)
 8. Use these EXACT attribute names for plumbing products:
    - "Flow Rate Capacity" (not just "Capacity")
@@ -357,12 +520,16 @@ INSTRUCTIONS:
    -13: Galvanized Coating
    -15: Strainer Extension
    -AR: Acid Resistant Epoxy Coated Cast Iron
+`;
+          }
+
+          prompt += `
 10. For flow rate capacity, look for values in GPM (gallons per minute) or references to a "Free Area" table
 
 Expected attributes for ${division} products include but are not limited to:
 - Product Number / Model Number
 - Product Name
-- Manufacturer
+- Manufacturer${detectedManufacturer ? ` (${detectedManufacturer})` : ''}
 - Material
 - Dimensions
 ${division === "22" ? 
@@ -389,7 +556,7 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
           
           // Merge with directly extracted table attributes, avoiding duplicates
           for (const aiAttr of aiAttributes) {
-            if (!extractedAttributes.some(attr => attr.name.toLowerCase() === aiAttr.name.toLowerCase())) {
+            if (!extractedAttributes.some(attr => attributeNamesMatch(attr.name, aiAttr.name))) {
               extractedAttributes.push(aiAttr);
             }
           }
@@ -401,7 +568,7 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
     }
     
     // COMPLETELY NEW ATTRIBUTE MERGING LOGIC
-    // Start with product-specific information that was extracted
+    // Start with product-specific information that was extracted with templates
     let attributes = [...extractedProductInfo];
     
     // Add extracted attributes that don't conflict with already added product info
@@ -412,29 +579,20 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
       }
     }
     
-    // Add suffix attributes from baseline mock data if they don't already exist
-    for (const mockSuffix of mockSuffixAttributes) {
-      // Only add suffix attributes that aren't already in our list
-      if (!attributes.some(attr => 
-          attr.name.toLowerCase().includes('suffix') && 
-          attr.name.includes(mockSuffix.name.split(':')[1].trim()))) {
-        attributes.push(mockSuffix);
-      }
-    }
-    
-    // Finally, add any remaining common attributes that haven't been added yet
-    for (const commonAttr of baselineMockAttributes) {
-      if (!attributes.some(attr => attributeNamesMatch(attr.name, commonAttr.name))) {
-        attributes.push(commonAttr);
+    // Add common plumbing attributes as fallbacks if appropriate and not already present
+    if (division === '22' || division.toLowerCase().includes('plumb')) {
+      for (const commonAttr of commonPlumbingAttributes) {
+        if (!attributes.some(attr => attributeNamesMatch(attr.name, commonAttr.name))) {
+          attributes.push(commonAttr);
+        }
       }
     }
     
     // If we still don't have a manufacturer, use a default
     if (!attributes.some(attr => attr.name === "Manufacturer")) {
-      // Default to Watts as fallback only if no manufacturer was detected
       attributes.push({
         name: "Manufacturer",
-        value: "Watts Drains"
+        value: "Unknown"
       });
     }
     
