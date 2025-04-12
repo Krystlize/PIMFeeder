@@ -13,7 +13,8 @@
   "routes": [
     {
       "src": "/api/process-pdf",
-      "dest": "/index.js"
+      "dest": "/api/process-pdf.js",
+      "methods": ["POST", "OPTIONS"]
     },
     {
       "src": "/api/(.*)",
@@ -24,9 +25,15 @@
       "dest": "/index.js"
     }
   ],
-  "cors": {
-    "origin": ["https://krystlize.github.io", "http://localhost:3000"],
-    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    "allowedHeaders": ["Content-Type", "Authorization", "X-Requested-With"]
-  }
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "https://krystlize.github.io" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization" }
+      ]
+    }
+  ]
 } 

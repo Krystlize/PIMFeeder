@@ -1,8 +1,27 @@
-// This is a simplified version for initial testing
+// Serverless function for processing PDF uploads
+const multer = require('multer');
 const { HfInference } = require('@huggingface/inference');
+const util = require('util');
 
 // Initialize Hugging Face
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
+
+// Configure multer for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Make multer middleware work with serverless functions
+const multerSingle = upload.single('file');
+const runMiddleware = (req, res, fn) => {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+};
 
 module.exports = async (req, res) => {
   // Set CORS headers
@@ -21,12 +40,19 @@ module.exports = async (req, res) => {
   }
 
   try {
+    // Process the file upload
+    await runMiddleware(req, res, multerSingle);
+    
+    console.log('File received:', req.file ? req.file.originalname : 'No file');
+    console.log('Division:', req.body.division);
+    console.log('Category:', req.body.category);
+    
     // For now, return a mock response
     return res.status(200).json({
       attributes: [
         { name: "Product Name", value: "Example Product" },
         { name: "Description", value: "This is a sample product description." },
-        { name: "Category", value: "Test" }
+        { name: "Category", value: req.body.category || "Test" }
       ],
       rawText: "Sample text content from PDF"
     });
