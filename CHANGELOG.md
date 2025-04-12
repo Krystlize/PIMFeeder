@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 2025-04-11 (Update 3)
+
+### UI Improvements for Attribute Display
+
+* **Added Table View for Attributes**:
+  * Created new AllAttributesView component that displays all attributes in a single table format
+  * Added search functionality to quickly filter attributes
+  * Implemented visual distinction between regular attributes and suffixes
+  
+* **Enhanced Suffix Visualization**:
+  * Added dedicated table section for suffix options and codes
+  * Displayed suffix codes as chips for better visual hierarchy
+  * Suffix codes are automatically extracted from attribute names
+  
+* **Improved Navigation**:
+  * Added a tabbed interface with Table View and Grouped View options
+  * Added icons to tabs for better visual distinction
+  * Maintained compatibility with existing template-based grouping
+
 ## 2025-04-11 (Update 2)
 
 ### Improved Zurn Product Detection
