@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { 
   Container, 
   CssBaseline, 
@@ -163,9 +163,9 @@ function App() {
   };
   
   // Handle template generation
-  const handleTemplateGenerated = (template: AttributeGroup[]) => {
+  const handleTemplateGenerated = useCallback((template: AttributeGroup[]) => {
     setAttributeTemplate(template);
-  };
+  }, []);
 
   const handleTestConnection = async () => {
     console.log('Testing backend connection...');

@@ -148,6 +148,16 @@ const processAttributes = (attrs: ProcessedAttribute[]) => {
   );
 };
 
+const formatValue = (value: any): string => {
+  if (typeof value === 'object' && value !== null) {
+    if (Array.isArray(value)) {
+      return value.join(', ');
+    }
+    return JSON.stringify(value).replace(/[{}[\]"]/g, '');
+  }
+  return String(value);
+};
+
 const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [processedAttributes, setProcessedAttributes] = useState<any[]>([]);
@@ -255,7 +265,7 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
                       <TableCell>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Typography variant="body2" sx={{ flex: 1 }}>
-                            {attr.value}
+                            {formatValue(attr.value)}
                           </Typography>
                           {attr.suffix && (
                             <Chip 

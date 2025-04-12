@@ -23,6 +23,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import UpdateIcon from '@mui/icons-material/Update';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import ListIcon from '@mui/icons-material/List';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import { ProcessedAttribute, AttributeGroup } from '../types';
 import AllAttributesView from './AllAttributesView';
 

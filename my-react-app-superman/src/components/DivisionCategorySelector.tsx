@@ -6,7 +6,8 @@ import {
   MenuItem, 
   FormHelperText,
   Box,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Typography
 } from '@mui/material';
 import { Division, Category } from '../types';
 import { divisions, categories } from '../services/mockData';

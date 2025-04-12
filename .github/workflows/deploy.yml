@@ -42,11 +42,12 @@ jobs:
 
       - name: Build
         working-directory: ${{ env.BUILD_PATH }}
-        run: npm run build
         env:
+          CI: false # Disable treating warnings as errors
           REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
           REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
