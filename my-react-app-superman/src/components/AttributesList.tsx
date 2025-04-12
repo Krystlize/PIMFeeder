@@ -21,7 +21,10 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import UpdateIcon from '@mui/icons-material/Update';
+import TableChartIcon from '@mui/icons-material/TableChart';
+import ListIcon from '@mui/icons-material/List';
 import { ProcessedAttribute, AttributeGroup } from '../types';
+import AllAttributesView from './AllAttributesView';
 
 interface AttributesListProps {
   attributes: ProcessedAttribute[];
@@ -207,317 +210,154 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
         </Typography>
       ) : (
         <>
-          {useTabs ? (
-            <>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
-                <Tabs
-                  value={tabValue}
-                  onChange={handleTabChange}
-                  variant="scrollable"
-                  scrollButtons="auto"
-                >
-                  <Tab label="All Attributes" />
-                  {attributeTemplate.map((group, idx) => (
-                    <Tab 
-                      key={idx} 
-                      label={
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          {group.groupName}
-                          {structuredAttributes[group.groupName]?.length > 0 && (
-                            <Chip 
-                              label={structuredAttributes[group.groupName]?.length} 
-                              size="small" 
-                              color={group.isEssential ? "primary" : "default"}
-                              sx={{ ml: 1 }}
-                            />
-                          )}
-                        </Box>
-                      } 
-                    />
-                  ))}
-                </Tabs>
-              </Box>
-              
-              <TabPanel value={tabValue} index={0}>
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2" color="primary" gutterBottom>
-                    Attributes are structured according to engineering requirements for this product type.
-                    Click the tabs above to view attributes by category.
-                  </Typography>
-                </Box>
-                <Grid container spacing={2}>
-                  {sortedCategories.map(category => (
-                    structuredAttributes[category]?.length > 0 && (
-                      <Grid item xs={12} md={6} key={category}>
-                        <Card 
-                          variant="outlined" 
-                          sx={{ 
-                            mb: 2,
-                            borderColor: attributeTemplate.find(g => g.groupName === category)?.isEssential ? 'primary.main' : 'divider'
-                          }}
-                        >
-                          <CardContent>
-                            <Typography 
-                              variant="subtitle1" 
-                              fontWeight="bold" 
-                              gutterBottom
-                              color={attributeTemplate.find(g => g.groupName === category)?.isEssential ? 'primary.main' : 'text.primary'}
-                            >
-                              {category}
-                              {attributeTemplate.find(g => g.groupName === category)?.isEssential && (
-                                <Chip label="Mandatory" color="primary" size="small" sx={{ ml: 1 }} />
-                              )}
-                            </Typography>
-                            <List dense disablePadding>
-                              {structuredAttributes[category].map((attribute, index) => (
-                                <ListItem 
-                                  key={`${attribute.name}-${index}`} 
-                                  disablePadding 
-                                  sx={{ 
-                                    py: 0.5,
-                                    backgroundColor: attribute.updated ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
-                                    borderRadius: 1
-                                  }}
-                                >
-                                  <ListItemText
-                                    primary={
-                                      <Box display="flex" alignItems="center">
-                                        {attribute.updated ? (
-                                          <Badge
-                                            badgeContent={<UpdateIcon fontSize="small" />}
-                                            color="primary"
-                                            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                                            sx={{ mr: 1 }}
-                                          >
-                                            <Typography variant="body1" fontWeight="medium">
-                                              {attribute.name.replace(category + ':', '').trim()}
-                                            </Typography>
-                                          </Badge>
-                                        ) : (
-                                          <Typography variant="body1" fontWeight="medium">
-                                            {attribute.name.replace(category + ':', '').trim()}
-                                          </Typography>
-                                        )}
-                                      </Box>
-                                    }
-                                    secondary={
-                                      <Typography 
-                                        variant="body2" 
-                                        color="text.primary"
-                                        sx={{ 
-                                          whiteSpace: 'pre-wrap',
-                                          mt: 0.5,
-                                          fontWeight: attribute.updated ? 'bold' : 'regular'
-                                        }}
-                                      >
-                                        {attribute.value}
-                                      </Typography>
-                                    }
-                                  />
-                                </ListItem>
-                              ))}
-                            </List>
-                          </CardContent>
-                        </Card>
-                      </Grid>
-                    )
-                  ))}
-                </Grid>
-              </TabPanel>
-              
-              {attributeTemplate.map((group, idx) => (
-                <TabPanel key={idx} value={tabValue} index={idx + 1}>
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="subtitle1" color={group.isEssential ? "primary" : "text.secondary"} gutterBottom>
-                      <strong>{group.isEssential ? "MANDATORY: " : ""}</strong>
-                      These are the {group.isEssential ? "critical" : "recommended"} attributes for {group.groupName.toLowerCase()}.
-                    </Typography>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+            <Tabs
+              value={tabValue}
+              onChange={handleTabChange}
+              variant="scrollable"
+              scrollButtons="auto"
+            >
+              <Tab 
+                label={
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <TableChartIcon sx={{ mr: 1 }} />
+                    Table View
                   </Box>
-                  
-                  {structuredAttributes[group.groupName]?.length > 0 ? (
-                    <Card 
-                      variant="outlined" 
-                      sx={{ 
-                        mb: 2,
-                        borderColor: group.isEssential ? 'primary.main' : 'divider'
-                      }}
-                    >
+                } 
+              />
+              <Tab 
+                label={
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <ListIcon sx={{ mr: 1 }} />
+                    Grouped View
+                  </Box>
+                } 
+              />
+              {attributeTemplate.map((group, idx) => (
+                <Tab 
+                  key={idx} 
+                  label={
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      {group.groupName}
+                      {structuredAttributes[group.groupName]?.length > 0 && (
+                        <Chip 
+                          label={structuredAttributes[group.groupName]?.length} 
+                          size="small" 
+                          color={group.isEssential ? "primary" : "default"}
+                          sx={{ ml: 1 }}
+                        />
+                      )}
+                    </Box>
+                  } 
+                />
+              ))}
+            </Tabs>
+          </Box>
+          
+          {/* Table View Tab */}
+          <TabPanel value={tabValue} index={0}>
+            <AllAttributesView attributes={attributes} />
+          </TabPanel>
+          
+          {/* Grouped View Tab */}
+          <TabPanel value={tabValue} index={1}>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="subtitle2" color="primary" gutterBottom>
+                Attributes are structured according to engineering requirements for this product type.
+                Click the tabs above to view attributes by category.
+              </Typography>
+            </Box>
+            <Grid container spacing={2}>
+              {sortedCategories.map(category => (
+                structuredAttributes[category]?.length > 0 && (
+                  <Grid item xs={12} md={6} key={category}>
+                    <Card variant="outlined" sx={{ height: '100%' }}>
                       <CardContent>
-                        <List dense disablePadding>
-                          {structuredAttributes[group.groupName].map((attribute, index) => (
-                            <ListItem 
-                              key={`${attribute.name}-${index}`} 
-                              disablePadding 
-                              sx={{ 
-                                py: 0.5,
-                                backgroundColor: attribute.updated ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
-                                borderRadius: 1
-                              }}
-                            >
-                              <ListItemText
-                                primary={
-                                  <Box display="flex" alignItems="center">
-                                    {attribute.updated ? (
-                                      <Badge
-                                        badgeContent={<UpdateIcon fontSize="small" />}
-                                        color="primary"
-                                        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                                        sx={{ mr: 1 }}
-                                      >
-                                        <Typography variant="body1" fontWeight="medium">
-                                          {attribute.name}
-                                        </Typography>
-                                      </Badge>
-                                    ) : (
-                                      <Typography variant="body1" fontWeight="medium">
-                                        {attribute.name}
-                                      </Typography>
-                                    )}
-                                  </Box>
-                                }
-                                secondary={
-                                  <Typography 
-                                    variant="body2" 
-                                    color="text.primary"
-                                    sx={{ 
-                                      whiteSpace: 'pre-wrap',
-                                      mt: 0.5,
-                                      fontWeight: attribute.updated ? 'bold' : 'regular'
-                                    }}
-                                  >
-                                    {attribute.value}
-                                  </Typography>
-                                }
-                              />
-                            </ListItem>
+                        <Typography variant="h6" component="div" gutterBottom>
+                          {category}
+                          <Chip 
+                            label={structuredAttributes[category].length} 
+                            size="small" 
+                            sx={{ ml: 1 }} 
+                          />
+                        </Typography>
+                        <List dense>
+                          {structuredAttributes[category].map((attr, index) => (
+                            <React.Fragment key={index}>
+                              {index > 0 && <Divider component="li" />}
+                              <ListItem alignItems="flex-start">
+                                <ListItemText
+                                  primary={
+                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                      {attr.name}
+                                      {attr.updated && (
+                                        <Chip 
+                                          icon={<UpdateIcon />} 
+                                          label="Updated" 
+                                          color="primary" 
+                                          size="small" 
+                                          sx={{ ml: 1 }} 
+                                        />
+                                      )}
+                                    </Box>
+                                  }
+                                  secondary={attr.value}
+                                />
+                              </ListItem>
+                            </React.Fragment>
                           ))}
                         </List>
                       </CardContent>
                     </Card>
-                  ) : (
-                    <Typography variant="body1" color="error" sx={{ mb: 2 }}>
-                      <strong>Missing attributes in this category.</strong> Consider using the chat below to add these attributes.
-                    </Typography>
-                  )}
-                  
-                  <Box mt={3}>
-                    <Typography variant="subtitle2" gutterBottom color={group.isEssential ? "primary" : "text.secondary"}>
-                      {structuredAttributes[group.groupName]?.length > 0 
-                        ? "All expected attributes in this category:" 
-                        : "Missing attributes in this category:"}
-                    </Typography>
-                    <List dense>
-                      {group.attributes.map((attr, idx) => {
-                        const isFound = structuredAttributes[group.groupName]?.some(
-                          a => a.name.toLowerCase().includes(attr.toLowerCase()) || 
-                               attr.toLowerCase().includes(a.name.toLowerCase())
-                        );
-                        return (
-                          <ListItem key={idx} dense>
-                            <ListItemText 
-                              primary={
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                  <Typography
-                                    variant="body2"
-                                    sx={{
-                                      color: isFound ? 'text.primary' : (group.isEssential ? 'error.main' : 'text.disabled'),
-                                      fontWeight: isFound ? 'bold' : 'normal',
-                                      textDecoration: isFound ? 'none' : 'none'
-                                    }}
-                                  >
-                                    {attr}
-                                  </Typography>
-                                  {isFound && (
-                                    <Chip 
-                                      label="Found" 
-                                      color="success" 
-                                      size="small" 
-                                      sx={{ ml: 1 }}
-                                    />
-                                  )}
-                                  {!isFound && group.isEssential && (
-                                    <Chip 
-                                      label="Required" 
-                                      color="error" 
-                                      size="small" 
-                                      sx={{ ml: 1 }}
-                                    />
-                                  )}
-                                </Box>
-                              }
-                            />
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </Box>
-                </TabPanel>
-              ))}
-            </>
-          ) : (
-            <Grid container spacing={2}>
-              {sortedCategories.map(category => (
-                <Grid item xs={12} md={6} key={category}>
-                  <Card variant="outlined" sx={{ mb: 2 }}>
-                    <CardContent>
-                      <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-                        {category}
-                      </Typography>
-                      <List dense disablePadding>
-                        {structuredAttributes[category]?.map((attribute, index) => (
-                          <ListItem 
-                            key={`${attribute.name}-${index}`} 
-                            disablePadding 
-                            sx={{ 
-                              py: 0.5,
-                              backgroundColor: attribute.updated ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
-                              borderRadius: 1
-                            }}
-                          >
-                            <ListItemText
-                              primary={
-                                <Box display="flex" alignItems="center">
-                                  {attribute.updated ? (
-                                    <Badge
-                                      badgeContent={<UpdateIcon fontSize="small" />}
-                                      color="primary"
-                                      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                                      sx={{ mr: 1 }}
-                                    >
-                                      <Typography variant="body1" fontWeight="medium">
-                                        {attribute.name.replace(category + ':', '').trim()}
-                                      </Typography>
-                                    </Badge>
-                                  ) : (
-                                    <Typography variant="body1" fontWeight="medium">
-                                      {attribute.name.replace(category + ':', '').trim()}
-                                    </Typography>
-                                  )}
-                                </Box>
-                              }
-                              secondary={
-                                <Typography 
-                                  variant="body2" 
-                                  color="text.primary"
-                                  sx={{ 
-                                    whiteSpace: 'pre-wrap',
-                                    mt: 0.5,
-                                    fontWeight: attribute.updated ? 'bold' : 'regular'
-                                  }}
-                                >
-                                  {attribute.value}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-                        ))}
-                      </List>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                  </Grid>
+                )
               ))}
             </Grid>
-          )}
+          </TabPanel>
+          
+          {/* Template Tabs */}
+          {attributeTemplate.map((group, idx) => (
+            <TabPanel key={idx} value={tabValue} index={idx + 2}>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" color="primary" gutterBottom>
+                  {group.isEssential ? "⚠️ Required Attributes" : "Optional Attributes"}
+                </Typography>
+              </Box>
+              
+              {structuredAttributes[group.groupName]?.length > 0 ? (
+                <List dense>
+                  {structuredAttributes[group.groupName].map((attr, index) => (
+                    <React.Fragment key={index}>
+                      {index > 0 && <Divider component="li" />}
+                      <ListItem alignItems="flex-start">
+                        <ListItemText
+                          primary={
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                              {attr.name}
+                              {attr.updated && (
+                                <Chip 
+                                  icon={<UpdateIcon />} 
+                                  label="Updated" 
+                                  color="primary" 
+                                  size="small" 
+                                  sx={{ ml: 1 }} 
+                                />
+                              )}
+                            </Box>
+                          }
+                          secondary={attr.value}
+                        />
+                      </ListItem>
+                    </React.Fragment>
+                  ))}
+                </List>
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  No attributes in this category. You may need to extract additional information.
+                </Typography>
+              )}
+            </TabPanel>
+          ))}
           
           {rawText && (
             <Box mt={3}>
