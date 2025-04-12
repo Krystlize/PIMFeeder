@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 2025-04-11 (Update 4)
+
+### Improved Suffix Code Display
+
+* **Fixed suffix code display format**:
+  * Cleaned up the display of suffix codes to show properly formatted codes like -5, -6, -G-1
+  * Added intelligent parsing to handle JSON artifacts in suffix values
+  * Improved extraction of suffix codes from attribute names and values
+  
+* **Enhanced suffix visual presentation**:
+  * Added divider to visually separate product attributes from suffix options
+  * Added explanatory text about suffix codes and their purpose
+  * Improved chip display with hover text showing full attribute name
+  * Added special styling for composite suffix codes
+  
+* **Optimized table layout**:
+  * Adjusted column widths for better readability
+  * Cleaned up description values by removing quotes and brackets
+  * Ensured consistent dash prefix for all suffix codes
+
 ## 2025-04-11 (Update 3)
 
 ### UI Improvements for Attribute Display
