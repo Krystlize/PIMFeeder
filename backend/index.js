@@ -142,31 +142,34 @@ const manufacturerTemplates = {
     suffixPattern: /-([0-9A-Z]+(?:-[0-9A-Z]+)?)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/,
     tableHeaders: ["PIPE SIZE", "OUTLET", "STRAINER", "MATERIAL"],
     flowRateIdentifiers: ["FREE AREA", "GPM", "FLOW RATE"],
-    sectionOrder: ["product info", "pipe size", "options", "outlet", "material"]
+    sectionOrder: ["product info", "pipe size", "options", "outlet", "material"],
+    brandIdentifiers: ["WATTS", "WATTS DRAINAGE", "WATTS INDUSTRIES"]
   },
   
   // Wade Drains template
   "Wade Drains": {
-    productNumberPattern: /\b(?:W-|C-)?[0-9]{1,4}(?:-[A-Z0-9]{1,3})?\b/,
+    productNumberPattern: /\b(?:W-|C-|WADE\s+)?[0-9]{1,4}(?:-[A-Z0-9]{1,3})?\b/,
     productNamePattern: /^(.*?(?:FLOOR|ROOF|AREA|DRAIN|CARRIER).*?)(?:\n|$)/im,
     specificationPattern: /SPEC\s*(?:NO\.?|NUMBER)?\s*(?::|=)?\s*([A-Z0-9-]+)/i,
     suffixSectionMarkers: ["SUFFIX", "OPTION", "TYPE"],
     suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
     tableHeaders: ["SIZE", "OUTLET", "TOP", "BODY"],
     flowRateIdentifiers: ["FLOW", "CAPACITY", "CFS", "GPM"],
-    sectionOrder: ["product info", "suffix", "body material", "grate"]
+    sectionOrder: ["product info", "suffix", "body material", "grate"],
+    brandIdentifiers: ["WADE", "BLUCHER", "WADE DRAINAGE"]
   },
   
   // Zurn template
   "Zurn": {
-    productNumberPattern: /\b[Z][0-9]{3,5}(?:-[A-Z0-9]{1,5})?\b/,
-    productNamePattern: /^(Z[0-9]{3,5}.*?(?:FLOOR|ROOF|DRAIN|CARRIER|WATER).*?)(?:\n|$)/im,
+    productNumberPattern: /\b(?:Z|ZN)[0-9]{3,5}(?:-[A-Z0-9]{1,5})?\b/i,
+    productNamePattern: /^((?:Z|ZN)[0-9]{3,5}.*?(?:FLOOR|ROOF|DRAIN|CARRIER|WATER).*?)(?:\n|$)/im,
     specificationPattern: /ZURN\s*SPEC\s*(?::|=)?\s*([A-Z0-9-]+)/i,
     suffixSectionMarkers: ["SUFFIX", "OPTION", "PREFIX"],
     suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
     tableHeaders: ["SIZE", "CONNECTION", "MATERIAL", "FINISH"],
     flowRateIdentifiers: ["FLOW RATE", "GPM", "GALLONS PER MINUTE"],
-    sectionOrder: ["product info", "materials", "options", "connections"]
+    sectionOrder: ["product info", "materials", "options", "connections"],
+    brandIdentifiers: ["ZURN", "ZURN INDUSTRIES", "Z SERIES", "ZN SERIES"]
   },
   
   // Jay R. Smith template
@@ -178,7 +181,8 @@ const manufacturerTemplates = {
     suffixPattern: /[-]([0-9A-Z]+)\s+([^-\n].*?)(?=\n[-])/,
     tableHeaders: ["BODY", "TOP", "CONNECTION", "MATERIAL"],
     flowRateIdentifiers: ["CAPACITY", "FLOW RATE", "GALLONS"],
-    sectionOrder: ["product info", "options", "materials", "connections"]
+    sectionOrder: ["product info", "options", "materials", "connections"],
+    brandIdentifiers: ["JAY R. SMITH", "SMITH", "JRS", "SMITH MFG", "SMITH MANUFACTURING"]
   },
   
   // MIFAB template
@@ -190,7 +194,8 @@ const manufacturerTemplates = {
     suffixPattern: /-([0-9A-Z]+)\s+([^-\n].*?)(?=\n-[0-9A-Z]|\n\s*$|$)/,
     tableHeaders: ["PIPE SIZE", "OUTLET", "STRAINER", "BODY"],
     flowRateIdentifiers: ["FLOW RATE", "GPM", "GALLONS PER MINUTE"],
-    sectionOrder: ["product info", "options", "dimensions", "materials"]
+    sectionOrder: ["product info", "options", "dimensions", "materials"],
+    brandIdentifiers: ["MIFAB", "MIFAB INC", "MIFAB DRAINAGE"]
   },
   
   // Josam template
@@ -202,7 +207,8 @@ const manufacturerTemplates = {
     suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
     tableHeaders: ["SIZE", "CONNECTION", "MATERIAL", "FINISH"],
     flowRateIdentifiers: ["DISCHARGE RATE", "FLOW RATE", "GPM"],
-    sectionOrder: ["product info", "options", "sizing"]
+    sectionOrder: ["product info", "options", "sizing"],
+    brandIdentifiers: ["JOSAM", "JOSAM DRAINAGE", "JOSAM MFG", "JOSAM MANUFACTURING"]
   }
 };
 
@@ -299,8 +305,8 @@ function detectManufacturer(text) {
   const cleanedText = text.toLowerCase();
   
   const manufacturers = [
-    { name: "Wade Drains", keywords: ['wade', 'drain'], confidence: 0 },
-    { name: "Watts Drains", keywords: ['watts', 'drain'], confidence: 0 },
+    { name: "Wade Drains", keywords: ['wade'], confidence: 0 },
+    { name: "Watts Drains", keywords: ['watts'], confidence: 0 },
     { name: "Zurn", keywords: ['zurn'], confidence: 0 },
     { name: "Josam", keywords: ['josam'], confidence: 0 },
     { name: "MIFAB", keywords: ['mifab'], confidence: 0 },
@@ -314,29 +320,57 @@ function detectManufacturer(text) {
     // Check for manufacturer name mentions
     for (const keyword of mfr.keywords) {
       if (cleanedText.includes(keyword)) {
-        score += 10;
+        // Higher score for brand name matches (previously 10)
+        score += 30;
         
-        // Bonus points for the manufacturer being in the first 500 characters
+        // Bonus points for the manufacturer being in the first 500 characters (previously 5)
         if (cleanedText.substring(0, 500).includes(keyword)) {
-          score += 5;
+          score += 15;
         }
       }
     }
     
-    // Check for manufacturer-specific product number patterns
+    // Check for manufacturer-specific brand identifiers if available
     const template = manufacturerTemplates[mfr.name];
+    if (template && template.brandIdentifiers) {
+      for (const identifier of template.brandIdentifiers) {
+        if (cleanedText.includes(identifier.toLowerCase())) {
+          score += 40; // Strong indicator of the brand
+        }
+      }
+    }
+    
+    // Special case for Zurn - look for Z followed by numbers which is a strong Zurn indicator
+    if (mfr.name === "Zurn" && /(?:z|zn)\d{3,5}/i.test(cleanedText)) {
+      score += 50;
+    }
+    
+    // Check for manufacturer-specific product number patterns
     if (template && cleanedText.match(template.productNumberPattern)) {
-      score += 20;
+      score += 50; // Increased from 20 to strongly favor product number patterns
     }
     
     mfr.confidence = score;
   }
   
+  console.log("Manufacturer confidence scores:", manufacturers.map(m => `${m.name}: ${m.confidence}`).join(', '));
+  
   // Sort by confidence score (descending)
   manufacturers.sort((a, b) => b.confidence - a.confidence);
   
-  // Return the detected manufacturer or null if no confident match
-  return manufacturers[0].confidence > 0 ? manufacturers[0].name : null;
+  // Only return a manufacturer if the confidence is significantly high or it's notably higher than the next best match
+  if (manufacturers[0].confidence >= 30) {
+    // Check if there's a significant gap between the top match and the second-best match
+    if (manufacturers.length > 1 && 
+        (manufacturers[0].confidence >= 50 || 
+         manufacturers[0].confidence >= manufacturers[1].confidence * 1.5)) {
+      return manufacturers[0].name;
+    } else if (manufacturers.length === 1) {
+      return manufacturers[0].name;
+    }
+  }
+  
+  return null; // No confident match
 }
 
 // Extract product number from text
