@@ -17,6 +17,7 @@ import ProcessButton from './components/ProcessButton';
 import AttributesList from './components/AttributesList';
 import ChatInterface from './components/ChatInterface';
 import SyncToPim from './components/SyncToPim';
+import AttributePromptGenerator, { AttributeGroupTemplate } from './components/AttributePromptGenerator';
 import { ProcessedAttribute, ProcessingResult } from './types';
 import { processPdf } from './services/pdfProcessingService';
 import { divisions, categories } from './services/mockData';
@@ -71,6 +72,9 @@ function App() {
   
   // Step tracking
   const [activeStep, setActiveStep] = useState<number>(0);
+  
+  // Attribute template state
+  const [attributeTemplate, setAttributeTemplate] = useState<AttributeGroupTemplate[]>([]);
 
   // Handle file selection
   const handleFileSelected = (file: File) => {
@@ -139,6 +143,11 @@ function App() {
       attributes: newAttributes
     });
   };
+  
+  // Handle template generation
+  const handleTemplateGenerated = (template: AttributeGroupTemplate[]) => {
+    setAttributeTemplate(template);
+  };
 
   const handleTestConnection = async () => {
     console.log('Testing backend connection...');
@@ -193,10 +202,20 @@ function App() {
               <AttributesList 
                 attributes={processingResults.attributes} 
                 rawText={processingResults.rawText}
+                attributeTemplate={attributeTemplate}
               />
               
               {processingResults.attributes.length > 0 && (
                 <>
+                  {selectedDivision && selectedCategory && (
+                    <AttributePromptGenerator
+                      division={divisions.find(d => d.id === selectedDivision)?.name || selectedDivision}
+                      category={categories.find(c => c.id === selectedCategory)?.name || selectedCategory}
+                      onTemplateGenerated={handleTemplateGenerated}
+                      existingAttributes={processingResults.attributes}
+                    />
+                  )}
+                  
                   <ChatInterface 
                     attributes={processingResults.attributes}
                     onAttributesUpdate={handleAttributesUpdate}
