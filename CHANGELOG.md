@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 2025-04-11 (Update 2)
+
+### Improved Zurn Product Detection
+
+* **Enhanced Zurn product pattern recognition**:
+  * Added support for FD-prefix products (like FD-2202) in Zurn detection
+  * Added pattern matching for "General Purpose Floor Drain" text
+  * Improved detection of solvent weld connections common in Zurn products
+  * Added recognition of "Light Commercial" indicator specific to Zurn
+
+* **Implemented post-processing detection**:
+  * Added fallback detection for when OCR fails to identify the manufacturer logo
+  * Created heuristics to identify Zurn products based on product patterns
+  * Added re-extraction using correct template when manufacturer is identified late
+
+* **Updated Zurn templates**:
+  * Expanded product number pattern to include more Zurn product prefixes (FD, RD, FS, GT, HD)
+  * Added "OPTIONS" to suffix section markers
+  * Added support for "-VP" (Vandal Proof) suffix detection
+  * Extended table headers to include more Zurn-specific column names
+
 ## 2025-04-11
 
 ### Manufacturer Detection Improvements
