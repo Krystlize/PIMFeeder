@@ -28,7 +28,7 @@ const processSuffixData = (attr: ProcessedAttribute) => {
   const isSuffixAttribute = attr.name.toLowerCase().includes('suffix') || 
                            attr.name.toLowerCase().includes('option');
   
-  let suffix = null;
+  let suffix: string | undefined = undefined;
   let cleanValue = attr.value;
   
   // Try to extract from value if it contains JSON-like fragments with "Suffix" and "Description"

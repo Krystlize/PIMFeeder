@@ -25,23 +25,20 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
-      - name: Debug directory structure
+      - name: Debug workspace
         run: |
-          echo "Current directory structure:"
+          pwd
+          echo "Files in current directory:"
           ls -la
-          echo "my-react-app-superman directory structure:"
-          ls -la my-react-app-superman
+          echo "Checking if my-react-app-superman exists:"
+          ls -la my-react-app-superman || echo "Directory not found"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: my-react-app-superman/package-lock.json
 
       - name: Install dependencies
         run: |
@@ -128,9 +125,9 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: github-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./my-react-app-superman/build
         timeout-minutes: 5
         continue-on-error: false
