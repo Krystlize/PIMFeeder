@@ -12,8 +12,12 @@
   ],
   "routes": [
     {
+      "src": "/api/process-pdf",
+      "dest": "/index.js"
+    },
+    {
       "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "dest": "/api/$1.js"
     },
     {
       "src": "/(.*)",
