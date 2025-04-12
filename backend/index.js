@@ -161,15 +161,15 @@ const manufacturerTemplates = {
   
   // Zurn template
   "Zurn": {
-    productNumberPattern: /\b(?:Z|ZN)[0-9]{3,5}(?:-[A-Z0-9]{1,5})?\b/i,
-    productNamePattern: /^((?:Z|ZN)[0-9]{3,5}.*?(?:FLOOR|ROOF|DRAIN|CARRIER|WATER).*?)(?:\n|$)/im,
+    productNumberPattern: /\b(?:Z|ZN|FD|RD|FS|GT|HD|Z-|ZN-|FD-|RD-)[0-9]{3,5}(?:-[A-Z0-9]{1,5})?\b/i,
+    productNamePattern: /^((?:Z|ZN|FD|RD|FS|GT|HD)[-]?[0-9]{3,5}.*?(?:FLOOR|ROOF|DRAIN|CARRIER|WATER).*?)(?:\n|$)/im,
     specificationPattern: /ZURN\s*SPEC\s*(?::|=)?\s*([A-Z0-9-]+)/i,
-    suffixSectionMarkers: ["SUFFIX", "OPTION", "PREFIX"],
-    suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2})\s+([^\n]+)/,
-    tableHeaders: ["SIZE", "CONNECTION", "MATERIAL", "FINISH"],
+    suffixSectionMarkers: ["SUFFIX", "OPTION", "PREFIX", "OPTIONS"],
+    suffixPattern: /\s+(-[A-Z0-9]+|[A-Z]{1,2}|-VP)\s+([^\n]+)/,
+    tableHeaders: ["SIZE", "CONNECTION", "MATERIAL", "FINISH", "PRODUCT", "A", "CONNECTIONS"],
     flowRateIdentifiers: ["FLOW RATE", "GPM", "GALLONS PER MINUTE"],
     sectionOrder: ["product info", "materials", "options", "connections"],
-    brandIdentifiers: ["ZURN", "ZURN INDUSTRIES", "Z SERIES", "ZN SERIES"]
+    brandIdentifiers: ["ZURN", "ZURN INDUSTRIES", "Z SERIES", "ZN SERIES", "LIGHT COMMERCIAL", "COMMERCIAL"]
   },
   
   // Jay R. Smith template
@@ -341,7 +341,11 @@ function detectManufacturer(text) {
     }
     
     // Special case for Zurn - look for Z followed by numbers which is a strong Zurn indicator
-    if (mfr.name === "Zurn" && /(?:z|zn)\d{3,5}/i.test(cleanedText)) {
+    if (mfr.name === "Zurn" && (
+      /(?:z|zn)\d{3,5}/i.test(cleanedText) || 
+      /fd-\d{4}/i.test(cleanedText) || // FD-2202 pattern for Zurn
+      (cleanedText.includes('fd') && cleanedText.match(/general purpose floor drain/i))
+    )) {
       score += 50;
     }
     
@@ -483,6 +487,37 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
           name: "Product Number",
           value: detectedProductNumber
         });
+      }
+    }
+    
+    // Try post-processing to detect manufacturer if not already detected
+    if (!detectedManufacturer) {
+      const postProcessedManufacturer = postProcessManufacturerDetection(detectedManufacturer, pdfText, extractedProductInfo);
+      if (postProcessedManufacturer) {
+        console.log(`Post-processing detected manufacturer: ${postProcessedManufacturer}`);
+        
+        // Re-extract using the manufacturer template
+        const templateResults = extractWithManufacturerTemplate(pdfText, postProcessedManufacturer);
+        
+        // Only use template results if we got meaningful data
+        if (templateResults.length > 1) {
+          // Add manufacturer to the extracted info
+          if (!templateResults.some(attr => attr.name === "Manufacturer")) {
+            templateResults.push({
+              name: "Manufacturer",
+              value: postProcessedManufacturer
+            });
+          }
+          
+          extractedProductInfo = templateResults;
+          console.log(`Re-extracted ${extractedProductInfo.length} attributes using post-processed manufacturer template`);
+        } else {
+          // Just add the manufacturer to existing info
+          extractedProductInfo.push({
+            name: "Manufacturer",
+            value: postProcessedManufacturer
+          });
+        }
       }
     }
     
@@ -1375,4 +1410,39 @@ function extractTechnicalData(text) {
   }
   
   return technicalData;
+}
+
+// Post-process detected manufacturer to handle special cases
+function postProcessManufacturerDetection(detectedManufacturer, text, extractedProductInfo) {
+  const cleanedText = text.toLowerCase();
+  
+  // If we already have a confident manufacturer, return it
+  if (detectedManufacturer) {
+    return detectedManufacturer;
+  }
+  
+  // Check for specific Zurn indicators when manufacturer was not detected
+  const hasZurnFDPattern = /fd-\d{4}/i.test(cleanedText);
+  const hasGeneralPurposeFloorDrain = cleanedText.match(/general purpose floor drain/i);
+  const hasSolventWeld = cleanedText.match(/solvent weld/i);
+  const hasLightCommericalIndicator = cleanedText.match(/light commercial/i);
+  
+  // Check for product number in extracted info
+  let productNumber = null;
+  for (const attr of extractedProductInfo) {
+    if (attr.name === "Product Number" && attr.value) {
+      productNumber = attr.value;
+      break;
+    }
+  }
+  
+  // Special case for Zurn FD-2202 and similar patterns
+  if ((hasZurnFDPattern && hasGeneralPurposeFloorDrain) || 
+      (productNumber && productNumber.match(/^FD-\d{4}/i) && hasSolventWeld) ||
+      hasLightCommericalIndicator) {
+    console.log("Post-processing detected Zurn product based on pattern matching");
+    return "Zurn";
+  }
+  
+  return null;
 } 
