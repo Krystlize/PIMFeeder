@@ -26,7 +26,8 @@ jobs:
           cd my-react-app-superman
           npm run build
         env:
-          REACT_APP_API_URL: 'https://pimfeeder.vercel.app'
+          REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
+          REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
 
       - name: Deploy
