@@ -168,8 +168,8 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
   // Sort categories to ensure consistent order
   const sortedCategories = Object.keys(structuredAttributes).sort();
   
-  // Move certain categories to the beginning and ensure essential attributes from template come first
-  const priorityCategories = ['Essential Attributes', 'Product Info', 'General', 'Dimensions', 'Pipe Size', 'Materials'];
+  // Move certain categories to the beginning and ensure mandatory attributes from template come first
+  const priorityCategories = ['Mandatory Attributes', 'Product Information', 'General', 'Dimensions', 'Pipe Size', 'Materials'];
   
   // Add any template groups to the priority list
   if (attributeTemplate) {
@@ -265,7 +265,7 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
                             >
                               {category}
                               {attributeTemplate.find(g => g.groupName === category)?.isEssential && (
-                                <Chip label="Essential" color="primary" size="small" sx={{ ml: 1 }} />
+                                <Chip label="Mandatory" color="primary" size="small" sx={{ ml: 1 }} />
                               )}
                             </Typography>
                             <List dense disablePadding>
@@ -329,7 +329,7 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
                 <TabPanel key={idx} value={tabValue} index={idx + 1}>
                   <Box sx={{ mb: 2 }}>
                     <Typography variant="subtitle1" color={group.isEssential ? "primary" : "text.secondary"} gutterBottom>
-                      <strong>{group.isEssential ? "ESSENTIAL: " : ""}</strong>
+                      <strong>{group.isEssential ? "MANDATORY: " : ""}</strong>
                       These are the {group.isEssential ? "critical" : "recommended"} attributes for {group.groupName.toLowerCase()}.
                     </Typography>
                   </Box>

@@ -174,7 +174,18 @@ const generateAttributeTemplate = async (division, category, productDescription)
     
     mockTemplate = [
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Specification Number',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
         attributes: [
           'Load rating/traffic classification (light duty, medium duty, heavy duty)',
           'Top/grate material (cast iron, stainless steel, nickel bronze, etc.)',
@@ -218,7 +229,7 @@ const generateAttributeTemplate = async (division, category, productDescription)
           'Local plumbing codes (requirements vary by jurisdiction)',
           'Buy American Act compliance (for government projects)'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
   } 
@@ -228,7 +239,18 @@ const generateAttributeTemplate = async (division, category, productDescription)
     
     mockTemplate = [
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name', 
+          'Product Description',
+          'Specification Number',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
         attributes: [
           'Material (copper, brass, PVC, CPVC, PEX, etc.)',
           'Connection type (press, solder, threaded, compression, etc.)',
@@ -271,7 +293,7 @@ const generateAttributeTemplate = async (division, category, productDescription)
           'Local plumbing codes compliance',
           'Low-lead compliance (California AB 1953, etc.)'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
   }
@@ -279,11 +301,17 @@ const generateAttributeTemplate = async (division, category, productDescription)
   else {
     mockTemplate = [
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Product Information',
         attributes: [
           'Product Name',
           'Model Number',
-          'Manufacturer',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
           'Material',
           'Dimensions',
           'Weight',
@@ -313,14 +341,14 @@ const generateAttributeTemplate = async (division, category, productDescription)
           'Environmental Compliance',
           'Sustainability Ratings'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
     
     // Add customization based on product description if provided
     if (productDescription) {
-      mockTemplate[0].attributes.push(`${productDescription} Specific Attribute 1`);
-      mockTemplate[0].attributes.push(`${productDescription} Specific Attribute 2`);
+      mockTemplate[1].attributes.push(`${productDescription} Specific Attribute 1`);
+      mockTemplate[1].attributes.push(`${productDescription} Specific Attribute 2`);
     }
   }
   

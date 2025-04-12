@@ -151,21 +151,19 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         isEssential: true
       },
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Mandatory Attributes',
         attributes: [
-          'Load rating/traffic classification (light duty, medium duty, heavy duty)',
-          'Top/grate material (cast iron, stainless steel, nickel bronze, etc.)',
-          'Top/grate finish (polished, satin, coated, etc.)',
-          'Top/grate shape (round, square, rectangular)',
-          'Top/grate dimensions',
-          'Body material (cast iron, PVC, ABS, etc.)',
-          'Outlet size (2", 3", 4", etc.)',
-          'Outlet connection type (no-hub, threaded, push-on, etc.)',
-          'Outlet orientation (bottom, side, adjustable)',
-          'Trap configuration (integral P-trap, separate, none)',
-          'Sediment bucket requirement (yes/no)',
-          'Water seal depth for trap (if applicable)',
-          'Compliance with applicable codes (UPC, IPC, local jurisdictions)'
+          'Load Rating',
+          'Load Rating Classification',
+          'Pipe Size',
+          'Outlet Type',
+          'Strainer Size', 
+          'Strainer Material',
+          'Optional Body Material',
+          'Top/grate material',
+          'Body material',
+          'Outlet connection type',
+          'Trap configuration'
         ],
         isEssential: true
       },
@@ -201,7 +199,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         isEssential: true
       },
       {
-        groupName: 'Additional Options',
+        groupName: 'Options',
         attributes: [
           'Options Suffix: -5 (Sediment Bucket)',
           'Options Suffix: -6 (Vandal Proof)',
@@ -214,21 +212,13 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Options Suffix: -F6-1 (6" Round Nickel Bronze Funnel)',
           'Options Suffix: -6-50 (4" x 9" Oval Nickel Bronze Funnel)'
         ],
-        isEssential: false
+        isEssential: true
       },
       {
         groupName: 'Body Material Options',
         attributes: [
           'Optional Body Material Suffix: -60 (PVC Body w/Socket Outlet)',
           'Optional Body Material Suffix: -61 (ABS Body w/Socket Outlet)'
-        ],
-        isEssential: false
-      },
-      {
-        groupName: 'Load Rating',
-        attributes: [
-          'Load Rating',
-          'Load Rating Classification'
         ],
         isEssential: true
       },
@@ -241,7 +231,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Strainer Size: 8"(203)',
           'Strainer Size: 10"(254)'
         ],
-        isEssential: false
+        isEssential: true
       },
       {
         groupName: 'Dimensional Data',
@@ -250,6 +240,21 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Pipe Size: 3"(76)',
           'Pipe Size: 4"(102)',
           'Pipe Size: 6"(152)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Attributes',
+        attributes: [
+          'Flow rate capacity (GPM)',
+          'Anti-ponding design (slope to drain)',
+          'Membrane clamp/flashing collar (for waterproofing areas)',
+          'Height adjustability (fixed or adjustable)',
+          'ADA compliance (where applicable)',
+          'Heel-proof requirements (if in pedestrian areas)',
+          'Anti-bacterial coating (for healthcare facilities)',
+          'Chemical resistance (for industrial applications)',
+          'Fire rating (if penetrating fire-rated floors)'
         ],
         isEssential: false
       },
@@ -264,7 +269,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Local plumbing codes (requirements vary by jurisdiction)',
           'Buy American Act compliance (for government projects)'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
   } 
@@ -274,24 +279,35 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
     
     return [
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Product Information',
         attributes: [
-          'Material (copper, brass, PVC, CPVC, PEX, etc.)',
-          'Connection type (press, solder, threaded, compression, etc.)',
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Specification Number',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Material',
+          'Connection type',
           'Size/dimension (nominal pipe size)',
           'Pressure rating',
           'Temperature rating',
           'Compatible pipe types',
           'Configuration (elbow, tee, coupling, union, etc.)',
-          'Angle (for elbows: 45°, 90°, etc.)',
-          'End connections (FPT, MPT, sweat, press, etc.)',
-          'Lead-free certification (for potable water)',
-          'Standards compliance (ASME, ASTM, NSF)'
+          'Angle (for elbows)',
+          'End connections',
+          'Lead-free certification',
+          'Standards compliance'
         ],
         isEssential: true
       },
       {
-        groupName: 'Additional Important Attributes',
+        groupName: 'Additional Attributes',
         attributes: [
           'Flow characteristics',
           'Corrosion resistance',
@@ -317,7 +333,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Local plumbing codes compliance',
           'Low-lead compliance (California AB 1953, etc.)'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
   }
@@ -326,7 +342,18 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   else if (divisionLower.includes('electrical') || divisionLower.includes('26')) {
     return [
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Specification Number',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
         attributes: [
           'Voltage rating',
           'Current rating (amps)',
@@ -343,10 +370,9 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         isEssential: true
       },
       {
-        groupName: 'Additional Important Attributes',
+        groupName: 'Additional Attributes',
         attributes: [
           'Short circuit current rating (SCCR)',
-          'UL/CSA/ETL listing',
           'Energy efficiency rating',
           'Conductor material compatibility',
           'Vibration resistance',
@@ -369,7 +395,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'RoHS compliance',
           'Local electrical codes'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
   }
@@ -378,7 +404,18 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   else if (divisionLower.includes('hvac') || divisionLower.includes('23')) {
     return [
       {
-        groupName: 'Essential Attributes',
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Specification Number',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
         attributes: [
           'Capacity/output rating (BTU, tons, CFM)',
           'Efficiency rating (SEER, EER, AFUE)',
@@ -395,7 +432,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         isEssential: true
       },
       {
-        groupName: 'Additional Important Attributes',
+        groupName: 'Additional Attributes',
         attributes: [
           'Control type (BMS, thermostat)',
           'Filtration rating/type',
@@ -422,7 +459,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Local HVAC codes',
           'EPA refrigerant regulations'
         ],
-        isEssential: false
+        isEssential: true
       }
     ];
   }
@@ -430,11 +467,19 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   // Default template for other divisions/categories
   return [
     {
-      groupName: 'Essential Attributes',
+      groupName: 'Product Information',
       attributes: [
+        'Product Number',
         'Product Name',
-        'Model Number',
+        'Product Description',
         'Manufacturer',
+        'Model Number'
+      ],
+      isEssential: true
+    },
+    {
+      groupName: 'Mandatory Attributes',
+      attributes: [
         'Material',
         'Dimensions',
         'Weight',
@@ -464,7 +509,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         'Environmental Compliance',
         'Sustainability Ratings'
       ],
-      isEssential: false
+      isEssential: true
     }
   ];
 } 

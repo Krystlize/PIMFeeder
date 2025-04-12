@@ -71,6 +71,55 @@ function sanitizeAttributes(attributes) {
   });
 }
 
+// Function to expand any complex attributes that contain multiple values
+function expandComplexAttributes(attributes) {
+  let expandedAttributes = [];
+  
+  for (const attr of attributes) {
+    // Check if this attribute looks like it contains multiple values
+    const value = attr.value;
+    
+    // If it's a very long value or contains multiple lines, it may need to be split
+    if (value.includes(',') && value.length > 50) {
+      try {
+        // Try to split by commas and create separate attributes
+        const parts = value.split(',').map(part => part.trim()).filter(part => part.length > 0);
+        
+        if (parts.length > 1) {
+          // Create individual attributes
+          for (const part of parts) {
+            if (part.includes(':')) {
+              // This part might be a key-value pair
+              const [subName, subValue] = part.split(':', 2).map(s => s.trim());
+              expandedAttributes.push({
+                name: subName,
+                value: subValue
+              });
+            } else {
+              // Just a value, use the original name
+              expandedAttributes.push({
+                name: attr.name + ' - ' + part.substring(0, 20),
+                value: part
+              });
+            }
+          }
+        } else {
+          // Not enough parts to split, keep original
+          expandedAttributes.push(attr);
+        }
+      } catch (e) {
+        console.error('Error expanding attribute:', e);
+        expandedAttributes.push(attr);
+      }
+    } else {
+      // No need to split, keep as is
+      expandedAttributes.push(attr);
+    }
+  }
+  
+  return expandedAttributes;
+}
+
 // Function to parse attributes from the model's response
 function parseAttributesFromResponse(text, division, category) {
   try {
@@ -83,13 +132,47 @@ function parseAttributesFromResponse(text, division, category) {
         
         // Convert the parsed JSON to our attribute format
         for (const [key, value] of Object.entries(jsonData)) {
-          attributes.push({
-            name: key,
-            value: typeof value === 'object' ? JSON.stringify(value) : String(value)
-          });
+          if (key === 'Additional Attributes' || key === 'Additional Information' || key === 'Other') {
+            // This is a common pattern where the model puts multiple attributes in one field
+            // We need to extract individual attributes
+            if (typeof value === 'string') {
+              const lines = value.split('\n');
+              for (const line of lines) {
+                if (line.includes(':')) {
+                  const [subKey, subValue] = line.split(':', 2).map(s => s.trim());
+                  if (subKey && subValue) {
+                    attributes.push({
+                      name: subKey,
+                      value: subValue
+                    });
+                  }
+                } else if (line.trim()) {
+                  attributes.push({
+                    name: 'Detail',
+                    value: line.trim()
+                  });
+                }
+              }
+            } else if (typeof value === 'object') {
+              // It's already an object, extract each property
+              for (const [subKey, subValue] of Object.entries(value)) {
+                attributes.push({
+                  name: subKey,
+                  value: typeof subValue === 'object' ? JSON.stringify(subValue) : String(subValue)
+                });
+              }
+            }
+          } else {
+            attributes.push({
+              name: key,
+              value: typeof value === 'object' ? JSON.stringify(value) : String(value)
+            });
+          }
         }
         
-        return sanitizeAttributes(attributes);
+        // Expand any complex attributes
+        const expandedAttributes = expandComplexAttributes(attributes);
+        return sanitizeAttributes(expandedAttributes);
       } catch (e) {
         console.error("Failed to parse JSON from model response:", e);
       }
@@ -108,16 +191,19 @@ function parseAttributesFromResponse(text, division, category) {
       }
     }
     
+    // Expand any complex attributes
+    const expandedAttributes = expandComplexAttributes(attributes);
+    
     // Add division and category if they're not already included
-    if (!attributes.some(attr => attr.name.toLowerCase() === 'division')) {
-      attributes.push({ name: 'Division', value: division });
+    if (!expandedAttributes.some(attr => attr.name.toLowerCase() === 'division')) {
+      expandedAttributes.push({ name: 'Division', value: division });
     }
     
-    if (!attributes.some(attr => attr.name.toLowerCase() === 'category')) {
-      attributes.push({ name: 'Category', value: category });
+    if (!expandedAttributes.some(attr => attr.name.toLowerCase() === 'category')) {
+      expandedAttributes.push({ name: 'Category', value: category });
     }
     
-    return sanitizeAttributes(attributes);
+    return sanitizeAttributes(expandedAttributes);
   } catch (error) {
     console.error("Error parsing attributes from response:", error);
     return sanitizeAttributes([
@@ -165,9 +251,28 @@ module.exports = async (req, res) => {
     // Create a prompt for the model
     const prompt = `
 Extract key product attributes from the following text for a ${division} product in the ${category} category.
-Return the results in JSON format with attribute names as keys and their values as strings.
-Include at minimum: Product Name, Description, Material, Dimensions, and any other relevant attributes for this product type.
-All values must be simple strings, not nested objects or arrays.
+
+INSTRUCTIONS:
+1. Return results in JSON format with attribute names as keys and their values as strings.
+2. Extract each attribute individually - DO NOT group multiple attributes into a single field.
+3. All values must be simple strings, not nested objects or arrays.
+4. Be specific and detailed with attribute names - use full descriptive names.
+5. Separate any complex information into individual attributes.
+6. If multiple values belong to the same category, give them individual, unique attribute names.
+7. Do not create an "Additional Attributes" or "Other" field that contains multiple attributes.
+
+Expected attributes for ${division} products include but are not limited to:
+- Product Name / Model
+- Manufacturer
+- Material 
+- Dimensions (width, height, depth as separate attributes)
+- Color/Finish
+- Weight
+- Capacity
+- Installation Requirements
+- Compliance Standards
+- Warranty Information
+${division === "22" ? "- Flow Rate\n- Connection Type\n- Drainage Features\n- Pipe Size\n- Material Compatibility" : ""}
 
 Text from the PDF:
 ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits

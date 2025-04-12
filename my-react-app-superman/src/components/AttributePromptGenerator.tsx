@@ -118,9 +118,9 @@ const AttributePromptGenerator: React.FC<AttributePromptGeneratorProps> = ({
                   {group.groupName}
                   {group.isEssential && (
                     <Chip 
-                      label="Essential" 
-                      color="primary" 
                       size="small" 
+                      color="primary" 
+                      label="Mandatory"
                       sx={{ ml: 1 }}
                     />
                   )}
