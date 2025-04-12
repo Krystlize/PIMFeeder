@@ -71,12 +71,12 @@ app.get('/api', (req, res) => {
   });
 });
 
-// Add these common plumbing product attributes to the mock data
+// Update the commonPlumbingAttributes to be more generic
 const commonPlumbingAttributes = [
   { name: "Flow Rate Capacity", value: "Varies by pipe size (see Free Area table)" },
   { name: "Body Material", value: "Cast Iron" },
   { name: "Top/Grate Material", value: "Nickel Bronze" },
-  { name: "Outlet Connection Type", value: "No-Hub (standard), also available with Push-On, Threaded, Inside Caulk" },
+  { name: "Outlet Connection Type", value: "Varies by model" },
   { name: "Outlet Orientation", value: "Bottom (standard)" },
   { name: "Load Rating", value: "Medium Duty (MD)" }
 ];
@@ -129,6 +129,42 @@ function attributeNamesMatch(name1, name2) {
   
   // Check for containing relationship (for partial matches)
   return norm1.includes(norm2) || norm2.includes(norm1);
+}
+
+// Add a new function to detect the manufacturer from the PDF text
+function detectManufacturer(text) {
+  const cleanedText = text.toLowerCase();
+  
+  // Check for known manufacturer names
+  if (cleanedText.includes('wade') && 
+     (cleanedText.includes('drain') || cleanedText.includes('plumbing'))) {
+    return "Wade Drains";
+  } else if (cleanedText.includes('watts') && 
+            (cleanedText.includes('drain') || cleanedText.includes('plumbing'))) {
+    return "Watts Drains";
+  } else if (cleanedText.includes('zurn') && 
+            (cleanedText.includes('drain') || cleanedText.includes('plumbing'))) {
+    return "Zurn";
+  } else if (cleanedText.includes('josam')) {
+    return "Josam";
+  } else if (cleanedText.includes('mifab')) {
+    return "MIFAB";
+  } else if (cleanedText.includes('smith')) {
+    return "Jay R. Smith";
+  }
+  
+  // Default to null if no manufacturer detected
+  return null;
+}
+
+// Extract product number from text
+function extractProductNumber(text) {
+  // Look for patterns like "FD-100-A", "Z1234", etc.
+  const productNumberRegex = /\b([A-Z]{1,3}[-]?[0-9]{1,5}[-]?[A-Z0-9]{0,3})\b/g;
+  const matches = [...text.matchAll(productNumberRegex)];
+  
+  // Return the first match or null
+  return matches.length > 0 ? matches[0][1] : null;
 }
 
 // Process PDF endpoint
@@ -202,55 +238,68 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
       pdfText = "No text could be extracted from this PDF";
     }
     
-    // Create a mock response for testing that includes manufacturer "Watts Drains"
-    // This ensures we always have the correct manufacturer in our data
-    let mockAttributes = [
-      { name: "Product Number", value: "FD-100-A" },
-      { name: "Product Name", value: "Floor Drain with Round Strainer" },
-      { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
-      { name: "Specification Number", value: "ES-WD-FD-100-A" },
-      { name: "Manufacturer", value: "Watts Drains" },
+    // Detect manufacturer from PDF text
+    const detectedManufacturer = detectManufacturer(pdfText);
+    
+    // Extract product number directly from text
+    const detectedProductNumber = extractProductNumber(pdfText);
+    
+    // Create product-specific attributes based on detected info
+    let extractedProductInfo = [];
+    
+    if (detectedManufacturer) {
+      console.log(`Detected manufacturer: ${detectedManufacturer}`);
+      extractedProductInfo.push({
+        name: "Manufacturer",
+        value: detectedManufacturer
+      });
+    }
+    
+    if (detectedProductNumber) {
+      console.log(`Detected product number: ${detectedProductNumber}`);
+      extractedProductInfo.push({
+        name: "Product Number",
+        value: detectedProductNumber
+      });
       
+      // Try to extract product name based on product number
+      const productNameMatch = pdfText.match(new RegExp(`${detectedProductNumber}[\\s\\n]*(.*?)(floor|drain|valve|fitting|water|closet|lavatory)`, 'i'));
+      if (productNameMatch) {
+        const productName = `${productNameMatch[0]}`.trim();
+        extractedProductInfo.push({
+          name: "Product Name",
+          value: productName
+        });
+      }
+    }
+    
+    // Use baseline mock data for optional attributes but not for product-specific info
+    let baselineMockAttributes = [];
+    
+    // Add mock pipe sizing attributes
+    const mockSuffixAttributes = [
       // Pipe Sizing attributes with suffixes
       { name: "Pipe Size Suffix: 2", value: "2\"(51) Pipe Size" },
       { name: "Pipe Size Suffix: 3", value: "3\"(76) Pipe Size" },
       { name: "Pipe Size Suffix: 4", value: "4\"(102) Pipe Size" },
-      { name: "Pipe Size Suffix: 6", value: "6\"(152) Pipe Size (MI Only)" },
+      { name: "Pipe Size Suffix: 6", value: "6\"(152) Pipe Size" },
       
-      // Options with suffixes
+      // Options with suffixes (generic versions)
       { name: "Options Suffix: -5", value: "Sediment Bucket" },
       { name: "Options Suffix: -6", value: "Vandal Proof" },
       { name: "Options Suffix: -7", value: "Trap Primer Tapping" },
       { name: "Options Suffix: -8", value: "Backwater Valve" },
       { name: "Options Suffix: -13", value: "Galvanized Coating" },
-      { name: "Options Suffix: -15", value: "Strainer Extension (DD-50)" },
+      { name: "Options Suffix: -15", value: "Strainer Extension" },
       { name: "Options Suffix: -AR", value: "Acid Resistant Epoxy Coated Cast Iron" },
-      { name: "Options Suffix: -H4-50", value: "4\" Round Cast Iron Funnel" },
-      { name: "Options Suffix: -H4-1", value: "4\" Round Nickel Bronze Funnel" },
-      { name: "Options Suffix: -F6-1", value: "6\" Round Nickel Bronze Funnel" },
-      { name: "Options Suffix: -6-50", value: "4\" x 9\" Oval Nickel Bronze Funnel" },
-      { name: "Options Suffix: -90", value: "Special Strainer" },
-      
-      // Outlet Type with suffixes
-      { name: "Outlet Type Suffix: MH", value: "No Hub (MI)" },
-      { name: "Outlet Type Suffix: P", value: "Push On" },
-      { name: "Outlet Type Suffix: T", value: "Threaded Outlet" },
-      { name: "Outlet Type Suffix: X", value: "Inside Caulk" },
-      
-      // Strainer with suffixes
-      { name: "Strainer Suffix: A5", value: "5\"(127) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A6", value: "6\"(152) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A7", value: "7\"(178) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A8", value: "8\"(203) Dia. Nickel Bronze" },
-      { name: "Strainer Suffix: A10", value: "10\"(254) Dia. Nickel Bronze" }
     ];
     
     // Add common plumbing attributes for drains if appropriate
     if (division === '22' || division.toLowerCase().includes('plumb')) {
-      mockAttributes = [...mockAttributes, ...commonPlumbingAttributes];
+      baselineMockAttributes = [...commonPlumbingAttributes];
     }
     
-    // Extract tabular data from the PDF text if we have any
+    // Extract tabular data from the PDF text
     let extractedAttributes = [];
     if (pdfText && pdfText.length > 0) {
       // Try to extract tabular data
@@ -269,6 +318,9 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
       if (extractedAttributes.length > 0) {
         console.log(`Extracted ${extractedAttributes.length} attributes from tables`);
       }
+      
+      // After all extraction is done, add product info to extracted attributes
+      extractedAttributes = [...extractedAttributes, ...extractedProductInfo];
       
       // If very few attributes were found, try using the AI model
       if (extractedAttributes.length < 5) {
@@ -289,7 +341,7 @@ INSTRUCTIONS:
    - Look for tables with patterns like "Code | Description" or "Suffix | Description"
    - Be careful with the AR suffix - it should be "AR" not "ARA" and means "Acid Resistant Epoxy Coated Cast Iron"
 6. If there are pipe sizing options, extract them as "Pipe Size Suffix: X" where X is the size indicator
-7. The manufacturer is Watts Drains - not Wade Drains
+7. IMPORTANT: Look for the correct manufacturer name in the text (e.g., Watts Drains, Wade Drains, Zurn, Josam, MIFAB, Jay R. Smith)
 8. Use these EXACT attribute names for plumbing products:
    - "Flow Rate Capacity" (not just "Capacity")
    - "Body Material" (not just "Material")
@@ -310,7 +362,7 @@ INSTRUCTIONS:
 Expected attributes for ${division} products include but are not limited to:
 - Product Number / Model Number
 - Product Name
-- Manufacturer (Watts Drains)
+- Manufacturer
 - Material
 - Dimensions
 ${division === "22" ? 
@@ -348,30 +400,50 @@ ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
       }
     }
     
-    // Combine mock attributes with extracted attributes, with mock taking precedence for critical fields
-    let attributes = [...mockAttributes];
+    // COMPLETELY NEW ATTRIBUTE MERGING LOGIC
+    // Start with product-specific information that was extracted
+    let attributes = [...extractedProductInfo];
     
-    // Add any extracted attributes that don't conflict with mock data or provide additional suffix info
+    // Add extracted attributes that don't conflict with already added product info
     for (const extractedAttr of extractedAttributes) {
-      // Check if this attribute type is already in our mock data using semantic matching
-      const existingAttrIndex = attributes.findIndex(attr => 
-        attributeNamesMatch(attr.name, extractedAttr.name));
-      
-      // If it's a suffix attribute that doesn't exist in our mock data, add it
-      if (existingAttrIndex === -1) {
-        // Check if it's a suffix or non-conflicting attribute
-        if (extractedAttr.name.toLowerCase().includes('suffix') || 
-            !mockAttributes.some(a => attributeNamesMatch(a.name, extractedAttr.name))) {
-          attributes.push(extractedAttr);
-        }
+      // Skip if we already added this attribute from product info
+      if (!attributes.some(attr => attributeNamesMatch(attr.name, extractedAttr.name))) {
+        attributes.push(extractedAttr);
       }
-      // If the existing attribute has N/A, or empty value, replace it with the extracted value
-      else if (attributes[existingAttrIndex].value === 'N/A' || 
-               attributes[existingAttrIndex].value === '' ||
-               attributes[existingAttrIndex].value.toLowerCase() === 'not applicable') {
-        // Keep the original attribute name to maintain consistency
-        attributes[existingAttrIndex].value = extractedAttr.value;
+    }
+    
+    // Add suffix attributes from baseline mock data if they don't already exist
+    for (const mockSuffix of mockSuffixAttributes) {
+      // Only add suffix attributes that aren't already in our list
+      if (!attributes.some(attr => 
+          attr.name.toLowerCase().includes('suffix') && 
+          attr.name.includes(mockSuffix.name.split(':')[1].trim()))) {
+        attributes.push(mockSuffix);
       }
+    }
+    
+    // Finally, add any remaining common attributes that haven't been added yet
+    for (const commonAttr of baselineMockAttributes) {
+      if (!attributes.some(attr => attributeNamesMatch(attr.name, commonAttr.name))) {
+        attributes.push(commonAttr);
+      }
+    }
+    
+    // If we still don't have a manufacturer, use a default
+    if (!attributes.some(attr => attr.name === "Manufacturer")) {
+      // Default to Watts as fallback only if no manufacturer was detected
+      attributes.push({
+        name: "Manufacturer",
+        value: "Watts Drains"
+      });
+    }
+    
+    // If we still don't have a product number, use a default
+    if (!attributes.some(attr => attr.name === "Product Number")) {
+      attributes.push({
+        name: "Product Number",
+        value: "Unknown"
+      });
     }
     
     // Generate the attribute template based on division and category
