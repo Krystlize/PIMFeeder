@@ -8,10 +8,18 @@ export const processPdf = async (
   category: string
 ): Promise<ProcessingResult> => {
   try {
-    return await processPDFWithAI(file, division, category);
+    // Call the backend service to process the PDF
+    const result = await processPDFWithAI(file, division, category);
+    
+    // Return the processed result
+    return {
+      attributes: result.attributes,
+      rawText: result.rawText,
+      template: result.template || []
+    };
   } catch (error) {
-    console.error('Error in processPdf:', error);
-    throw error;
+    console.error('Error processing PDF:', error);
+    throw new Error('Failed to process PDF');
   }
 };
 

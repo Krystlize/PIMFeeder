@@ -16,9 +16,16 @@ export interface ProcessedAttribute {
   oldValue?: string;
 }
 
+export interface AttributeGroup {
+  groupName: string;
+  attributes: string[];
+  isEssential: boolean;
+}
+
 export interface ProcessingResult {
   attributes: ProcessedAttribute[];
   rawText?: string;
+  template?: AttributeGroup[];
 }
 
 export interface ChatMessage {

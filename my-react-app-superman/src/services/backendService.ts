@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { ProcessingResult, ProcessedAttribute } from '../types';
-import { AttributeGroupTemplate } from '../components/AttributePromptGenerator';
+import { ProcessingResult, ProcessedAttribute, AttributeGroup } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
 const HUGGING_FACE_TOKEN = process.env.REACT_APP_HUGGING_FACE_TOKEN;
@@ -29,7 +28,11 @@ export const processPDFWithAI = async (
         'Content-Type': 'multipart/form-data',
       },
     });
-    return response.data;
+    return {
+      attributes: response.data.attributes,
+      rawText: response.data.rawText,
+      template: response.data.template || []
+    };
   } catch (error) {
     console.error('Error processing PDF:', error);
     throw new Error('Failed to process PDF. Please try again.');
@@ -84,7 +87,7 @@ export const getAttributeTemplateFromAI = async (
   division: string,
   category: string,
   productDescription: string
-): Promise<AttributeGroupTemplate[]> => {
+): Promise<AttributeGroup[]> => {
   try {
     const response = await api.post(`${API_BASE_URL}/generate-template`, {
       prompt,

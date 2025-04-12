@@ -17,8 +17,7 @@ import ProcessButton from './components/ProcessButton';
 import AttributesList from './components/AttributesList';
 import ChatInterface from './components/ChatInterface';
 import SyncToPim from './components/SyncToPim';
-import AttributePromptGenerator, { AttributeGroupTemplate } from './components/AttributePromptGenerator';
-import { ProcessedAttribute, ProcessingResult } from './types';
+import { ProcessedAttribute, ProcessingResult, AttributeGroup } from './types';
 import { processPdf } from './services/pdfProcessingService';
 import { divisions, categories } from './services/mockData';
 import { testBackendConnection } from './utils/testConnection';
@@ -74,7 +73,7 @@ function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   
   // Attribute template state
-  const [attributeTemplate, setAttributeTemplate] = useState<AttributeGroupTemplate[]>([]);
+  const [attributeTemplate, setAttributeTemplate] = useState<AttributeGroup[]>([]);
 
   // Handle file selection
   const handleFileSelected = (file: File) => {
@@ -126,7 +125,26 @@ function App() {
       // Process the PDF
       const results = await processPdf(selectedFile, divisionName, categoryName);
       
+      // Set the processing results
       setProcessingResults(results);
+      
+      // If the results include a template, use it
+      if (results.template && results.template.length > 0) {
+        setAttributeTemplate(results.template);
+      }
+      // Otherwise generate a template (this is a fallback)
+      else {
+        try {
+          const prompt = `If I had a product in division ${divisionName}, ${categoryName} category, what attributes would be required as an engineer or architect when specifying this product in a commercial project in North America?`;
+          const { getAttributeTemplateFromAI } = await import('./services/backendService');
+          const template = await getAttributeTemplateFromAI(prompt, divisionName, categoryName, '');
+          setAttributeTemplate(template);
+        } catch (templateError) {
+          console.error('Error generating attribute template:', templateError);
+          // Continue even if template generation fails
+        }
+      }
+      
       setActiveStep(3);
     } catch (error) {
       console.error('Error processing PDF:', error);
@@ -145,7 +163,7 @@ function App() {
   };
   
   // Handle template generation
-  const handleTemplateGenerated = (template: AttributeGroupTemplate[]) => {
+  const handleTemplateGenerated = (template: AttributeGroup[]) => {
     setAttributeTemplate(template);
   };
 
@@ -207,15 +225,6 @@ function App() {
               
               {processingResults.attributes.length > 0 && (
                 <>
-                  {selectedDivision && selectedCategory && (
-                    <AttributePromptGenerator
-                      division={divisions.find(d => d.id === selectedDivision)?.name || selectedDivision}
-                      category={categories.find(c => c.id === selectedCategory)?.name || selectedCategory}
-                      onTemplateGenerated={handleTemplateGenerated}
-                      existingAttributes={processingResults.attributes}
-                    />
-                  )}
-                  
                   <ChatInterface 
                     attributes={processingResults.attributes}
                     onAttributesUpdate={handleAttributesUpdate}

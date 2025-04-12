@@ -21,13 +21,12 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import UpdateIcon from '@mui/icons-material/Update';
-import { ProcessedAttribute } from '../types';
-import { AttributeGroupTemplate } from './AttributePromptGenerator';
+import { ProcessedAttribute, AttributeGroup } from '../types';
 
 interface AttributesListProps {
   attributes: ProcessedAttribute[];
   rawText?: string;
-  attributeTemplate?: AttributeGroupTemplate[];
+  attributeTemplate?: AttributeGroup[];
 }
 
 interface TabPanelProps {
@@ -57,7 +56,6 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, attributeTemplate = [] }) => {
-  const [searchTerm, setSearchTerm] = useState('');
   const [showRawText, setShowRawText] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const [structuredAttributes, setStructuredAttributes] = useState<Record<string, ProcessedAttribute[]>>({});
@@ -66,12 +64,6 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
-
-  // Filter attributes based on search term
-  const filteredAttributes = attributes.filter(attr => 
-    attr.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    attr.value.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   // Process attributes based on whether we have a template or need to auto-group
   useEffect(() => {
@@ -85,7 +77,7 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
       });
       
       // Assign attributes to groups
-      filteredAttributes.forEach(attr => {
+      attributes.forEach(attr => {
         let assigned = false;
         
         // Try to match attribute to a template group
@@ -116,7 +108,7 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
       setStructuredAttributes(templateGroups);
     } else {
       // Group attributes by category (use first word of attribute name as category)
-      const groupedAttributes = filteredAttributes.reduce((groups: Record<string, ProcessedAttribute[]>, attr) => {
+      const groupedAttributes = attributes.reduce((groups: Record<string, ProcessedAttribute[]>, attr) => {
         // Extract category from attribute name (first word or before colon)
         let category = 'General';
         
@@ -171,7 +163,7 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
       
       setStructuredAttributes(groupedAttributes);
     }
-  }, [filteredAttributes, attributeTemplate]);
+  }, [attributes, attributeTemplate]);
   
   // Sort categories to ensure consistent order
   const sortedCategories = Object.keys(structuredAttributes).sort();
@@ -207,29 +199,6 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
         <Typography variant="h6">
           Extracted Attributes
         </Typography>
-        <Box display="flex" alignItems="center">
-          <TextField
-            size="small"
-            placeholder="Search attributes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment: searchTerm && (
-                <InputAdornment position="end">
-                  <IconButton size="small" onClick={() => setSearchTerm('')}>
-                    <ClearIcon fontSize="small" />
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-            sx={{ width: 200 }}
-          />
-        </Box>
       </Box>
       
       {attributes.length === 0 ? (
@@ -270,13 +239,30 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
               </Box>
               
               <TabPanel value={tabValue} index={0}>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2" color="primary" gutterBottom>
+                    Attributes are structured according to engineering requirements for this product type.
+                    Click the tabs above to view attributes by category.
+                  </Typography>
+                </Box>
                 <Grid container spacing={2}>
                   {sortedCategories.map(category => (
                     structuredAttributes[category]?.length > 0 && (
                       <Grid item xs={12} md={6} key={category}>
-                        <Card variant="outlined" sx={{ mb: 2 }}>
+                        <Card 
+                          variant="outlined" 
+                          sx={{ 
+                            mb: 2,
+                            borderColor: attributeTemplate.find(g => g.groupName === category)?.isEssential ? 'primary.main' : 'divider'
+                          }}
+                        >
                           <CardContent>
-                            <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+                            <Typography 
+                              variant="subtitle1" 
+                              fontWeight="bold" 
+                              gutterBottom
+                              color={attributeTemplate.find(g => g.groupName === category)?.isEssential ? 'primary.main' : 'text.primary'}
+                            >
                               {category}
                               {attributeTemplate.find(g => g.groupName === category)?.isEssential && (
                                 <Chip label="Essential" color="primary" size="small" sx={{ ml: 1 }} />
@@ -341,8 +327,21 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
               
               {attributeTemplate.map((group, idx) => (
                 <TabPanel key={idx} value={tabValue} index={idx + 1}>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="subtitle1" color={group.isEssential ? "primary" : "text.secondary"} gutterBottom>
+                      <strong>{group.isEssential ? "ESSENTIAL: " : ""}</strong>
+                      These are the {group.isEssential ? "critical" : "recommended"} attributes for {group.groupName.toLowerCase()}.
+                    </Typography>
+                  </Box>
+                  
                   {structuredAttributes[group.groupName]?.length > 0 ? (
-                    <Card variant="outlined">
+                    <Card 
+                      variant="outlined" 
+                      sx={{ 
+                        mb: 2,
+                        borderColor: group.isEssential ? 'primary.main' : 'divider'
+                      }}
+                    >
                       <CardContent>
                         <List dense disablePadding>
                           {structuredAttributes[group.groupName].map((attribute, index) => (
@@ -396,29 +395,60 @@ const AttributesList: React.FC<AttributesListProps> = ({ attributes, rawText, at
                       </CardContent>
                     </Card>
                   ) : (
-                    <Typography variant="body1" color="text.secondary">
-                      No matching attributes found in this category. Consider modifying the PDF extraction or using the chat to add these attributes.
+                    <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                      <strong>Missing attributes in this category.</strong> Consider using the chat below to add these attributes.
                     </Typography>
                   )}
                   
                   <Box mt={3}>
-                    <Typography variant="subtitle2" gutterBottom>
-                      Expected attributes in this category:
+                    <Typography variant="subtitle2" gutterBottom color={group.isEssential ? "primary" : "text.secondary"}>
+                      {structuredAttributes[group.groupName]?.length > 0 
+                        ? "All expected attributes in this category:" 
+                        : "Missing attributes in this category:"}
                     </Typography>
-                    <List>
-                      {group.attributes.map((attr, idx) => (
-                        <ListItem key={idx}>
-                          <ListItemText 
-                            primary={attr}
-                            sx={{
-                              color: structuredAttributes[group.groupName]?.some(
-                                a => a.name.toLowerCase().includes(attr.toLowerCase()) || 
-                                     attr.toLowerCase().includes(a.name.toLowerCase())
-                              ) ? 'text.primary' : 'text.disabled'
-                            }}
-                          />
-                        </ListItem>
-                      ))}
+                    <List dense>
+                      {group.attributes.map((attr, idx) => {
+                        const isFound = structuredAttributes[group.groupName]?.some(
+                          a => a.name.toLowerCase().includes(attr.toLowerCase()) || 
+                               attr.toLowerCase().includes(a.name.toLowerCase())
+                        );
+                        return (
+                          <ListItem key={idx} dense>
+                            <ListItemText 
+                              primary={
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                  <Typography
+                                    variant="body2"
+                                    sx={{
+                                      color: isFound ? 'text.primary' : (group.isEssential ? 'error.main' : 'text.disabled'),
+                                      fontWeight: isFound ? 'bold' : 'normal',
+                                      textDecoration: isFound ? 'none' : 'none'
+                                    }}
+                                  >
+                                    {attr}
+                                  </Typography>
+                                  {isFound && (
+                                    <Chip 
+                                      label="Found" 
+                                      color="success" 
+                                      size="small" 
+                                      sx={{ ml: 1 }}
+                                    />
+                                  )}
+                                  {!isFound && group.isEssential && (
+                                    <Chip 
+                                      label="Required" 
+                                      color="error" 
+                                      size="small" 
+                                      sx={{ ml: 1 }}
+                                    />
+                                  )}
+                                </Box>
+                              }
+                            />
+                          </ListItem>
+                        );
+                      })}
                     </List>
                   </Box>
                 </TabPanel>
