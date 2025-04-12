@@ -47,7 +47,9 @@ app.get('/', (req, res) => {
     endpoints: {
       health: '/health or /api/health',
       api: '/api',
-      processPdf: '/api/process-pdf'
+      processPdf: '/api/process-pdf',
+      chat: '/api/chat',
+      updateAttributes: '/api/update-attributes'
     }
   });
 });
@@ -75,6 +77,65 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   } catch (error) {
     console.error('Error processing PDF:', error);
     return res.status(500).json({ error: 'Failed to process PDF' });
+  }
+});
+
+// Chat endpoint
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message, attributes, context } = req.body;
+    
+    // Here you would call your AI model for chat responses
+    // For now, return a mock response
+    return res.status(200).json({
+      response: `I've processed your message: "${message}". The document has ${attributes.length} attributes.`
+    });
+  } catch (error) {
+    console.error('Error in chat:', error);
+    return res.status(500).json({ error: 'Failed to process chat' });
+  }
+});
+
+// Update attributes endpoint
+app.post('/api/update-attributes', async (req, res) => {
+  try {
+    const { message, attributes, context, instructions } = req.body;
+    
+    // Here you would call your AI model to update attributes based on the chat
+    // This is where we would apply the logic for pipe size and other attribute categorization
+    // For now, let's simulate adding a new pipe size attribute if mentioned in the message
+    
+    let updatedAttributes = [...attributes];
+    
+    if (message.toLowerCase().includes('pipe size') || message.toLowerCase().includes('diameter')) {
+      updatedAttributes.push({
+        name: 'Pipe Size',
+        value: 'DN50 (2")'
+      });
+    }
+    
+    // Add any other attribute mentioned in the message
+    if (message.toLowerCase().includes('add') || message.toLowerCase().includes('create')) {
+      const attributeMatch = message.match(/(?:add|create|new)(.*?)attribute(?:.*?)called(.*?)(?:with value|valued at|value of|:)(.*?)(?:$|\.)/i);
+      if (attributeMatch && attributeMatch.length >= 4) {
+        const attrName = attributeMatch[2].trim();
+        const attrValue = attributeMatch[3].trim();
+        
+        if (attrName && attrValue) {
+          updatedAttributes.push({
+            name: attrName,
+            value: attrValue
+          });
+        }
+      }
+    }
+    
+    return res.status(200).json({
+      updatedAttributes
+    });
+  } catch (error) {
+    console.error('Error updating attributes:', error);
+    return res.status(500).json({ error: 'Failed to update attributes' });
   }
 });
 

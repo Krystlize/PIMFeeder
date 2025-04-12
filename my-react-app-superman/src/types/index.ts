@@ -12,6 +12,8 @@ export interface Category {
 export interface ProcessedAttribute {
   name: string;
   value: string;
+  updated?: boolean;
+  oldValue?: string;
 }
 
 export interface ProcessingResult {

@@ -2,6 +2,15 @@ import axios from 'axios';
 import { ProcessingResult, ProcessedAttribute } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+const HUGGING_FACE_TOKEN = process.env.REACT_APP_HUGGING_FACE_TOKEN;
+
+// Create an axios instance with default headers
+const api = axios.create({
+  headers: {
+    'Authorization': `Bearer ${HUGGING_FACE_TOKEN}`,
+    'Content-Type': 'application/json'
+  }
+});
 
 export const processPDFWithAI = async (
   file: File,
@@ -14,7 +23,7 @@ export const processPDFWithAI = async (
   formData.append('category', category);
 
   try {
-    const response = await axios.post(`${API_BASE_URL}/process-pdf`, formData, {
+    const response = await api.post(`${API_BASE_URL}/process-pdf`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -32,7 +41,7 @@ export const chatWithLLM = async (
   context: string
 ): Promise<string> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/chat`, {
+    const response = await api.post(`${API_BASE_URL}/chat`, {
       message,
       attributes,
       context
@@ -50,10 +59,17 @@ export const updateAttributesWithLLM = async (
   context: string
 ): Promise<ProcessedAttribute[]> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/update-attributes`, {
+    const response = await api.post(`${API_BASE_URL}/update-attributes`, {
       message,
       attributes: currentAttributes,
-      context
+      context,
+      instructions: `
+        When extracting or updating attributes, pay special attention to:
+        1. Pipe size attributes - create separate attributes for nominal size, actual size, etc.
+        2. Properly format dimensions with correct units
+        3. Group similar attributes together for easier PIM synchronization
+        4. Maintain all original attributes unless explicitly asked to modify them
+      `
     });
     return response.data.updatedAttributes;
   } catch (error) {
