@@ -4,6 +4,42 @@ const { HfInference } = require('@huggingface/inference');
 // Initialize Hugging Face
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
+// Function to sanitize attributes and ensure they have the correct format
+function sanitizeAttributes(attributes) {
+  if (!Array.isArray(attributes)) {
+    console.error('Attributes is not an array:', attributes);
+    return [];
+  }
+  
+  return attributes.map(attr => {
+    // If attr is not an object, convert it to one
+    if (typeof attr !== 'object' || attr === null) {
+      console.error('Invalid attribute format:', attr);
+      return { name: 'Unknown', value: String(attr) };
+    }
+    
+    // If attribute has unexpected structure, normalize it
+    if (!('name' in attr) || !('value' in attr)) {
+      // Try to convert object key/value pairs to name/value
+      const entries = Object.entries(attr);
+      if (entries.length > 0) {
+        const [key, value] = entries[0];
+        return {
+          name: key,
+          value: typeof value === 'object' ? JSON.stringify(value) : String(value)
+        };
+      }
+      return { name: 'Unknown', value: 'Unknown' };
+    }
+    
+    // Ensure values are strings
+    return {
+      name: String(attr.name),
+      value: typeof attr.value === 'object' ? JSON.stringify(attr.value) : String(attr.value)
+    };
+  });
+}
+
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -22,18 +58,25 @@ module.exports = async (req, res) => {
 
   try {
     // Get the message, attributes, and context from the request body
-    const { message, attributes, context } = req.body;
+    let { message, attributes, context } = req.body;
     console.log('Chat message:', message);
     
     if (!message) {
       return res.status(400).json({ error: 'No message provided' });
     }
     
+    // Sanitize input data
+    message = String(message);
+    context = context ? String(context) : '';
+    
+    // Sanitize attributes if present
+    const sanitizedAttributes = attributes ? sanitizeAttributes(attributes) : [];
+    
     // Format attributes for the prompt
     let attributesText = '';
-    if (attributes && attributes.length > 0) {
+    if (sanitizedAttributes.length > 0) {
       attributesText = 'Product Attributes:\n';
-      attributes.forEach(attr => {
+      sanitizedAttributes.forEach(attr => {
         attributesText += `- ${attr.name}: ${attr.value}\n`;
       });
     }
@@ -54,6 +97,8 @@ Instructions:
 - If the user asks about information not in the attributes, acknowledge this and suggest what information might help.
 - Keep your answers concise, professional, and helpful.
 - If the user asks to update an attribute, respond affirmatively but do not make any actual changes.
+- Avoid technical jargon or references to programming concepts.
+- Present your answer in a clear, direct manner.
 `;
     
     // Use Hugging Face model to generate a response
@@ -67,8 +112,22 @@ Instructions:
       }
     });
     
-    // Extract the generated text
-    const generatedResponse = result.generated_text.trim();
+    // Extract and sanitize the generated text
+    let generatedResponse = result.generated_text.trim();
+    
+    // Remove any potential JSON formatting or code blocks that might cause issues
+    generatedResponse = generatedResponse
+      .replace(/```[a-z]*\n[\s\S]*?\n```/g, '') // Remove code blocks
+      .replace(/\{[\s\S]*\}/g, match => {
+        try {
+          // Try to parse as JSON and stringify it to ensure it's clean
+          const parsed = JSON.parse(match);
+          return JSON.stringify(parsed);
+        } catch (e) {
+          // If it's not valid JSON, return as is
+          return match;
+        }
+      });
     
     return res.status(200).json({ 
       response: generatedResponse,

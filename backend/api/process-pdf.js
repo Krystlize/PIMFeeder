@@ -35,6 +35,42 @@ async function extractTextFromPDF(pdfBuffer) {
   }
 }
 
+// Function to sanitize attributes and ensure they have the correct format
+function sanitizeAttributes(attributes) {
+  if (!Array.isArray(attributes)) {
+    console.error('Attributes is not an array:', attributes);
+    return [];
+  }
+  
+  return attributes.map(attr => {
+    // If attr is not an object, convert it to one
+    if (typeof attr !== 'object' || attr === null) {
+      console.error('Invalid attribute format:', attr);
+      return { name: 'Unknown', value: String(attr) };
+    }
+    
+    // If attribute has unexpected structure, normalize it
+    if (!('name' in attr) || !('value' in attr)) {
+      // Try to convert object key/value pairs to name/value
+      const entries = Object.entries(attr);
+      if (entries.length > 0) {
+        const [key, value] = entries[0];
+        return {
+          name: key,
+          value: typeof value === 'object' ? JSON.stringify(value) : String(value)
+        };
+      }
+      return { name: 'Unknown', value: 'Unknown' };
+    }
+    
+    // Ensure values are strings
+    return {
+      name: String(attr.name),
+      value: typeof attr.value === 'object' ? JSON.stringify(attr.value) : String(attr.value)
+    };
+  });
+}
+
 // Function to parse attributes from the model's response
 function parseAttributesFromResponse(text, division, category) {
   try {
@@ -49,11 +85,11 @@ function parseAttributesFromResponse(text, division, category) {
         for (const [key, value] of Object.entries(jsonData)) {
           attributes.push({
             name: key,
-            value: String(value)
+            value: typeof value === 'object' ? JSON.stringify(value) : String(value)
           });
         }
         
-        return attributes;
+        return sanitizeAttributes(attributes);
       } catch (e) {
         console.error("Failed to parse JSON from model response:", e);
       }
@@ -81,14 +117,14 @@ function parseAttributesFromResponse(text, division, category) {
       attributes.push({ name: 'Category', value: category });
     }
     
-    return attributes;
+    return sanitizeAttributes(attributes);
   } catch (error) {
     console.error("Error parsing attributes from response:", error);
-    return [
+    return sanitizeAttributes([
       { name: "Error", value: "Failed to parse attributes from model response" },
       { name: "Division", value: division },
       { name: "Category", value: category }
-    ];
+    ]);
   }
 }
 
@@ -129,8 +165,9 @@ module.exports = async (req, res) => {
     // Create a prompt for the model
     const prompt = `
 Extract key product attributes from the following text for a ${division} product in the ${category} category.
-Return the results in JSON format with attribute names as keys and their values.
+Return the results in JSON format with attribute names as keys and their values as strings.
 Include at minimum: Product Name, Description, Material, Dimensions, and any other relevant attributes for this product type.
+All values must be simple strings, not nested objects or arrays.
 
 Text from the PDF:
 ${pdfText.substring(0, 4000)} // Limit text length to avoid token limits
