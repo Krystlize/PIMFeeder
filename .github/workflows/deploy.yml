@@ -16,11 +16,11 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  BUILD_PATH: "my-react-app-superman" # Set build path as an environment variable
+
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,74 +31,36 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        run: |
-          if [ -d "my-react-app-superman" ]; then
-            cd my-react-app-superman
-            npm install
-          else
-            npm install
-          fi
+        working-directory: ${{ env.BUILD_PATH }}
+        run: npm ci
 
       - name: Build
-        run: |
-          if [ -d "my-react-app-superman" ]; then
-            cd my-react-app-superman
-            CI=false npm run build
-          else
-            CI=false npm run build
-          fi
+        working-directory: ${{ env.BUILD_PATH }}
+        run: npm run build
         env:
           REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
           REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
 
-      - name: Determine build path
-        id: build-path
-        run: |
-          if [ -d "my-react-app-superman/build" ]; then
-            echo "path=my-react-app-superman/build" >> $GITHUB_OUTPUT
-          elif [ -d "build" ]; then
-            echo "path=build" >> $GITHUB_OUTPUT
-          else
-            echo "No build directory found"
-            exit 1
-          fi
-
-      # Save logs if build fails
-      - name: Save logs
-        if: failure()
-        run: |
-          echo "=== Build Logs ===" > logs.txt
-          if [ -f my-react-app-superman/build.log ]; then
-            cat my-react-app-superman/build.log >> logs.txt
-          else
-            echo "No build log found" >> logs.txt
-          fi
-          echo "=== NPM Install Logs ===" >> logs.txt
-          if [ -f my-react-app-superman/npm-install.log ]; then
-            cat my-react-app-superman/npm-install.log >> logs.txt
-          else
-            echo "No npm install log found" >> logs.txt
-          fi
-
-      - name: Upload logs
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: deployment-logs
-          path: logs.txt
-
-      # GitHub Pages deployment
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ steps.build-path.outputs.path }}
+          path: ${{ env.BUILD_PATH }}/build
 
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3 
