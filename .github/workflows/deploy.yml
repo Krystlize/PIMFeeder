@@ -1,0 +1,98 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Debug workspace
+        run: |
+          pwd
+          echo "Files in current directory:"
+          ls -la
+          echo "Checking if my-react-app-superman exists:"
+          ls -la my-react-app-superman || echo "Directory not found"
+
+      - name: Navigate to correct directory
+        run: |
+          if [ -d "my-react-app-superman" ]; then
+            cd my-react-app-superman
+            echo "Moved to my-react-app-superman directory"
+            ls -la
+          else
+            echo "Using current directory"
+            ls -la
+          fi
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          if [ -d "my-react-app-superman" ]; then
+            cd my-react-app-superman
+            npm install
+          else
+            npm install
+          fi
+
+      - name: Build
+        run: |
+          if [ -d "my-react-app-superman" ]; then
+            cd my-react-app-superman
+            CI=false npm run build
+          else
+            CI=false npm run build
+          fi
+        env:
+          REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
+          REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
+          REACT_APP_ENV: 'production'
+
+      - name: Determine build path
+        id: build-path
+        run: |
+          if [ -d "my-react-app-superman/build" ]; then
+            echo "path=my-react-app-superman/build" >> $GITHUB_OUTPUT
+          elif [ -d "build" ]; then
+            echo "path=build" >> $GITHUB_OUTPUT
+          else
+            echo "No build directory found"
+            exit 1
+          fi
+
+      # GitHub Pages deployment
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./${{ steps.build-path.outputs.path }}
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 
