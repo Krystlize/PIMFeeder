@@ -47,7 +47,20 @@ jobs:
           REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
           REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
-        run: npm run build
+        run: |
+          npm run build
+          ls -la build || echo "Build directory not found"
+
+      - name: Debug directory structure
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -la
+          echo "Build path contents:"
+          ls -la ${{ env.BUILD_PATH }}
+          echo "Build directory contents (if exists):"
+          ls -la ${{ env.BUILD_PATH }}/build || echo "Build directory not found"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
