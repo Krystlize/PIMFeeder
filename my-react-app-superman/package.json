@@ -36,11 +36,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=/PIMFeeder react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "cp build/index.html build/404.html && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
