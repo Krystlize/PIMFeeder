@@ -272,7 +272,123 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
         isEssential: true
       }
     ];
-  } 
+  }
+  // Mock template for commercial faucets
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+           (categoryLower.includes('fixture') || categoryLower.includes('faucet'))) {
+    
+    return [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Flow Rate (GPM)',
+          'Maximum Flow Rate at 60 PSI',
+          'Spout Reach (inches)',
+          'Spout Height (inches)',
+          'Center-to-Center Dimensions',
+          'Mounting Type (deck-mount, wall-mount, etc.)',
+          'Handle Type (single, double, cross, lever, etc.)',
+          'Connection Type (compression, threaded, etc.)',
+          'Inlet Size',
+          'Material (brass, stainless steel, etc.)',
+          'Finish (chrome, brushed nickel, etc.)',
+          'LEAD FREE Certification'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Operation and Controls',
+        attributes: [
+          'Operation Type (manual, electronic, touchless)',
+          'Sensor Type (infrared, capacitive)',
+          'Power Source (battery, AC, hardwired)',
+          'Battery Type and Life',
+          'Auto Shut-off Timer',
+          'Temperature Control (mixing valve, thermostatic)',
+          'Temperature Range',
+          'Pre-set Temperature Option',
+          'Temperature Limit Stop'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Aerator Type',
+          'Drain Assembly Included',
+          'ADA Compliant',
+          'Water-Saving Features',
+          'Vandal Resistant Features',
+          'Laminar Flow Option',
+          'Self-Closing Mechanism',
+          'Temperature Indicator',
+          'Integral Check Valves',
+          'Integral Strainers'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Installation Requirements',
+        attributes: [
+          'Hole Size Requirements',
+          'Deck Thickness Range',
+          'Supply Line Requirements',
+          'Installation Type (single hole, widespread, centerset)',
+          'Number of Mounting Holes',
+          'Distance Between Faucet Centers'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Finishes and Options',
+        attributes: [
+          'Available Finishes',
+          'Special Coatings',
+          'Antimicrobial Surface Treatment',
+          'Optional Accessories',
+          'Replacement Parts Availability'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Code and Standards Compliance',
+        attributes: [
+          'NSF/ANSI 61 Certification',
+          'NSF/ANSI 372 (Lead Content)',
+          'ASME A112.18.1/CSA B125.1',
+          'ASSE 1070 Compliance (if temperature regulation)',
+          'UPC/IPC Compliance',
+          'CALGreen Compliant',
+          'WaterSense Labeled',
+          'ADA Compliance',
+          'California AB 1953 Lead-Free Compliance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Warranty and Service',
+        attributes: [
+          'Warranty Period (years)',
+          'Commercial Warranty Details',
+          'Parts Warranty',
+          'Finish Warranty',
+          'Maintenance Requirements'
+        ],
+        isEssential: true
+      }
+    ];
+  }
   // Mock template for pipe fittings
   else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
            (categoryLower.includes('fitting'))) {
