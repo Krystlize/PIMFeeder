@@ -31,33 +31,91 @@ jobs:
           pwd
           echo "Files in current directory:"
           ls -la
-          echo "Checking public directory:"
-          ls -la public || echo "Public directory not found in root"
-          echo "Checking my-react-app-superman/public directory:"
-          ls -la my-react-app-superman/public || echo "Public directory not found in my-react-app-superman"
+          echo "Content of my-react-app-superman directory:"
+          ls -la my-react-app-superman || echo "Directory not found"
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Create temporary public directory if needed
+      - name: Create necessary public directory and files
         run: |
-          # If no public directory exists in the root, but it exists in the subdirectory
-          if [ ! -d "public" ] && [ -d "my-react-app-superman/public" ]; then
-            echo "Copying public directory from my-react-app-superman"
-            cp -r my-react-app-superman/public ./public
-          elif [ ! -d "public" ]; then
-            echo "Creating empty public directory"
-            mkdir -p public
-            echo "Creating basic index.html"
-            echo '<html><body><h1>PIMFeeder</h1><p>Loading...</p></body></html>' > public/index.html
+          # First ensure we're working with a clean public directory
+          rm -rf public
+          mkdir -p public
+          
+          # Create essential public files
+          echo '<!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <meta name="theme-color" content="#000000" />
+              <meta name="description" content="PIMFeeder - Extract product attributes from PDFs" />
+              <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+              <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+              <title>PIMFeeder</title>
+            </head>
+            <body>
+              <noscript>You need to enable JavaScript to run this app.</noscript>
+              <div id="root"></div>
+            </body>
+          </html>' > public/index.html
+          
+          # Create manifest.json
+          echo '{
+            "short_name": "PIMFeeder",
+            "name": "PIMFeeder - PDF Attribute Extractor",
+            "icons": [
+              {
+                "src": "favicon.ico",
+                "sizes": "64x64 32x32 24x24 16x16",
+                "type": "image/x-icon"
+              },
+              {
+                "src": "logo192.png",
+                "type": "image/png",
+                "sizes": "192x192"
+              },
+              {
+                "src": "logo512.png",
+                "type": "image/png",
+                "sizes": "512x512"
+              }
+            ],
+            "start_url": ".",
+            "display": "standalone",
+            "theme_color": "#000000",
+            "background_color": "#ffffff"
+          }' > public/manifest.json
+          
+          # Copy files from my-react-app-superman if they exist
+          if [ -d "my-react-app-superman/public" ]; then
+            echo "Copying logo and favicon from my-react-app-superman/public"
+            cp -f my-react-app-superman/public/*.png public/ 2>/dev/null || echo "No PNG files found"
+            cp -f my-react-app-superman/public/*.ico public/ 2>/dev/null || echo "No ICO files found"
+          elif [ -d "public" ]; then
+            echo "Copying logo and favicon from public"
+            cp -f public/*.png public/ 2>/dev/null || echo "No PNG files found"
+            cp -f public/*.ico public/ 2>/dev/null || echo "No ICO files found"
           fi
           
-          # Ensure we have all necessary public files
-          if [ ! -f "public/index.html" ]; then
-            echo "Creating basic index.html"
-            echo '<html><body><h1>PIMFeeder</h1><p>Loading...</p></body></html>' > public/index.html
+          # Create placeholder favicon and logos if they don't exist
+          if [ ! -f "public/favicon.ico" ]; then
+            echo "Creating placeholder favicon.ico"
+            echo -ne '\x00\x00\x01\x00\x01\x00\x10\x10\x00\x00\x01\x00\x04\x00\x28\x01\x00\x00\x16\x00\x00\x00\x28\x00\x00\x00\x10\x00\x00\x00\x20\x00\x00\x00\x01\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00' > public/favicon.ico
+          fi
+          
+          if [ ! -f "public/logo192.png" ]; then
+            echo "Creating placeholder logo192.png"
+            echo "iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFmSURBVHic7cExAQAAAMKg9U/tbwagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAID3YLcAAX9ZbMMAAAAASUVORK5CYII=" | base64 -d > public/logo192.png
+          fi
+          
+          if [ ! -f "public/logo512.png" ]; then
+            echo "Creating placeholder logo512.png"
+            echo "iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKWSURBVHic7cExAQAAAMKg9U9tDQ8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAZEPAABTUQ5WQAAAABJRU5ErkJggg==" | base64 -d > public/logo512.png
           fi
           
           echo "Public directory contents:"
@@ -66,19 +124,42 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Copy React files from nested directory
+        run: |
+          # Copy src directory if it doesn't exist in root but exists in the nested directory
+          if [ ! -d "src" ] && [ -d "my-react-app-superman/src" ]; then
+            echo "Copying src directory from my-react-app-superman"
+            cp -r my-react-app-superman/src ./src
+          fi
+          
+          # Copy package.json if it doesn't include build script
+          if ! grep -q '"build"' package.json && [ -f "my-react-app-superman/package.json" ]; then
+            echo "Copying package.json from my-react-app-superman"
+            cp my-react-app-superman/package.json ./package.json
+          fi
+
       - name: Build
         run: CI=false npm run build
         env:
           REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
           REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
-          BUILD_PATH: '.'
-          GITHUB_PAGES: 'true'
+          PUBLIC_URL: '/PIMFeeder'
 
       - name: Check build output
         run: |
           echo "Build directory contents:"
           ls -la build || echo "Build directory not found"
+          
+          if [ ! -d "build" ]; then
+            echo "Checking for build in my-react-app-superman directory"
+            ls -la my-react-app-superman/build || echo "Build directory not found in my-react-app-superman"
+            
+            if [ -d "my-react-app-superman/build" ]; then
+              echo "Copying build from my-react-app-superman"
+              cp -r my-react-app-superman/build ./build
+            fi
+          fi
 
       # GitHub Pages deployment
       - name: Setup Pages
