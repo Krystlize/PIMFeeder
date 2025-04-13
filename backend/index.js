@@ -289,27 +289,27 @@ function extractWithManufacturerTemplate(text, manufacturer, division = '', cate
     
     // Try to match a template based on division and category
     if ((divisionLower.includes('plumbing') || divisionLower.includes('22'))) {
-      if (categoryLower.includes('fixture') || categoryLower.includes('faucet')) {
+      if (categoryLower.includes('fixture') || categoryLower.includes('faucet') || categoryLower.includes('commercial fixtures')) {
         // Use a faucet template
         template = Object.values(manufacturerTemplates)
           .find(t => t.category === 'faucets') || manufacturerTemplates["American Standard"];
-        console.log('Selected faucet template based on category');
+        console.log('Selected faucet template based on category:', category);
       } else if (categoryLower.includes('drain')) {
         // Use a drain template
         template = Object.values(manufacturerTemplates)
           .find(t => t.category === 'drains') || manufacturerTemplates["Watts Drains"];
-        console.log('Selected drain template based on category');
+        console.log('Selected drain template based on category:', category);
       }
     }
     
     // If still no template, use a default
     if (!template) {
       template = manufacturerTemplates["Watts Drains"];
-      console.log('Using default template (no category match)');
+      console.log('Using default template (no category match for:', category, ')');
     }
   }
   
-  console.log(`Using ${manufacturer || 'generic'} template for extraction, category: ${template.category}`);
+  console.log(`Using ${manufacturer || 'generic'} template for extraction, category: ${template.category}, user selected: ${category}`);
   
   // Extract product number using template-specific pattern
   const productNumberMatch = text.match(template.productNumberPattern);
@@ -1004,7 +1004,7 @@ const generateAttributeTemplate = async (division, category, productDescription)
   }
   // Mock template for commercial faucets
   else if ((division && division.toLowerCase().includes('plumbing') || division === '22') && 
-           (category && (category.toLowerCase().includes('fixture') || category.toLowerCase().includes('faucet')))) {
+           (category && (category.toLowerCase().includes('fixture') || category.toLowerCase().includes('faucet') || category.toLowerCase().includes('commercial fixtures')))) {
     
     mockTemplate = [
       {
@@ -1515,7 +1515,7 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
   // Special case handling based on division and category
   if (divisionLower.includes('22') || divisionLower.includes('plumbing')) {
     // For commercial faucets, look for specific manufacturers
-    if (categoryLower.includes('fixture') || categoryLower.includes('faucet')) {
+    if (categoryLower.includes('fixture') || categoryLower.includes('faucet') || categoryLower.includes('commercial fixtures')) {
       if (cleanedText.includes('american standard') || 
           cleanedText.includes('colony') || 
           cleanedText.includes('cadet') || 
@@ -1599,7 +1599,7 @@ INSTRUCTIONS:
 `;
 
   // Add category-specific instructions
-  if (category.toLowerCase().includes('faucet') || category.toLowerCase().includes('fixture')) {
+  if (category.toLowerCase().includes('faucet') || category.toLowerCase().includes('fixture') || category.toLowerCase().includes('commercial fixtures')) {
     prompt += `
 7. For faucets, look specifically for these attributes:
    - Flow Rate (GPM)
