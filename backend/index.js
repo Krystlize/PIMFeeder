@@ -392,7 +392,7 @@ function extractWithManufacturerTemplate(text, manufacturer, division = '', cate
         name: "Flow Rate Capacity",
         value: `${flowMatch[1].trim()} GPM`
       });
-      break;
+      break; // Just get the first valid flow rate
     }
   }
   
@@ -506,6 +506,16 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   try {
     const { division, category } = req.body;
     
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    
+    console.log('File received:', req.file.originalname);
+    
+    // Extract text from the PDF
+    const pdfPath = req.file.path;
+    const pdfText = await extractTextFromPDF(pdfPath);
+    
     // Special handling for Commercial Fixtures - detect specific fixture type
     let categoryType = 'unknown';
     const categoryLower = category?.toLowerCase() || '';
@@ -529,6 +539,27 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
         categoryType = 'faucet';
       }
       
+      // Additional check for the PDF content to detect bathroom fixtures when category is generic
+      if (categoryType === 'faucet' && pdfText) {
+        const pdfTextLower = pdfText.toLowerCase();
+        if (pdfTextLower.includes('bathroom faucet') || 
+            pdfTextLower.includes('bath faucet') || 
+            pdfTextLower.includes('lavatory faucet') ||
+            (pdfTextLower.includes('delta') && pdfTextLower.includes('bathroom'))) {
+          console.log('Detected BATHROOM FAUCET based on PDF content');
+          categoryType = 'bathroom_faucet';
+        } else if (pdfTextLower.includes('kitchen faucet') || pdfTextLower.includes('sink faucet')) {
+          console.log('Detected KITCHEN FAUCET based on PDF content');
+          categoryType = 'kitchen_faucet';
+        }
+        
+        // Check for Delta brand products - these are most commonly bathroom faucets
+        if (pdfTextLower.includes('delta') && categoryType === 'faucet') {
+          console.log('Detected DELTA brand - treating as BATHROOM FAUCET by default');
+          categoryType = 'bathroom_faucet';
+        }
+      }
+      
       console.log(`Detected ${categoryType.toUpperCase()} category type from:`, category);
     } else {
       console.log('Unknown category type from:', category);
@@ -537,16 +568,6 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
     console.log('Division:', division);
     console.log('Category:', category);
     console.log('Detected Category Type:', categoryType);
-    
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
-    }
-    
-    console.log('File received:', req.file.originalname);
-    
-    // Extract text from the PDF
-    const pdfPath = req.file.path;
-    const pdfText = await extractTextFromPDF(pdfPath);
     
     // Detect manufacturer from the text if possible
     const detectedManufacturer = detectManufacturer(pdfText);
@@ -984,19 +1005,226 @@ const generateAttributeTemplate = async (division, category, productDescription)
       } else if (productDescLower.includes('sink') || productDescLower.includes('lavatory') || 
                 productDescLower.includes('basin')) {
         fixtureType = 'sink';
-      } else if (productDescLower.includes('shower') || productDescLower.includes('bath')) {
+      } else if (productDescLower.includes('shower')) {
         fixtureType = 'shower';
       } else if (productDescLower.includes('faucet') || productDescLower.includes('tap') || 
                 productDescLower.includes('spout')) {
         fixtureType = 'faucet';
+        
+        // Check for bathroom vs kitchen faucets
+        if (productDescLower.includes('bathroom') || productDescLower.includes('lavatory') || 
+            productDescLower.includes('bath ')) {
+          fixtureType = 'bathroom_faucet';
+        } else if (productDescLower.includes('kitchen') || productDescLower.includes('sink faucet')) {
+          fixtureType = 'kitchen_faucet';
+        }
+      }
+      
+      // Special case for Delta - most often these are bathroom faucets 
+      // even when not explicitly stated
+      if (productDescLower.includes('delta') && 
+         (categoryLower.includes('fixture') || categoryLower.includes('faucet'))) {
+        console.log("Detected DELTA product in fixtures category, treating as bathroom faucet");
+        fixtureType = 'bathroom_faucet';
       }
     }
     
     console.log(`Detected fixture type: ${fixtureType} based on category: "${category}" and product desc: "${productDescription?.substring(0, 50)}..."`);
   }
   
-  // Mock template for commercial toilets
+  // Bathroom faucets template
   if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+      (fixtureType === 'bathroom_faucet')) {
+    
+    console.log("Selected BATHROOM FAUCET template");
+    
+    mockTemplate = [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Flow Rate (GPM)',
+          'Spout Height (inches)',
+          'Spout Reach (inches)',
+          'Mounting Type (deck-mount, wall-mount)',
+          'Number of Handles',
+          'Hole Configuration (single, 3-hole, 8" widespread)',
+          'Connection Type',
+          'Material',
+          'Finish',
+          'Valve Type'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Operating Pressure Range',
+          'Maximum Flow Rate at 60 PSI',
+          'Handle Type (lever, cross, etc.)',
+          'Drain Assembly Included',
+          'Pop-up Type',
+          'Cartridge Type'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Features & Compliance',
+        attributes: [
+          'ADA Compliant',
+          'WaterSense Certified',
+          'Lead-Free Compliant',
+          'Water Saving Features',
+          'Temperature Limiting Features',
+          'ASME A112.18.1/CSA B125.1 Compliant',
+          'Warranty Period'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // Kitchen faucets template 
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+      (fixtureType === 'kitchen_faucet')) {
+    
+    console.log("Selected KITCHEN FAUCET template");
+    
+    mockTemplate = [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Flow Rate (GPM)',
+          'Spout Height (inches)',
+          'Spout Reach (inches)',
+          'Mounting Type',
+          'Number of Handles',
+          'Pull-Down/Pull-Out Feature',
+          'Spray Function',
+          'Connection Type',
+          'Material',
+          'Finish'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Operating Pressure Range',
+          'Maximum Flow Rate at 60 PSI',
+          'Handle Type',
+          'Installation Hole Size',
+          'Cartridge Type',
+          'Hose Length (for pull-down models)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Features & Compliance',
+        attributes: [
+          'ADA Compliant',
+          'WaterSense Certified',
+          'Lead-Free Compliant',
+          'Water Saving Features',
+          'ASME A112.18.1/CSA B125.1 Compliant',
+          'Warranty Period'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // Generic faucets template (when not specifically bathroom or kitchen)
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+      (fixtureType === 'faucet')) {
+    
+    console.log("Selected generic faucet template");
+    
+    mockTemplate = [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Flow Rate (GPM/LPM)',
+          'Maximum Flow Rate at 60 PSI',
+          'Spout Reach (inches/mm)',
+          'Spout Height (inches/mm)',
+          'Center-to-Center Dimensions',
+          'Mounting Type (deck-mount, wall-mount, etc.)',
+          'Handle Type (single, double, cross, lever, etc.)',
+          'Connection Type (compression, threaded, etc.)',
+          'Inlet Size',
+          'Material (brass, stainless steel, etc.)',
+          'Finish (chrome, brushed nickel, etc.)',
+          'LEAD FREE Certification'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Operation and Controls',
+        attributes: [
+          'Operation Type (manual, electronic, touchless)',
+          'Sensor Type (infrared, capacitive)',
+          'Power Source (battery, AC, hardwired)',
+          'Battery Type and Life',
+          'Auto Shut-off Timer',
+          'Temperature Control (mixing valve, thermostatic)',
+          'Temperature Range',
+          'Pre-set Temperature Option',
+          'Temperature Limit Stop'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Aerator Type',
+          'Drain Assembly Included',
+          'ADA Compliant',
+          'Water-Saving Features',
+          'Vandal Resistant Features',
+          'Laminar Flow Option',
+          'Self-Closing Mechanism',
+          'Temperature Indicator',
+          'Integral Check Valves',
+          'Integral Strainers'
+        ],
+        isEssential: false
+      }
+    ];
+  }
+  
+  // Mock template for commercial toilets
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
       (fixtureType === 'toilet')) {
     
     console.log("Selected commercial toilet template");
@@ -1383,6 +1611,174 @@ const generateAttributeTemplate = async (division, category, productDescription)
     }
   }
   
+  if (divisionLower.includes('22') && (fixtureType === 'faucet' || 
+      fixtureType === 'bathroom_faucet' || fixtureType === 'kitchen_faucet')) {
+    console.log("Generating template for Division 22 faucet fixture:", fixtureType);
+    
+    mockTemplate = [
+      { name: 'Manufacturer', value: '' },
+      { name: 'Model Number', value: '' },
+      { name: 'Description', value: productDescription || '' },
+      { name: 'Material', value: '' },
+      { name: 'Finish', value: '' },
+      { name: 'Flow Rate (GPM)', value: '' },
+      { name: 'Installation Type', value: '' },
+      { name: 'Mounting Type', value: '' },
+      { name: 'Number of Handles', value: '' },
+      { name: 'ADA Compliant', value: '' },
+      { name: 'WaterSense Certified', value: '' },
+      { name: 'Warranty', value: '' }
+    ];
+    
+    // Add specific fields based on fixture subtype
+    if (fixtureType === 'bathroom_faucet') {
+      console.log("Adding BATHROOM FAUCET specific attributes");
+      mockTemplate.push(
+        { name: 'Bathroom Type', value: '' },
+        { name: 'Spout Height', value: '' },
+        { name: 'Spout Reach', value: '' },
+        { name: 'Handle Type', value: '' },
+        { name: 'Centers (in)', value: '' },
+        { name: 'Drain Assembly Included', value: '' }
+      );
+    } else if (fixtureType === 'kitchen_faucet') {
+      console.log("Adding KITCHEN FAUCET specific attributes");
+      mockTemplate.push(
+        { name: 'Kitchen Type', value: '' },
+        { name: 'Pull-Down/Pull-Out', value: '' },
+        { name: 'Spray Features', value: '' },
+        { name: 'Spout Height', value: '' },
+        { name: 'Spout Reach', value: '' },
+        { name: 'Handle Type', value: '' }
+      );
+    }
+  } else if (divisionLower.includes('22') && fixtureType === 'toilet') {
+    console.log("Generating template for Division 22 toilet fixture");
+    
+    mockTemplate = [
+      { name: 'Manufacturer', value: '' },
+      { name: 'Model Number', value: '' },
+      { name: 'Description', value: productDescription || '' },
+      { name: 'Type', value: '' },
+      { name: 'Material', value: '' },
+      { name: 'Color/Finish', value: '' },
+      { name: 'Flush Type', value: '' },
+      { name: 'GPF (Gallons Per Flush)', value: '' },
+      { name: 'Mounting Type', value: '' },
+      { name: 'Bowl Shape', value: '' },
+      { name: 'Rough-In', value: '' },
+      { name: 'ADA Compliant', value: '' },
+      { name: 'WaterSense Certified', value: '' },
+      { name: 'Warranty', value: '' }
+    ];
+  } else if (divisionLower.includes('22') && fixtureType === 'sink') {
+    console.log("Selected commercial sink template");
+    
+    mockTemplate = [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Sink Type (lavatory, kitchen, service, scrub, hand wash)',
+          'Mounting Type (undermount, drop-in, wall-mount, pedestal)',
+          'Overall Dimensions (LxWxH)',
+          'Bowl Dimensions',
+          'Bowl Depth',
+          'Number of Bowls',
+          'Material (stainless steel, vitreous china, solid surface)',
+          'Material Gauge (for metal sinks)',
+          'Finish/Color',
+          'Faucet Holes/Configuration',
+          'Drain Size/Type',
+          'Weight Capacity',
+          'Overflow Drain Included'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Drain Position',
+          'Sound Dampening',
+          'Corner Radius',
+          'Mounting Hardware Included',
+          'Faucet Ledge Width',
+          'Backsplash Dimensions (if included)',
+          'Soap Dispenser Hole(s)',
+          'Water Retention Volume',
+          'Hot Water Resistance',
+          'Chemical Resistance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Antimicrobial Surface',
+          'Scratch Resistant Surface',
+          'Pre-Drilled Faucet Holes',
+          'Integrated Towel Bar',
+          'Integrated Soap Dispenser',
+          'Waste Disposal Compatible',
+          'Bowl Grid/Rack Included',
+          'Splash Guard Features',
+          'Preassembled Components'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Installation and Accessibility',
+        attributes: [
+          'ADA Compliant',
+          'Installation Type',
+          'Supply Line Requirements',
+          'Waste Line Requirements',
+          'Support Bracket Requirements',
+          'Counter/Wall Construction Requirements',
+          'Minimum Cabinet Size',
+          'Cutout Template Included'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Code and Standards Compliance',
+        attributes: [
+          'ASME A112.19.3/CSA B45.4 (Stainless Steel)',
+          'ASME A112.19.2/CSA B45.1 (Ceramic)',
+          'IAPMO/ANSI Z124.6 (Plastic Sinks)',
+          'NSF/ANSI 2 (Food Equipment)',
+          'UPC/IPC Compliance',
+          'ADA Compliance (ANSI A117.1)',
+          'ASSE 1016 (Scald Protection)',
+          'Buy America(n) Compliance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Warranty and Support',
+        attributes: [
+          'Warranty Period (years)',
+          'Commercial Warranty Details',
+          'Finish Warranty',
+          'Maintenance Requirements',
+          'Recommended Cleaning Products',
+          'Spare Parts Availability'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  
   return {
     template: mockTemplate
   };
@@ -1674,6 +2070,14 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
       fixtureType = 'shower';
     } else if (categoryLower.includes('faucet') || categoryLower.includes('tap') || categoryLower.includes('fixture')) {
       fixtureType = 'faucet';
+      
+      // Check for Delta faucets specifically - often missed by general detection
+      if (cleanedText.includes('delta') && 
+          (cleanedText.includes('bathroom faucet') || cleanedText.includes('bath collection') || 
+           cleanedText.includes('lavatory') || categoryLower.includes('fixture'))) {
+        console.log("Post-processing detected Delta bathroom faucet based on specific text patterns");
+        return "Delta";
+      }
     }
     
     console.log("Detected fixture type for manufacturer matching:", fixtureType);
@@ -1681,6 +2085,15 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
     // For commercial faucets, look for specific manufacturers
     if (fixtureType === 'faucet') {
       console.log("Checking faucet manufacturers");
+      
+      // Delta brand detection - expanded patterns
+      if (cleanedText.includes('delta') || 
+          cleanedText.includes('sparrow') || 
+          cleanedText.includes('dsp-l-') ||
+          cleanedText.match(/\bdelta\b/i)) {
+        console.log("Post-processing detected Delta based on category and text");
+        return "Delta";
+      }
       
       if (cleanedText.includes('american standard') || 
           cleanedText.includes('colony') || 
@@ -1697,8 +2110,7 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
         return "Moen";
       }
       
-      if (cleanedText.includes('delta') || 
-          cleanedText.includes('brizo') || 
+      if (cleanedText.includes('brizo') || 
           cleanedText.includes('peerless')) {
         console.log("Post-processing detected Delta based on category and text");
         return "Delta";
