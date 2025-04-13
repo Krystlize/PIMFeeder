@@ -48,10 +48,22 @@ export const processPDFWithAI = async (
       console.log('No template in response, using mock template');
     }
     
+    // Get product description if available (for better template matching)
+    let productDescription = '';
+    if (response.data.attributes) {
+      const descAttr = response.data.attributes.find(
+        (attr: ProcessedAttribute) => attr.name.toLowerCase().includes('description')
+      );
+      if (descAttr) {
+        productDescription = descAttr.value;
+        console.log('Found product description for template matching:', productDescription);
+      }
+    }
+    
     return {
       attributes: response.data.attributes,
       rawText: response.data.rawText,
-      template: response.data.template || getMockTemplateForCategory(division, category)
+      template: response.data.template || getMockTemplateForCategory(division, category, productDescription)
     };
   } catch (error) {
     console.error('====== ERROR PROCESSING PDF ======');
@@ -78,9 +90,15 @@ export const processPDFWithAI = async (
     } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
       fixtureType = 'shower';
     } else if (categoryLower.includes('faucet') || categoryLower.includes('tap') || 
-              (categoryLower.includes('fixture') && !categoryLower.includes('drain')) || 
+              categoryLower.includes('fixture') || 
               category === 'Commercial Fixtures') {
       fixtureType = 'faucet';
+      
+      // Check if it's commercial fixtures specifically - always treat as faucet by default
+      if (category === 'Commercial Fixtures') {
+        console.log("Commercial Fixtures detected - using faucet template by default");
+        fixtureType = 'faucet';
+      }
     } else if (categoryLower.includes('drain')) {
       fixtureType = 'drain';
     }
@@ -104,7 +122,7 @@ export const processPDFWithAI = async (
           { name: "Category", value: category }
         ],
         rawText: "Sample text content from PDF. Using Commercial Fixtures mock data.",
-        template: getMockTemplateForCategory(division, category)
+        template: getMockTemplateForCategory(division, category, "Single-handle pull-down kitchen faucet with ceramic disc valve and metal lever handle")
       };
     }
     // TOILET fallback data
@@ -122,7 +140,7 @@ export const processPDFWithAI = async (
           { name: "Category", value: category }
         ],
         rawText: "Sample text content from PDF. Using Commercial Toilet mock data.",
-        template: getMockTemplateForCategory(division, category)
+        template: getMockTemplateForCategory(division, category, "Commercial 1.6 GPF toilet with EverClean surface and PowerWash rim")
       };
     }
     // SINK fallback data
@@ -140,7 +158,7 @@ export const processPDFWithAI = async (
           { name: "Category", value: category }
         ],
         rawText: "Sample text content from PDF. Using Commercial Sink mock data.",
-        template: getMockTemplateForCategory(division, category)
+        template: getMockTemplateForCategory(division, category, "Wall-mounted commercial sink with integral backsplash and soap depression")
       };
     }
     // DRAIN fallback data (default)
@@ -156,7 +174,7 @@ export const processPDFWithAI = async (
           { name: "Category", value: category }
         ],
         rawText: "Sample text content from PDF. Backend connection failed - using mock data.",
-        template: getMockTemplateForCategory(division, category)
+        template: getMockTemplateForCategory(division, category, "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet")
       };
     }
   }
@@ -212,31 +230,28 @@ export const getAttributeTemplateFromAI = async (
   productDescription: string
 ): Promise<AttributeGroup[]> => {
   try {
-    // Add a timeout to the request to prevent long hanging in case of CORS issues
-    const response = await api.post(`${API_BASE_URL}/generate-template`, {
+    const response = await api.post(`${API_BASE_URL}/attribute-template`, {
       prompt,
       division,
       category,
       productDescription
-    }, {
-      timeout: 5000,  // 5 second timeout
     });
     
-    return response.data.template;
+    console.log('Attribute template response:', response.data);
+    return response.data;
   } catch (error) {
-    console.error('Error generating attribute template:', error);
+    console.error('Error getting attribute template:', error);
     
-    // Return mock data for development or in case of errors
-    console.log('Falling back to mock template data');
-    
-    // Determine the appropriate mock template based on division and category
-    return getMockTemplateForCategory(division, category);
+    // If the endpoint fails, use our fallback mock template
+    console.warn('Failed to get template from AI, using mock template');
+    return getMockTemplateForCategory(division, category, productDescription);
   }
 };
 
-function getMockTemplateForCategory(division: string, category: string): AttributeGroup[] {
+function getMockTemplateForCategory(division: string, category: string, productDescription: string = ''): AttributeGroup[] {
   const divisionLower = division.toLowerCase();
   const categoryLower = category.toLowerCase();
+  const productDescLower = productDescription.toLowerCase();
   
   // Determine specific fixture type
   let fixtureType = 'unknown';
@@ -249,9 +264,42 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
     fixtureType = 'shower';
   } else if (categoryLower.includes('faucet') || categoryLower.includes('tap') || 
-            (categoryLower.includes('fixture') && !categoryLower.includes('drain')) || 
-            category === 'Commercial Fixtures') {
+            categoryLower.includes('fixture') || category === 'Commercial Fixtures') {
     fixtureType = 'faucet';
+    
+    // Check if it's commercial fixtures specifically - always treat as faucet by default
+    if (category === 'Commercial Fixtures') {
+      console.log("Commercial Fixtures detected - using faucet template by default");
+      fixtureType = 'faucet';
+    }
+    
+    // Further refine faucet types based on available information
+    if (categoryLower.includes('bathroom') || categoryLower.includes('lavatory')) {
+      fixtureType = 'bathroom_faucet';
+      console.log("Detected bathroom faucet subtype from category");
+    } else if (categoryLower.includes('kitchen')) {
+      fixtureType = 'kitchen_faucet';
+      console.log("Detected kitchen faucet subtype from category");
+    }
+    
+    // Check product description for more specific fixture type
+    if (productDescLower) {
+      if (productDescLower.includes('bathroom') || productDescLower.includes('lavatory') || 
+          productDescLower.includes('bath ')) {
+        fixtureType = 'bathroom_faucet';
+        console.log("Detected bathroom faucet from product description");
+      } else if (productDescLower.includes('kitchen') || productDescLower.includes('sink faucet')) {
+        fixtureType = 'kitchen_faucet';
+        console.log("Detected kitchen faucet from product description");
+      }
+      
+      // Special case for Delta - most often these are bathroom faucets even when not explicitly stated
+      if (productDescLower.includes('delta') && 
+          (categoryLower.includes('fixture') || categoryLower.includes('faucet'))) {
+        console.log("Detected DELTA product in fixtures category, treating as bathroom faucet");
+        fixtureType = 'bathroom_faucet';
+      }
+    }
   } else if (categoryLower.includes('drain')) {
     fixtureType = 'drain';
   }
@@ -397,11 +445,11 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
       }
     ];
   }
-  // Mock template for commercial faucets
+  // Mock template for commercial faucets - GENERIC FAUCET
   else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
           (fixtureType === 'faucet')) {
     
-    console.log("Selected commercial faucet template for category:", category);
+    console.log("Selected generic commercial faucet template for category:", category);
     
     return [
       {
@@ -510,6 +558,127 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Parts Warranty',
           'Finish Warranty',
           'Maintenance Requirements'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // BATHROOM FAUCETS Template
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+          (fixtureType === 'bathroom_faucet')) {
+    
+    console.log("Selected BATHROOM FAUCET template for category:", category);
+    
+    return [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Flow Rate (GPM)',
+          'Spout Height (inches)',
+          'Spout Reach (inches)',
+          'Mounting Type (deck-mount, wall-mount)',
+          'Number of Handles',
+          'Hole Configuration (single, 3-hole, 8" widespread)',
+          'Connection Type',
+          'Material',
+          'Finish',
+          'Valve Type'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Operating Pressure Range',
+          'Maximum Flow Rate at 60 PSI',
+          'Handle Type (lever, cross, etc.)',
+          'Drain Assembly Included',
+          'Pop-up Type',
+          'Cartridge Type'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Features & Compliance',
+        attributes: [
+          'ADA Compliant',
+          'WaterSense Certified',
+          'Lead-Free Compliant',
+          'Water Saving Features',
+          'Temperature Limiting Features',
+          'ASME A112.18.1/CSA B125.1 Compliant',
+          'Warranty Period'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // KITCHEN FAUCETS Template
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+          (fixtureType === 'kitchen_faucet')) {
+    
+    console.log("Selected KITCHEN FAUCET template for category:", category);
+    
+    return [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Flow Rate (GPM)',
+          'Spout Height (inches)',
+          'Spout Reach (inches)',
+          'Mounting Type',
+          'Number of Handles',
+          'Pull-Down/Pull-Out Feature',
+          'Spray Function',
+          'Connection Type',
+          'Material',
+          'Finish'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Operating Pressure Range',
+          'Maximum Flow Rate at 60 PSI',
+          'Handle Type',
+          'Installation Hole Size',
+          'Cartridge Type',
+          'Hose Length (for pull-down models)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Features & Compliance',
+        attributes: [
+          'ADA Compliant',
+          'WaterSense Certified',
+          'Lead-Free Compliant',
+          'Water Saving Features',
+          'ASME A112.18.1/CSA B125.1 Compliant',
+          'Warranty Period'
         ],
         isEssential: true
       }
