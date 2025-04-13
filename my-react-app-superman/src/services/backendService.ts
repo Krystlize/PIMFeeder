@@ -104,9 +104,26 @@ export const processPDFWithAI = async (
     console.error('====== ERROR PROCESSING PDF ======');
     console.error('Error:', error);
     
+    // Check for API token limit exceeded error
+    let errorMessage = "Failed to process PDF";
+    let useTokenLimitFallback = false;
+    
     if (axios.isAxiosError(error)) {
       console.error('Axios error status:', error.response?.status);
       console.error('Axios error data:', error.response?.data);
+      
+      if (error.response?.data?.error && 
+          (error.response.data.error.includes('exceeded your monthly included credits') ||
+           error.response.data.error.includes('rate limit') ||
+           error.response.data.error.includes('too many requests'))) {
+        errorMessage = "Hugging Face API token usage limit exceeded. Using local processing instead.";
+        useTokenLimitFallback = true;
+        console.warn('====== HUGGING FACE TOKEN USAGE EXCEEDED ======');
+        console.warn('Using local fallback processing for this PDF');
+        
+        // You could add UI notifications here if you have a notification system
+        // Example: notifyUser("API usage limit exceeded. Using offline mode.");
+      }
     }
     
     // Check if this is a Delta PDF based on filename
@@ -154,6 +171,11 @@ export const processPDFWithAI = async (
     
     console.log(`Detected fixture type for fallback: ${fixtureType}`);
     
+    // Add an additional attribute to indicate this is fallback data due to API limits
+    const additionalAttribute = useTokenLimitFallback ? 
+      { name: "Processing Note", value: "AI processing unavailable due to API usage limits. Using fallback data." } : 
+      { name: "Processing Note", value: "Error processing PDF. Using fallback data." };
+    
     // FAUCET fallback data
     if (fixtureType === 'faucet') {
       console.log('Providing FAUCET mock data for Commercial Fixtures');
@@ -167,6 +189,7 @@ export const processPDFWithAI = async (
           { name: "Flow Rate", value: "1.5 GPM" },
           { name: "Material", value: "Brass" },
           { name: "Finish", value: "Polished Chrome" },
+          additionalAttribute,
           { name: "Division", value: division },
           { name: "Category", value: category }
         ],
@@ -185,6 +208,7 @@ export const processPDFWithAI = async (
           { name: "Flush Rate", value: "1.6 GPF" },
           { name: "Bowl Type", value: "Elongated" },
           { name: "Configuration", value: "Floor Mount" },
+          additionalAttribute,
           { name: "Division", value: division },
           { name: "Category", value: category }
         ],
@@ -203,6 +227,7 @@ export const processPDFWithAI = async (
           { name: "Material", value: "Vitreous china" },
           { name: "Mounting Type", value: "Wall mount" },
           { name: "Dimensions", value: "20.5\" W x 18.25\" D" },
+          additionalAttribute,
           { name: "Division", value: division },
           { name: "Category", value: category }
         ],
@@ -220,6 +245,7 @@ export const processPDFWithAI = async (
           { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
           { name: "Specification Number", value: "ES-WD-FD-100-A" },
           { name: "Manufacturer", value: "Wade Drains" },
+          additionalAttribute,
           { name: "Division", value: division },
           { name: "Category", value: category }
         ],
@@ -236,6 +262,7 @@ export const processPDFWithAI = async (
           { name: "Product Name", value: "Unknown Product" },
           { name: "Product Description", value: "Unknown product description" },
           { name: "Manufacturer", value: "Unknown" },
+          additionalAttribute,
           { name: "Division", value: division },
           { name: "Category", value: category }
         ],
