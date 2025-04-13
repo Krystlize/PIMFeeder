@@ -85,50 +85,59 @@ const processSuffixData = (attr: ProcessedAttribute) => {
 const processAttributes = (attrs: ProcessedAttribute[]) => {
   const processedAttrs: ProcessedAttribute[] = [];
   const suffixMap: { [key: string]: string } = {};
-  const descriptionMap: { [key: string]: string } = {};
+  const descriptionMap: { [key: string]: ProcessedAttribute } = {};
   
-  // First pass: identify related suffix/description pairs
+  // First pass: collect all suffixes and descriptions
   attrs.forEach(attr => {
     const { suffix, cleanValue, isSuffixAttribute } = processSuffixData(attr);
+    const normalizedName = attr.name.toLowerCase().replace(/\s+/g, '');
     
+    // Store in maps for future combining
     if (isSuffixAttribute) {
-      // Store the suffix code
-      if (suffix) {
-        suffixMap[attr.name] = suffix;
-      }
-      
-      // Store the description value
-      if (attr.name.toLowerCase().includes('description')) {
-        // Find the related suffix attribute
-        const relatedSuffixAttr = attrs.find(a => 
-          a !== attr && 
-          a.name.toLowerCase().includes('suffix') && 
-          !a.name.toLowerCase().includes('description')
+      if (normalizedName.includes('description')) {
+        descriptionMap[normalizedName] = {
+          ...attr,
+          value: cleanValue,
+          suffix: suffix
+        };
+      } else if (normalizedName.includes('suffix') || normalizedName.includes('option')) {
+        // Create a base ID to help match related attributes
+        const baseId = normalizedName
+          .replace(/suffix/ig, '')
+          .replace(/option/ig, '')
+          .replace(/[-_]/g, '');
+        
+        // Store the suffix for later matching with description
+        suffixMap[baseId] = suffix || '';
+        
+        // Find if there's a matching description
+        let matchingDescKey = Object.keys(descriptionMap).find(key => 
+          key.includes(baseId) || baseId.includes(key.replace(/description/ig, ''))
         );
         
-        if (relatedSuffixAttr) {
-          descriptionMap[relatedSuffixAttr.name] = cleanValue;
+        if (matchingDescKey) {
+          // We found a matching description - combine them
+          const descAttr = descriptionMap[matchingDescKey];
+          processedAttrs.push({
+            ...descAttr,
+            name: descAttr.name.replace(/description/ig, '').trim(),
+            value: descAttr.value,
+            suffix: suffix || suffixMap[baseId]
+          });
+          
+          // Mark as processed
+          delete descriptionMap[matchingDescKey];
         } else {
-          // This is a standalone description - add it normally
+          // No matching description found yet - add with just the suffix info
           processedAttrs.push({
             ...attr,
             value: cleanValue,
             suffix: suffix
           });
         }
-      } else {
-        // This is a suffix code attribute
-        const description = descriptionMap[attr.name] || cleanValue;
-        
-        // Add a merged attribute
-        processedAttrs.push({
-          ...attr,
-          value: description,
-          suffix: suffix || suffixMap[attr.name]
-        });
       }
     } else {
-      // For non-suffix attributes, just add them normally
+      // Regular attribute - add normally
       processedAttrs.push({
         ...attr,
         value: cleanValue,
@@ -137,15 +146,12 @@ const processAttributes = (attrs: ProcessedAttribute[]) => {
     }
   });
   
-  // Remove duplicate Description attributes that were merged
-  return processedAttrs.filter(attr => 
-    !attr.name.toLowerCase().includes('description') ||
-    !processedAttrs.some(a => 
-      a !== attr && 
-      a.name.toLowerCase().includes('suffix') && 
-      a.value === attr.value
-    )
-  );
+  // Add any remaining description attributes that weren't matched
+  Object.values(descriptionMap).forEach(attr => {
+    processedAttrs.push(attr);
+  });
+  
+  return processedAttrs;
 };
 
 const formatValue = (value: any): string => {
@@ -231,60 +237,45 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredAttributes.map((attr, index) => {
-                  const isSuffixAttribute = attr.name && (
-                    attr.name.toLowerCase().includes('suffix') || 
-                    attr.name.toLowerCase().includes('option')
-                  );
-                  
-                  // Format the display name for suffix attributes
-                  let displayName = attr.name;
-                  if (isSuffixAttribute) {
-                    displayName = "Suffix Option";
-                  }
-                  
-                  return (
-                    <TableRow 
-                      key={index} 
-                      hover
-                      sx={{
-                        backgroundColor: isSuffixAttribute ? 'rgba(25, 118, 210, 0.04)' : 'inherit'
-                      }}
-                    >
-                      <TableCell>
-                        {displayName}
-                        {attr.updated && (
+                {filteredAttributes.map((attr, index) => (
+                  <TableRow 
+                    key={index} 
+                    hover
+                    sx={{
+                      backgroundColor: attr.updated ? 'rgba(76, 175, 80, 0.08)' : 'inherit',
+                    }}
+                  >
+                    <TableCell>
+                      {attr.name}
+                    </TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        {attr.suffix && (
                           <Chip 
-                            label="Updated" 
-                            color="primary" 
+                            label={attr.suffix} 
                             size="small" 
-                            sx={{ ml: 1, height: 20, fontSize: '0.7rem' }} 
+                            color="primary" 
+                            variant="outlined"
+                            sx={{ 
+                              fontFamily: 'monospace',
+                              fontWeight: 'bold' 
+                            }}
                           />
                         )}
-                      </TableCell>
-                      <TableCell>
-                        <Stack direction="row" spacing={1} alignItems="center">
-                          <Typography variant="body2" sx={{ flex: 1 }}>
-                            {formatValue(attr.value)}
-                          </Typography>
-                          {attr.suffix && (
-                            <Chip 
-                              label={attr.suffix} 
-                              variant="outlined" 
-                              color="primary" 
-                              size="small"
-                              sx={{ 
-                                fontWeight: 'bold',
-                                minWidth: 'auto',
-                                ml: 2 // Add margin to separate from text
-                              }}
-                            />
-                          )}
-                        </Stack>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                        <Typography 
+                          variant="body2" 
+                          component="span"
+                          sx={{ 
+                            wordBreak: 'break-word',
+                            fontWeight: attr.updated ? 'bold' : 'normal'
+                          }}
+                        >
+                          {formatValue(attr.value)}
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
