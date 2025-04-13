@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 2025-04-13
+
+### GitHub Pages Deployment Fixes
+
+* **Fixed deployment infrastructure**:
+  * Resolved nested project structure issues causing build failures
+  * Added proper SPA routing support for GitHub Pages with 404.html redirect
+  * Fixed PUBLIC_URL configuration for correct asset path resolution
+  * Added .nojekyll file to prevent Jekyll processing interference
+
+* **Improved CI/CD workflow**:
+  * Enhanced GitHub Actions workflow with better error handling
+  * Optimized build process with increased memory allocation
+  * Added comprehensive logging for build troubleshooting
+  * Enabled deployment from both main and stable-build branches
+
+* **Enhanced developer experience**:
+  * Simplified deployment with consistent folder structure
+  * Added proper manifest.json and robots.txt configuration
+  * Improved SPA client-side routing for better navigation
+  * Updated package.json scripts for streamlined deployment
+
 ## 2025-04-11 (Update 5)
 
 ### Simplified Attribute Display
