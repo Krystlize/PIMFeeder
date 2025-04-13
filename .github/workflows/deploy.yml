@@ -31,10 +31,24 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: package-lock.json  # Updated to point to root package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+      - name: Debug before setup
+        run: |
+          echo "Current directory structure:"
+          ls -la
+          echo "Content of public directory (if exists):"
+          ls -la public || echo "Public directory not found"
+
+      - name: Ensure public directory exists
+        run: |
+          mkdir -p public
+          cp -r public/* public/ || echo "No files to copy"
+          echo "Content of public directory after setup:"
+          ls -la public/
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
@@ -65,7 +79,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build  # Updated to point to root build directory
+          path: build
 
   deploy:
     environment:
