@@ -107,7 +107,7 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
     
     return {
       ...attr,
-      displayName: isSuffixAttribute ? 'Suffix Option' : displayName,
+      displayName: isSuffixAttribute ? displayName : displayName,
       displayValue: cleanValue,
       suffixCode: suffix,
       isSuffixAttribute
@@ -165,8 +165,8 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell width="30%"><strong>Attribute</strong></TableCell>
-                  <TableCell width="50%"><strong>Value</strong></TableCell>
+                  <TableCell width="30%"><strong>Attribute Name</strong></TableCell>
+                  <TableCell width="50%"><strong>Description</strong></TableCell>
                   <TableCell width="20%"><strong>Suffix Code</strong></TableCell>
                 </TableRow>
               </TableHead>
@@ -176,7 +176,7 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
                     key={index} 
                     hover
                     sx={{
-                      backgroundColor: attr.isSuffixAttribute ? 'rgba(25, 118, 210, 0.04)' : 'inherit'
+                      backgroundColor: attr.updated ? 'rgba(76, 175, 80, 0.08)' : 'inherit',
                     }}
                   >
                     <TableCell>
@@ -201,6 +201,7 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
                           title={attr.name}
                           sx={{ 
                             fontWeight: 'bold',
+                            fontFamily: 'monospace',
                             ...(attr.suffixCode.split('-').length > 2 && {
                               bgcolor: 'rgba(25, 118, 210, 0.1)'
                             })
