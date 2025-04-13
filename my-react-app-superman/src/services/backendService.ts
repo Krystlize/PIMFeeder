@@ -22,13 +22,31 @@ export const processPDFWithAI = async (
   formData.append('division', division);
   formData.append('category', category);
 
+  console.log('====== SENDING PDF TO BACKEND ======');
+  console.log('Division:', division);
+  console.log('Category:', category); 
+  console.log('File name:', file.name);
+  console.log('File size:', Math.round(file.size / 1024), 'KB');
+
   try {
+    // Add a timeout to the request to allow for debugging
     const response = await api.post(`${API_BASE_URL}/process-pdf`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      timeout: 10000, // 10 second timeout
+      timeout: 30000, // 30 second timeout to allow for debugging
     });
+    
+    console.log('====== RECEIVED RESPONSE ======');
+    console.log('Response status:', response.status);
+    console.log('Number of attributes:', response.data.attributes?.length || 0);
+    console.log('First attribute:', response.data.attributes?.[0]);
+    console.log('Template groups:', response.data.template?.length || 0);
+    
+    // Check for the mockTemplate fallback
+    if (!response.data.template) {
+      console.log('No template in response, using mock template');
+    }
     
     return {
       attributes: response.data.attributes,
@@ -36,25 +54,111 @@ export const processPDFWithAI = async (
       template: response.data.template || getMockTemplateForCategory(division, category)
     };
   } catch (error) {
-    console.error('Error processing PDF:', error);
+    console.error('====== ERROR PROCESSING PDF ======');
+    console.error('Error:', error);
+    
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error status:', error.response?.status);
+      console.error('Axios error data:', error.response?.data);
+    }
     
     // Provide default attributes and a template even in error cases
     // This allows the application to function even when the backend is unavailable
     console.log('Falling back to mock data for PDF processing');
     
-    return {
-      attributes: [
-        { name: "Product Number", value: "FD-100-A" },
-        { name: "Product Name", value: "Floor Drain with Round Strainer" },
-        { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
-        { name: "Specification Number", value: "ES-WD-FD-100-A" },
-        { name: "Manufacturer", value: "Wade Drains" },
-        { name: "Division", value: division },
-        { name: "Category", value: category }
-      ],
-      rawText: "Sample text content from PDF. Backend connection failed - using mock data.",
-      template: getMockTemplateForCategory(division, category)
-    };
+    // Special check for different fixture types
+    const categoryLower = category.toLowerCase();
+    let fixtureType = 'unknown';
+    
+    // Determine fixture type for fallback data
+    if (categoryLower.includes('toilet') || categoryLower.includes('urinal') || categoryLower.includes('water closet')) {
+      fixtureType = 'toilet';
+    } else if (categoryLower.includes('sink') || categoryLower.includes('lavatory') || categoryLower.includes('basin')) {
+      fixtureType = 'sink';
+    } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
+      fixtureType = 'shower';
+    } else if (categoryLower.includes('faucet') || categoryLower.includes('tap') || 
+              (categoryLower.includes('fixture') && !categoryLower.includes('drain')) || 
+              category === 'Commercial Fixtures') {
+      fixtureType = 'faucet';
+    } else if (categoryLower.includes('drain')) {
+      fixtureType = 'drain';
+    }
+    
+    console.log(`Detected fixture type for fallback: ${fixtureType}`);
+    
+    // FAUCET fallback data
+    if (fixtureType === 'faucet') {
+      console.log('Providing FAUCET mock data for Commercial Fixtures');
+      
+      return {
+        attributes: [
+          { name: "Product Number", value: "7385.004" },
+          { name: "Product Name", value: "Colony PRO Single-Handle Kitchen Faucet" },
+          { name: "Product Description", value: "Single-handle pull-down kitchen faucet with ceramic disc valve and metal lever handle" },
+          { name: "Manufacturer", value: "American Standard" },
+          { name: "Flow Rate", value: "1.5 GPM" },
+          { name: "Material", value: "Brass" },
+          { name: "Finish", value: "Polished Chrome" },
+          { name: "Division", value: division },
+          { name: "Category", value: category }
+        ],
+        rawText: "Sample text content from PDF. Using Commercial Fixtures mock data.",
+        template: getMockTemplateForCategory(division, category)
+      };
+    }
+    // TOILET fallback data
+    else if (fixtureType === 'toilet') {
+      return {
+        attributes: [
+          { name: "Product Number", value: "2257.101" },
+          { name: "Product Name", value: "Madera FloWise Commercial Toilet" },
+          { name: "Product Description", value: "Commercial 1.6 GPF toilet with EverClean surface and PowerWash rim" },
+          { name: "Manufacturer", value: "American Standard" },
+          { name: "Flush Rate", value: "1.6 GPF" },
+          { name: "Bowl Type", value: "Elongated" },
+          { name: "Configuration", value: "Floor Mount" },
+          { name: "Division", value: division },
+          { name: "Category", value: category }
+        ],
+        rawText: "Sample text content from PDF. Using Commercial Toilet mock data.",
+        template: getMockTemplateForCategory(division, category)
+      };
+    }
+    // SINK fallback data
+    else if (fixtureType === 'sink') {
+      return {
+        attributes: [
+          { name: "Product Number", value: "0355.012" },
+          { name: "Product Name", value: "Lucerne Wall-Mount Lavatory Sink" },
+          { name: "Product Description", value: "Wall-mounted commercial sink with integral backsplash and soap depression" },
+          { name: "Manufacturer", value: "American Standard" },
+          { name: "Material", value: "Vitreous china" },
+          { name: "Mounting Type", value: "Wall mount" },
+          { name: "Dimensions", value: "20.5\" W x 18.25\" D" },
+          { name: "Division", value: division },
+          { name: "Category", value: category }
+        ],
+        rawText: "Sample text content from PDF. Using Commercial Sink mock data.",
+        template: getMockTemplateForCategory(division, category)
+      };
+    }
+    // DRAIN fallback data (default)
+    else {
+      return {
+        attributes: [
+          { name: "Product Number", value: "FD-100-A" },
+          { name: "Product Name", value: "Floor Drain with Round Strainer" },
+          { name: "Product Description", value: "Epoxy coated cast iron floor drain with anchor flange, reversible clamping collar with primary and secondary weepholes, adjustable round heel proof nickel bronze strainer, and no hub (standard) outlet" },
+          { name: "Specification Number", value: "ES-WD-FD-100-A" },
+          { name: "Manufacturer", value: "Wade Drains" },
+          { name: "Division", value: division },
+          { name: "Category", value: category }
+        ],
+        rawText: "Sample text content from PDF. Backend connection failed - using mock data.",
+        template: getMockTemplateForCategory(division, category)
+      };
+    }
   }
 };
 
@@ -134,9 +238,29 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   const divisionLower = division.toLowerCase();
   const categoryLower = category.toLowerCase();
   
+  // Determine specific fixture type
+  let fixtureType = 'unknown';
+  
+  // Determine fixture type based on category
+  if (categoryLower.includes('toilet') || categoryLower.includes('urinal') || categoryLower.includes('water closet')) {
+    fixtureType = 'toilet';
+  } else if (categoryLower.includes('sink') || categoryLower.includes('lavatory') || categoryLower.includes('basin')) {
+    fixtureType = 'sink';
+  } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
+    fixtureType = 'shower';
+  } else if (categoryLower.includes('faucet') || categoryLower.includes('tap') || 
+            (categoryLower.includes('fixture') && !categoryLower.includes('drain')) || 
+            category === 'Commercial Fixtures') {
+    fixtureType = 'faucet';
+  } else if (categoryLower.includes('drain')) {
+    fixtureType = 'drain';
+  }
+  
+  console.log(`Template selection based on fixture type: ${fixtureType}`);
+  
   // Mock template for plumbing/drainage
   if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
-      (categoryLower.includes('drain'))) {
+      (fixtureType === 'drain')) {
     
     return [
       {
@@ -275,11 +399,7 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   }
   // Mock template for commercial faucets
   else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
-           (categoryLower.includes('fixture') || 
-            categoryLower.includes('faucet') || 
-            categoryLower === 'commercial fixtures' ||
-            categoryLower === 'commercial fixture' ||
-            category === 'Commercial Fixtures')) {
+          (fixtureType === 'faucet')) {
     
     console.log("Selected commercial faucet template for category:", category);
     
@@ -298,10 +418,10 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
       {
         groupName: 'Mandatory Attributes',
         attributes: [
-          'Flow Rate (GPM)',
+          'Flow Rate (GPM/LPM)',
           'Maximum Flow Rate at 60 PSI',
-          'Spout Reach (inches)',
-          'Spout Height (inches)',
+          'Spout Reach (inches/mm)',
+          'Spout Height (inches/mm)',
           'Center-to-Center Dimensions',
           'Mounting Type (deck-mount, wall-mount, etc.)',
           'Handle Type (single, double, cross, lever, etc.)',
@@ -390,6 +510,229 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
           'Parts Warranty',
           'Finish Warranty',
           'Maintenance Requirements'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // Mock template for commercial toilets
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+          (fixtureType === 'toilet')) {
+    
+    console.log("Selected commercial toilet template for category:", category);
+    
+    return [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Fixture Type (toilet, urinal, bidet)',
+          'Bowl Type (elongated, round front)',
+          'Configuration (floor mount, wall mount)',
+          'Rough-In Dimension',
+          'Flush Type (flushometer, tank)',
+          'Flush Rate (GPF)',
+          'Water Conservation Rating',
+          'Trapway Size',
+          'Flush Valve Size/Type',
+          'Water Surface Area',
+          'Material (vitreous china, stainless steel)',
+          'Color/Finish',
+          'Rim Shape/Configuration',
+          'Mounting Hardware',
+          'LEAD FREE Certification'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Operation and Technical Specifications',
+        attributes: [
+          'Flush Mechanism Type (manual, automatic)',
+          'Sensor Type (if electronic)',
+          'Power Source (if electronic)',
+          'Battery Type and Life (if applicable)',
+          'Minimum Operating Pressure',
+          'Maximum Performance (MaP) Score',
+          'Flush Volume Options',
+          'Water Spot Size',
+          'Trap Seal Depth'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Seat Included',
+          'Seat Compatibility',
+          'Seat Type (open front, closed front)',
+          'QuickConnect/EasyInstall Features',
+          'Concealed Trapway',
+          'Flushing Technology Name',
+          'Antimicrobial Surface Treatment',
+          'Rim Jets/Wash Features',
+          'Noise Reduction Features',
+          'Bedpan Cleaner Compatible'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Installation and Accessibility',
+        attributes: [
+          'ADA Compliant',
+          'Meets Texas Accessibility Standards',
+          'Senior Height/Comfort Height',
+          'Installation Type',
+          'Rough-in Range',
+          'Supply Line Requirements',
+          'Offset Requirements',
+          'Flange Type/Requirements',
+          'Wall Carrier Required/Compatible'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Code and Standards Compliance',
+        attributes: [
+          'ASME A112.19.2/CSA B45.1',
+          'EPA WaterSense Certified',
+          'ANSI Z124.4 (Plastic Toilets)',
+          'UPC/IPC Compliance',
+          'California CEC Compliant',
+          'CALGreen Compliant',
+          'ADA Compliance (ANSI A117.1)',
+          'Buy America(n) Compliance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Warranty and Maintenance',
+        attributes: [
+          'Warranty Period (years)',
+          'Commercial Warranty Details',
+          'Parts Warranty',
+          'Finish Warranty',
+          'Maintenance Requirements',
+          'Spare Parts Availability'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // Mock template for commercial sinks
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+          (fixtureType === 'sink')) {
+    
+    console.log("Selected commercial sink template for category:", category);
+    
+    return [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Sink Type (lavatory, kitchen, service, scrub, hand wash)',
+          'Mounting Type (undermount, drop-in, wall-mount, pedestal)',
+          'Overall Dimensions (LxWxH)',
+          'Bowl Dimensions',
+          'Bowl Depth',
+          'Number of Bowls',
+          'Material (stainless steel, vitreous china, solid surface)',
+          'Material Gauge (for metal sinks)',
+          'Finish/Color',
+          'Faucet Holes/Configuration',
+          'Drain Size/Type',
+          'Weight Capacity',
+          'Overflow Drain Included'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Drain Position',
+          'Sound Dampening',
+          'Corner Radius',
+          'Mounting Hardware Included',
+          'Faucet Ledge Width',
+          'Backsplash Dimensions (if included)',
+          'Soap Dispenser Hole(s)',
+          'Water Retention Volume',
+          'Hot Water Resistance',
+          'Chemical Resistance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Antimicrobial Surface',
+          'Scratch Resistant Surface',
+          'Pre-Drilled Faucet Holes',
+          'Integrated Towel Bar',
+          'Integrated Soap Dispenser',
+          'Waste Disposal Compatible',
+          'Bowl Grid/Rack Included',
+          'Splash Guard Features',
+          'Preassembled Components'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Installation and Accessibility',
+        attributes: [
+          'ADA Compliant',
+          'Installation Type',
+          'Supply Line Requirements',
+          'Waste Line Requirements',
+          'Support Bracket Requirements',
+          'Counter/Wall Construction Requirements',
+          'Minimum Cabinet Size',
+          'Cutout Template Included'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Code and Standards Compliance',
+        attributes: [
+          'ASME A112.19.3/CSA B45.4 (Stainless Steel)',
+          'ASME A112.19.2/CSA B45.1 (Ceramic)',
+          'IAPMO/ANSI Z124.6 (Plastic Sinks)',
+          'NSF/ANSI 2 (Food Equipment)',
+          'UPC/IPC Compliance',
+          'ADA Compliance (ANSI A117.1)',
+          'ASSE 1016 (Scald Protection)',
+          'Buy America(n) Compliance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Warranty and Support',
+        attributes: [
+          'Warranty Period (years)',
+          'Commercial Warranty Details',
+          'Finish Warranty',
+          'Maintenance Requirements',
+          'Recommended Cleaning Products',
+          'Spare Parts Availability'
         ],
         isEssential: true
       }

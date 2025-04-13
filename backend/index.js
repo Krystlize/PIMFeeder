@@ -4,6 +4,7 @@ const { HfInference } = require('@huggingface/inference');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const { createWorker } = require('tesseract.js');
+const fs = require('fs');
 
 // Initialize Express
 const app = express();
@@ -275,7 +276,7 @@ const manufacturerTemplates = {
 };
 
 // Modified function to apply manufacturer-specific extraction templates, considering division and category
-function extractWithManufacturerTemplate(text, manufacturer, division = '', category = '') {
+function extractWithManufacturerTemplate(text, manufacturer, division = '', category = '', categoryType = 'unknown') {
   const results = [];
   
   // Get the template for this manufacturer, or use a generic one
@@ -285,40 +286,28 @@ function extractWithManufacturerTemplate(text, manufacturer, division = '', cate
   console.log('====== TEMPLATE SELECTION DEBUG ======');
   console.log('Division:', division);
   console.log('Category:', category);
+  console.log('Category Type:', categoryType);
   console.log('Manufacturer:', manufacturer);
   
   // If no template found, find a template based on division and category
   if (!template) {
     // Convert division and category to lowercase for comparison
     const divisionLower = division.toLowerCase();
-    const categoryLower = category.toLowerCase();
     
     console.log('Division (lower):', divisionLower);
-    console.log('Category (lower):', categoryLower);
-    console.log('Category includes "fixture":', categoryLower.includes('fixture'));
-    console.log('Category includes "faucet":', categoryLower.includes('faucet'));
-    console.log('Category includes "commercial fixtures":', categoryLower.includes('commercial fixtures'));
     
-    // Try to match a template based on division and category
+    // Try to match a template based on division and category type
     if ((divisionLower.includes('plumbing') || divisionLower.includes('22'))) {
-      // Check for any indication this is a faucet or commercial fixture
-      const isFaucetOrFixture = 
-        categoryLower.includes('fixture') || 
-        categoryLower.includes('faucet') || 
-        categoryLower === 'commercial fixtures' ||
-        categoryLower === 'commercial fixture' ||
-        category === 'Commercial Fixtures';
-      
-      if (isFaucetOrFixture) {
+      if (categoryType === 'faucet') {
         // Use a faucet template
         template = Object.values(manufacturerTemplates)
           .find(t => t.category === 'faucets') || manufacturerTemplates["American Standard"];
-        console.log('Selected faucet template based on category:', category);
-      } else if (categoryLower.includes('drain')) {
+        console.log('Selected faucet template based on categoryType');
+      } else if (categoryType === 'drain') {
         // Use a drain template
         template = Object.values(manufacturerTemplates)
           .find(t => t.category === 'drains') || manufacturerTemplates["Watts Drains"];
-        console.log('Selected drain template based on category:', category);
+        console.log('Selected drain template based on categoryType');
       }
     }
     
@@ -517,177 +506,185 @@ app.post('/api/process-pdf', upload.single('file'), async (req, res) => {
   try {
     const { division, category } = req.body;
     
+    // Special handling for Commercial Fixtures - detect specific fixture type
+    let categoryType = 'unknown';
+    const categoryLower = category?.toLowerCase() || '';
+    
+    // First check for drains vs fixtures
+    if (categoryLower.includes('drain')) {
+      categoryType = 'drain';
+      console.log('Detected DRAIN category type from:', category);
+    } else if (category === 'Commercial Fixtures' || categoryLower.includes('fixture') || categoryLower.includes('faucet')) {
+      // Default to faucet but check for more specific fixture types
+      categoryType = 'faucet';
+      
+      // Determine more specific fixture type
+      if (categoryLower.includes('toilet') || categoryLower.includes('urinal') || categoryLower.includes('water closet')) {
+        categoryType = 'toilet';
+      } else if (categoryLower.includes('sink') || categoryLower.includes('lavatory') || categoryLower.includes('basin')) {
+        categoryType = 'sink';
+      } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
+        categoryType = 'shower';
+      } else if (categoryLower.includes('faucet') || categoryLower.includes('tap')) {
+        categoryType = 'faucet';
+      }
+      
+      console.log(`Detected ${categoryType.toUpperCase()} category type from:`, category);
+    } else {
+      console.log('Unknown category type from:', category);
+    }
+    
+    console.log('Division:', division);
+    console.log('Category:', category);
+    console.log('Detected Category Type:', categoryType);
+    
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
     
     console.log('File received:', req.file.originalname);
-    console.log('Division:', division);
-    console.log('Category:', category);
     
     // Extract text from the PDF
-    const pdfBuffer = req.file.buffer;
-    let pdfText = '';
+    const pdfPath = req.file.path;
+    const pdfText = await extractTextFromPDF(pdfPath);
     
-    try {
-      const pdfParse = require('pdf-parse');
-      const pdfData = await pdfParse(pdfBuffer);
-      pdfText = pdfData.text;
-      console.log('PDF text extraction successful, length:', pdfText.length);
-    } catch (pdfError) {
-      console.error('Error parsing PDF text:', pdfError);
-      // Continue with empty text - we'll try OCR
-    }
-    
-    // Check if we need to perform OCR
-    if (!pdfText || pdfText.length < 100) {
-      try {
-        console.log('PDF text too short, attempting OCR...');
-        const { createWorker } = require('tesseract.js');
-        const worker = await createWorker('eng');
-        
-        // Use buffer directly for OCR
-        const { data } = await worker.recognize(pdfBuffer);
-        pdfText = data.text || '';
-        
-        await worker.terminate();
-        console.log('OCR completed, length:', pdfText.length);
-      } catch (ocrError) {
-        console.error('Error performing OCR:', ocrError);
-      }
-    }
-    
-    if (!pdfText || pdfText.length < 100) {
-      return res.status(400).json({ 
-        error: 'Could not extract readable text from the PDF. The file may be image-based or corrupted.' 
-      });
-    }
-    
-    // Detect manufacturer from text
+    // Detect manufacturer from the text if possible
     const detectedManufacturer = detectManufacturer(pdfText);
-    console.log('Detected manufacturer:', detectedManufacturer || 'None detected');
+    console.log('Detected manufacturer:', detectedManufacturer);
     
-    // Extract product information from the text
-    let extractedProductInfo = [];
+    // Post-process detected manufacturer based on division and category
+    const postProcessedManufacturer = postProcessManufacturerDetection(pdfText, division, category);
+    if (postProcessedManufacturer) {
+      console.log('Post-processed manufacturer:', postProcessedManufacturer);
+    }
     
+    // Extract as much as possible using templates
+    const attributes = [];
+    
+    // First try using the manufacturer-specific template if available
     if (detectedManufacturer) {
       // Use the manufacturer-specific template for extraction
-      const templateResults = extractWithManufacturerTemplate(pdfText, detectedManufacturer, division, category);
+      const templateResults = extractWithManufacturerTemplate(pdfText, detectedManufacturer, division, category, categoryType);
       
       // Add manufacturer to the extracted info if not already present
-      if (!templateResults.some(attr => attr.name === "Manufacturer")) {
+      if (!templateResults.some(attr => attr.name.toLowerCase() === 'manufacturer')) {
         templateResults.push({
-          name: "Manufacturer",
+          name: 'Manufacturer',
           value: detectedManufacturer
         });
       }
       
-      extractedProductInfo = templateResults;
-      console.log(`Extracted ${extractedProductInfo.length} attributes using ${detectedManufacturer} template`);
-    } else {
-      // Fall back to generic extraction if no manufacturer detected
-      const detectedProductNumber = extractProductNumber(pdfText);
-      if (detectedProductNumber) {
-        console.log(`Detected product number: ${detectedProductNumber}`);
-        extractedProductInfo.push({
-          name: "Product Number",
-          value: detectedProductNumber
-        });
-      }
-    }
-    
-    // Try post-processing to detect manufacturer if not already detected
-    if (!detectedManufacturer) {
-      const postProcessedManufacturer = postProcessManufacturerDetection(pdfText, division, category);
-      if (postProcessedManufacturer) {
-        console.log(`Post-processing detected manufacturer: ${postProcessedManufacturer}`);
-        
-        // Re-extract using the manufacturer template
-        const templateResults = extractWithManufacturerTemplate(pdfText, postProcessedManufacturer, division, category);
-        
-        // Only use template results if we got meaningful data
-        if (templateResults.length > 1) {
-          // Add manufacturer to the extracted info
-          if (!templateResults.some(attr => attr.name === "Manufacturer")) {
-            templateResults.push({
-              name: "Manufacturer",
-              value: postProcessedManufacturer
-            });
-          }
-          
-          extractedProductInfo = templateResults;
-          console.log(`Re-extracted ${extractedProductInfo.length} attributes using post-processed manufacturer template`);
-        } else {
-          // Just add the manufacturer to existing info
-          extractedProductInfo.push({
-            name: "Manufacturer",
+      attributes.push(...templateResults);
+    } 
+    // If no manufacturer was detected initially, but post-processing found one
+    else if (postProcessedManufacturer) {
+      console.log('Using post-processed manufacturer for template');
+      
+      // Re-extract using the manufacturer template
+      const templateResults = extractWithManufacturerTemplate(pdfText, postProcessedManufacturer, division, category, categoryType);
+      
+      // Only use template results if we got meaningful data
+      if (templateResults.length > 2) {
+        // Add manufacturer to the extracted info if not already present
+        if (!templateResults.some(attr => attr.name.toLowerCase() === 'manufacturer')) {
+          templateResults.push({
+            name: 'Manufacturer',
             value: postProcessedManufacturer
           });
         }
+        
+        attributes.push(...templateResults);
+      } else {
+        console.log('Template extraction yielded insufficient results, proceeding with general extraction');
+      }
+    } 
+    // If no manufacturer was detected at all
+    else {
+      console.log('No manufacturer detected, using generic extraction');
+      
+      // Try to extract using a generic template based on category
+      const templateResults = extractWithManufacturerTemplate(pdfText, null, division, category, categoryType);
+      if (templateResults.length > 1) {
+        attributes.push(...templateResults);
       }
     }
     
-    // Extract tabular data from the PDF text
-    let extractedAttributes = [];
+    // Next, extract general product information that might be missed by templates
+    const productNumber = extractProductNumber(pdfText);
+    if (productNumber && !attributes.some(attr => attr.name.toLowerCase().includes('product number') || attr.name.toLowerCase().includes('model'))) {
+      attributes.push({
+        name: 'Product Number',
+        value: productNumber
+      });
+    }
+    
+    // Extract tabular data which might contain attributes
+    const tabularData = extractTabularData(pdfText);
+    attributes.push(...tabularData);
+    
+    // Try to extract suffix options from the text
+    const suffixData = extractSuffixesFromOcrText(pdfText);
+    attributes.push(...suffixData);
+    
+    // Extract technical data using regex patterns
+    const technicalData = extractTechnicalData(pdfText);
+    attributes.push(...technicalData);
+    
+    // Use AI model to extract additional attributes
+    let aiAttributes = [];
     
     try {
-      // If we have product info from templates, use that as a base
-      if (extractedProductInfo.length > 0) {
-        extractedAttributes = extractedProductInfo;
-      }
-      
-      // Use AI model to extract additional attributes if needed
-      if (extractedAttributes.length < 3) {
-        const modelAttributes = await extractAttributesWithAI(pdfText, division, category, detectedManufacturer);
-        
-        // Merge with existing attributes, avoiding duplicates
-        const existingNames = extractedAttributes.map(attr => normalizeAttributeName(attr.name));
-        for (const attr of modelAttributes) {
-          const normalizedName = normalizeAttributeName(attr.name);
-          if (!existingNames.includes(normalizedName)) {
-            extractedAttributes.push(attr);
-            existingNames.push(normalizedName);
-          }
-        }
-      }
-      
-      // Ensure division and category are included in attributes
-      if (division && !extractedAttributes.some(attr => attr.name === "Division")) {
-        extractedAttributes.push({
-          name: "Division",
-          value: division
-        });
-      }
-      
-      if (category && !extractedAttributes.some(attr => attr.name === "Category")) {
-        extractedAttributes.push({
-          name: "Category",
-          value: category
-        });
-      }
-      
-      console.log(`Total attributes extracted: ${extractedAttributes.length}`);
+      aiAttributes = await extractAttributesWithAI(
+        pdfText, 
+        division, 
+        category, 
+        detectedManufacturer || postProcessedManufacturer || null
+      );
     } catch (error) {
-      console.error('Error extracting attributes:', error);
-      
-      // Fall back to basic extraction if advanced methods fail
-      if (extractedAttributes.length === 0 && extractedProductInfo.length > 0) {
-        extractedAttributes = extractedProductInfo;
-      }
+      console.error('Error using AI for attribute extraction:', error);
     }
     
-    // Generate attribute template based on division and category
-    const attributeTemplate = await generateAttributeTemplate(division, category, extractedAttributes.find(a => a.name === "Product Description")?.value);
+    attributes.push(...aiAttributes);
     
-    // Return extracted information
+    // Add division and category if not already present
+    if (division && !attributes.some(attr => attr.name.toLowerCase() === 'division')) {
+      attributes.push({
+        name: 'Division',
+        value: division
+      });
+    }
+    
+    if (category && !attributes.some(attr => attr.name.toLowerCase() === 'category')) {
+      attributes.push({
+        name: 'Category',
+        value: category
+      });
+    }
+    
+    // Deduplicate and clean attributes
+    const uniqueAttributes = deduplicateAttributes(attributes);
+    const cleanedAttributes = uniqueAttributes.map(attr => ({
+      name: attr.name,
+      value: attr.value
+    }));
+    
+    // Generate an attribute template for the frontend
+    const template = await generateAttributeTemplate(division, category, '');
+    
+    // Return the results
     res.json({
-      attributes: sanitizeAttributes(extractedAttributes),
+      attributes: cleanedAttributes,
       rawText: pdfText,
-      template: attributeTemplate
+      template: template,
+      categoryType: categoryType  // Add the detected category type to the response
     });
+    
+    // Clean up the temporary file
+    fs.unlinkSync(pdfPath);
+    
   } catch (error) {
     console.error('Error processing PDF:', error);
-    res.status(500).json({ error: 'Failed to process PDF', details: error.message });
+    res.status(500).json({ error: 'Error processing PDF' });
   }
 });
 
@@ -956,81 +953,53 @@ const generateAttributeTemplate = async (division, category, productDescription)
   // For now, return a mock response based on the division and category
   
   let mockTemplate = [];
+  const divisionLower = division?.toLowerCase() || '';
+  const categoryLower = category?.toLowerCase() || '';
+  const productDescLower = productDescription?.toLowerCase() || '';
   
-  // Mock template for plumbing/drainage
-  if ((division && division.toLowerCase().includes('plumbing') || division === '22') && 
-      (category && category.toLowerCase().includes('drain'))) {
+  // Determine the specific fixture type based on category and product description
+  let fixtureType = 'unknown';
+  
+  // Add faucet type detection in category string
+  if (categoryLower === 'commercial fixtures' || categoryLower.includes('fixture')) {
+    // Default to faucet for generic fixture, but check for specific types
+    fixtureType = 'faucet';
     
-    mockTemplate = [
-      {
-        groupName: 'Product Information',
-        attributes: [
-          'Product Number',
-          'Product Name',
-          'Product Description',
-          'Specification Number',
-          'Manufacturer'
-        ],
-        isEssential: true
-      },
-      {
-        groupName: 'Mandatory Attributes',
-        attributes: [
-          'Load rating/traffic classification (light duty, medium duty, heavy duty)',
-          'Top/grate material (cast iron, stainless steel, nickel bronze, etc.)',
-          'Top/grate finish (polished, satin, coated, etc.)',
-          'Top/grate shape (round, square, rectangular)',
-          'Top/grate dimensions',
-          'Body material (cast iron, PVC, ABS, etc.)',
-          'Outlet size (2", 3", 4", etc.)',
-          'Outlet connection type (no-hub, threaded, push-on, etc.)',
-          'Outlet orientation (bottom, side, adjustable)',
-          'Trap configuration (integral P-trap, separate, none)',
-          'Sediment bucket requirement (yes/no)',
-          'Water seal depth for trap (if applicable)',
-          'Compliance with applicable codes (UPC, IPC, local jurisdictions)'
-        ],
-        isEssential: true
-      },
-      {
-        groupName: 'Additional Important Attributes',
-        attributes: [
-          'Flow rate capacity (GPM)',
-          'Anti-ponding design (slope to drain)',
-          'Membrane clamp/flashing collar (for waterproofing areas)',
-          'Height adjustability (fixed or adjustable)',
-          'Backwater valve (if required)',
-          'ADA compliance (where applicable)',
-          'Heel-proof requirements (if in pedestrian areas)',
-          'Anti-bacterial coating (for healthcare facilities)',
-          'Chemical resistance (for industrial applications)',
-          'Fire rating (if penetrating fire-rated floors)'
-        ],
-        isEssential: false
-      },
-      {
-        groupName: 'Code and Standards Compliance',
-        attributes: [
-          'ASME A112.6.3 (Floor and Trench Drains)',
-          'ASME A112.21.2M (Roof Drains)',
-          'CSA B79 (Commercial and Residential Drains in Canada)',
-          'NSF/ANSI 14 (Plastic Components and Materials)',
-          'Local plumbing codes (requirements vary by jurisdiction)',
-          'Buy American Act compliance (for government projects)'
-        ],
-        isEssential: true
+    // Check category for specific fixture type
+    if (categoryLower.includes('faucet') || categoryLower.includes('tap')) {
+      fixtureType = 'faucet';
+    } else if (categoryLower.includes('toilet') || categoryLower.includes('urinal') || categoryLower.includes('water closet')) {
+      fixtureType = 'toilet';
+    } else if (categoryLower.includes('sink') || categoryLower.includes('lavatory') || categoryLower.includes('basin')) {
+      fixtureType = 'sink';
+    } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
+      fixtureType = 'shower';
+    }
+    
+    // Check product description for more specific fixture type
+    if (productDescLower) {
+      if (productDescLower.includes('toilet') || productDescLower.includes('water closet') || 
+          productDescLower.includes('urinal') || productDescLower.includes('bidet')) {
+        fixtureType = 'toilet';
+      } else if (productDescLower.includes('sink') || productDescLower.includes('lavatory') || 
+                productDescLower.includes('basin')) {
+        fixtureType = 'sink';
+      } else if (productDescLower.includes('shower') || productDescLower.includes('bath')) {
+        fixtureType = 'shower';
+      } else if (productDescLower.includes('faucet') || productDescLower.includes('tap') || 
+                productDescLower.includes('spout')) {
+        fixtureType = 'faucet';
       }
-    ];
-  }
-  // Mock template for commercial faucets
-  else if ((division && division.toLowerCase().includes('plumbing') || division === '22') && 
-           (category && (category.toLowerCase().includes('fixture') || 
-                        category.toLowerCase().includes('faucet') || 
-                        category.toLowerCase() === 'commercial fixtures' ||
-                        category.toLowerCase() === 'commercial fixture' ||
-                        category === 'Commercial Fixtures'))) {
+    }
     
-    console.log("Selected commercial faucet template for category:", category);
+    console.log(`Detected fixture type: ${fixtureType} based on category: "${category}" and product desc: "${productDescription?.substring(0, 50)}..."`);
+  }
+  
+  // Mock template for commercial toilets
+  if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+      (fixtureType === 'toilet')) {
+    
+    console.log("Selected commercial toilet template");
     
     mockTemplate = [
       {
@@ -1047,115 +1016,112 @@ const generateAttributeTemplate = async (division, category, productDescription)
       {
         groupName: 'Mandatory Attributes',
         attributes: [
-          'Flow Rate (GPM)',
-          'Maximum Flow Rate at 60 PSI',
-          'Spout Reach (inches)',
-          'Spout Height (inches)',
-          'Center-to-Center Dimensions',
-          'Mounting Type (deck-mount, wall-mount, etc.)',
-          'Handle Type (single, double, cross, lever, etc.)',
-          'Connection Type (compression, threaded, etc.)',
-          'Inlet Size',
-          'Material (brass, stainless steel, etc.)',
-          'Finish (chrome, brushed nickel, etc.)',
+          'Fixture Type (toilet, urinal, bidet)',
+          'Bowl Type (elongated, round front)',
+          'Configuration (floor mount, wall mount)',
+          'Rough-In Dimension',
+          'Flush Type (flushometer, tank)',
+          'Flush Rate (GPF)',
+          'Water Conservation Rating',
+          'Trapway Size',
+          'Flush Valve Size/Type',
+          'Water Surface Area',
+          'Material (vitreous china, stainless steel)',
+          'Color/Finish',
+          'Rim Shape/Configuration',
+          'Mounting Hardware',
           'LEAD FREE Certification'
         ],
         isEssential: true
       },
       {
-        groupName: 'Operation and Controls',
+        groupName: 'Operation and Technical Specifications',
         attributes: [
-          'Operation Type (manual, electronic, touchless)',
-          'Sensor Type (infrared, capacitive)',
-          'Power Source (battery, AC, hardwired)',
-          'Battery Type and Life',
-          'Auto Shut-off Timer',
-          'Temperature Control (mixing valve, thermostatic)',
-          'Temperature Range',
-          'Pre-set Temperature Option',
-          'Temperature Limit Stop'
+          'Flush Mechanism Type (manual, automatic)',
+          'Sensor Type (if electronic)',
+          'Power Source (if electronic)',
+          'Battery Type and Life (if applicable)',
+          'Minimum Operating Pressure',
+          'Maximum Performance (MaP) Score',
+          'Flush Volume Options',
+          'Water Spot Size',
+          'Trap Seal Depth'
         ],
         isEssential: true
       },
       {
         groupName: 'Additional Features',
         attributes: [
-          'Aerator Type',
-          'Drain Assembly Included',
-          'ADA Compliant',
-          'Water-Saving Features',
-          'Vandal Resistant Features',
-          'Laminar Flow Option',
-          'Self-Closing Mechanism',
-          'Temperature Indicator',
-          'Integral Check Valves',
-          'Integral Strainers'
+          'Seat Included',
+          'Seat Compatibility',
+          'Seat Type (open front, closed front)',
+          'QuickConnect/EasyInstall Features',
+          'Concealed Trapway',
+          'Flushing Technology Name',
+          'Antimicrobial Surface Treatment',
+          'Rim Jets/Wash Features',
+          'Noise Reduction Features',
+          'Bedpan Cleaner Compatible'
         ],
         isEssential: false
       },
       {
-        groupName: 'Installation Requirements',
+        groupName: 'Installation and Accessibility',
         attributes: [
-          'Hole Size Requirements',
-          'Deck Thickness Range',
+          'ADA Compliant',
+          'Meets Texas Accessibility Standards',
+          'Senior Height/Comfort Height',
+          'Installation Type',
+          'Rough-in Range',
           'Supply Line Requirements',
-          'Installation Type (single hole, widespread, centerset)',
-          'Number of Mounting Holes',
-          'Distance Between Faucet Centers'
+          'Offset Requirements',
+          'Flange Type/Requirements',
+          'Wall Carrier Required/Compatible'
         ],
         isEssential: true
-      },
-      {
-        groupName: 'Finishes and Options',
-        attributes: [
-          'Available Finishes',
-          'Special Coatings',
-          'Antimicrobial Surface Treatment',
-          'Optional Accessories',
-          'Replacement Parts Availability'
-        ],
-        isEssential: false
       },
       {
         groupName: 'Code and Standards Compliance',
         attributes: [
-          'NSF/ANSI 61 Certification',
-          'NSF/ANSI 372 (Lead Content)',
-          'ASME A112.18.1/CSA B125.1',
-          'ASSE 1070 Compliance (if temperature regulation)',
+          'ASME A112.19.2/CSA B45.1',
+          'EPA WaterSense Certified',
+          'ANSI Z124.4 (Plastic Toilets)',
           'UPC/IPC Compliance',
+          'California CEC Compliant',
           'CALGreen Compliant',
-          'WaterSense Labeled',
-          'ADA Compliance',
-          'California AB 1953 Lead-Free Compliance'
+          'ADA Compliance (ANSI A117.1)',
+          'Buy America(n) Compliance'
         ],
         isEssential: true
       },
       {
-        groupName: 'Warranty and Service',
+        groupName: 'Warranty and Maintenance',
         attributes: [
           'Warranty Period (years)',
           'Commercial Warranty Details',
           'Parts Warranty',
           'Finish Warranty',
-          'Maintenance Requirements'
+          'Maintenance Requirements',
+          'Spare Parts Availability'
         ],
         isEssential: true
       }
     ];
   }
-  // Mock template for pipe fittings
-  else if ((division && division.toLowerCase().includes('plumbing') || division === '22') && 
-           (category && category.toLowerCase().includes('fitting'))) {
+  // Mock template for commercial sinks
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+          (fixtureType === 'sink')) {
+    
+    console.log("Selected commercial sink template");
     
     mockTemplate = [
       {
         groupName: 'Product Information',
         attributes: [
           'Product Number',
-          'Product Name', 
+          'Product Name',
           'Product Description',
-          'Specification Number',
+          'Model Series',
           'Manufacturer'
         ],
         isEssential: true
@@ -1163,46 +1129,200 @@ const generateAttributeTemplate = async (division, category, productDescription)
       {
         groupName: 'Mandatory Attributes',
         attributes: [
-          'Material (copper, brass, PVC, CPVC, PEX, etc.)',
-          'Connection type (press, solder, threaded, compression, etc.)',
-          'Size/dimension (nominal pipe size)',
-          'Pressure rating',
-          'Temperature rating',
-          'Compatible pipe types',
-          'Configuration (elbow, tee, coupling, union, etc.)',
-          'Angle (for elbows: 45°, 90°, etc.)',
-          'End connections (FPT, MPT, sweat, press, etc.)',
-          'Lead-free certification (for potable water)',
-          'Standards compliance (ASME, ASTM, NSF)'
+          'Sink Type (lavatory, kitchen, service, scrub, hand wash)',
+          'Mounting Type (undermount, drop-in, wall-mount, pedestal)',
+          'Overall Dimensions (LxWxH)',
+          'Bowl Dimensions',
+          'Bowl Depth',
+          'Number of Bowls',
+          'Material (stainless steel, vitreous china, solid surface)',
+          'Material Gauge (for metal sinks)',
+          'Finish/Color',
+          'Faucet Holes/Configuration',
+          'Drain Size/Type',
+          'Weight Capacity',
+          'Overflow Drain Included'
         ],
         isEssential: true
       },
       {
-        groupName: 'Additional Important Attributes',
+        groupName: 'Technical Specifications',
         attributes: [
-          'Flow characteristics',
-          'Corrosion resistance',
-          'Chemical compatibility',
-          'UV resistance (for outdoor applications)',
-          'Insulation compatibility',
-          'Sealing method (o-ring, gasket, etc.)',
-          'Required tools for installation',
-          'Special coating or lining',
-          'Electrical conductivity/dielectric properties',
-          'Fire rating'
+          'Drain Position',
+          'Sound Dampening',
+          'Corner Radius',
+          'Mounting Hardware Included',
+          'Faucet Ledge Width',
+          'Backsplash Dimensions (if included)',
+          'Soap Dispenser Hole(s)',
+          'Water Retention Volume',
+          'Hot Water Resistance',
+          'Chemical Resistance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Antimicrobial Surface',
+          'Scratch Resistant Surface',
+          'Pre-Drilled Faucet Holes',
+          'Integrated Towel Bar',
+          'Integrated Soap Dispenser',
+          'Waste Disposal Compatible',
+          'Bowl Grid/Rack Included',
+          'Splash Guard Features',
+          'Preassembled Components'
         ],
         isEssential: false
       },
       {
+        groupName: 'Installation and Accessibility',
+        attributes: [
+          'ADA Compliant',
+          'Installation Type',
+          'Supply Line Requirements',
+          'Waste Line Requirements',
+          'Support Bracket Requirements',
+          'Counter/Wall Construction Requirements',
+          'Minimum Cabinet Size',
+          'Cutout Template Included'
+        ],
+        isEssential: true
+      },
+      {
         groupName: 'Code and Standards Compliance',
         attributes: [
-          'ASME B16 series (various fitting standards)',
-          'ASTM material standards (specific to material)',
-          'NSF/ANSI 61 (drinking water system components)',
-          'NSF/ANSI 372 (lead content)',
-          'UL/FM approvals (for fire protection)',
-          'Local plumbing codes compliance',
-          'Low-lead compliance (California AB 1953, etc.)'
+          'ASME A112.19.3/CSA B45.4 (Stainless Steel)',
+          'ASME A112.19.2/CSA B45.1 (Ceramic)',
+          'IAPMO/ANSI Z124.6 (Plastic Sinks)',
+          'NSF/ANSI 2 (Food Equipment)',
+          'UPC/IPC Compliance',
+          'ADA Compliance (ANSI A117.1)',
+          'ASSE 1016 (Scald Protection)',
+          'Buy America(n) Compliance'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Warranty and Support',
+        attributes: [
+          'Warranty Period (years)',
+          'Commercial Warranty Details',
+          'Finish Warranty',
+          'Maintenance Requirements',
+          'Recommended Cleaning Products',
+          'Spare Parts Availability'
+        ],
+        isEssential: true
+      }
+    ];
+  }
+  // Mock template for commercial showers
+  else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
+          (fixtureType === 'shower')) {
+    
+    console.log("Selected commercial shower template");
+    
+    mockTemplate = [
+      {
+        groupName: 'Product Information',
+        attributes: [
+          'Product Number',
+          'Product Name',
+          'Product Description',
+          'Model Series',
+          'Manufacturer'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Mandatory Attributes',
+        attributes: [
+          'Shower Type (stall, panel, column, head only)',
+          'Configuration (recessed, corner, barrier-free)',
+          'Overall Dimensions',
+          'Flow Rate (GPM)',
+          'Maximum Flow Rate at 80 PSI',
+          'Spray Pattern/Options',
+          'Valve Type (pressure balancing, thermostatic)',
+          'Connection Type/Size',
+          'Material (base/pan, walls, enclosure)',
+          'Finish/Color',
+          'Temperature Control Type',
+          'Pressure Rating',
+          'Diverter Type/Function (if applicable)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Technical Specifications',
+        attributes: [
+          'Operating Pressure Range',
+          'Temperature Range',
+          'Anti-Scald Protection',
+          'Shower Head Height/Adjustability',
+          'Arm Reach/Extension',
+          'Rough-in Depth',
+          'Control Handle Type',
+          'Check Valve Features',
+          'Mounting Type/Requirements'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Additional Features',
+        attributes: [
+          'Body Sprays Included',
+          'Hand Shower Included',
+          'Handheld Hose Length',
+          'Volume Control',
+          'Pause/Stop Function',
+          'Water Conservation Features',
+          'Comfort Features',
+          'Hygiene Features',
+          'Self-Cleaning Nozzles'
+        ],
+        isEssential: false
+      },
+      {
+        groupName: 'Installation and Accessibility',
+        attributes: [
+          'ADA Compliant',
+          'Installation Type',
+          'Supply Line Requirements',
+          'Drain Requirements',
+          'Wall Construction Requirements',
+          'Waterproofing Requirements',
+          'Grab Bar Compatibility',
+          'Seat Included/Compatible'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Code and Standards Compliance',
+        attributes: [
+          'ASME A112.18.1/CSA B125.1',
+          'ASSE 1016/ASME A112.1016/CSA B125.16',
+          'EPA WaterSense Certified',
+          'UPC/IPC Compliance',
+          'ADA Compliance (ANSI A117.1)',
+          'California Energy Commission Compliant',
+          'NSF/ANSI 61 (Drinking Water System Components)',
+          'NSF/ANSI 372 (Lead Content)'
+        ],
+        isEssential: true
+      },
+      {
+        groupName: 'Warranty and Support',
+        attributes: [
+          'Warranty Period (years)',
+          'Commercial Warranty Details',
+          'Finish Warranty',
+          'Valve Warranty',
+          'Maintenance Requirements',
+          'Recommended Cleaning Products',
+          'Spare Parts Availability'
         ],
         isEssential: true
       }
@@ -1540,16 +1660,27 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
   
   // Special case handling based on division and category
   if (divisionLower.includes('22') || divisionLower.includes('plumbing')) {
-    // For commercial faucets, look for specific manufacturers
-    const isFaucetOrFixture = 
-      categoryLower.includes('fixture') || 
-      categoryLower.includes('faucet') || 
-      categoryLower === 'commercial fixtures' ||
-      categoryLower === 'commercial fixture' ||
-      category === 'Commercial Fixtures';
     
-    if (isFaucetOrFixture) {
-      console.log("Detected Commercial Fixture/Faucet category:", category);
+    // First, detect the fixture type
+    let fixtureType = 'unknown';
+    
+    if (categoryLower.includes('drain')) {
+      fixtureType = 'drain';
+    } else if (categoryLower.includes('toilet') || categoryLower.includes('urinal') || categoryLower.includes('water closet')) {
+      fixtureType = 'toilet';
+    } else if (categoryLower.includes('sink') || categoryLower.includes('lavatory') || categoryLower.includes('basin')) {
+      fixtureType = 'sink';
+    } else if (categoryLower.includes('shower') || categoryLower.includes('bath')) {
+      fixtureType = 'shower';
+    } else if (categoryLower.includes('faucet') || categoryLower.includes('tap') || categoryLower.includes('fixture')) {
+      fixtureType = 'faucet';
+    }
+    
+    console.log("Detected fixture type for manufacturer matching:", fixtureType);
+    
+    // For commercial faucets, look for specific manufacturers
+    if (fixtureType === 'faucet') {
+      console.log("Checking faucet manufacturers");
       
       if (cleanedText.includes('american standard') || 
           cleanedText.includes('colony') || 
@@ -1578,10 +1709,86 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
         console.log("Post-processing detected Kohler based on category and text");
         return "Kohler";
       }
+      
+      if (cleanedText.includes('sloan') || 
+          cleanedText.includes('optima')) {
+        console.log("Post-processing detected Sloan based on category and text");
+        return "Sloan";
+      }
+      
+      if (cleanedText.includes('chicago faucets') || 
+          cleanedText.includes('geberit')) {
+        console.log("Post-processing detected Chicago Faucets based on category and text");
+        return "Chicago Faucets";
+      }
+    }
+    
+    // For commercial toilets, look for specific manufacturers
+    else if (fixtureType === 'toilet') {
+      console.log("Checking toilet manufacturers");
+      
+      if (cleanedText.includes('american standard') || 
+          cleanedText.includes('cadet')) {
+        console.log("Post-processing detected American Standard toilet based on text");
+        return "American Standard";
+      }
+      
+      if (cleanedText.includes('kohler')) {
+        console.log("Post-processing detected Kohler toilet based on text");
+        return "Kohler";
+      }
+      
+      if (cleanedText.includes('toto') || 
+          cleanedText.includes('drake') || 
+          cleanedText.includes('ultramax')) {
+        console.log("Post-processing detected TOTO toilet based on text");
+        return "TOTO";
+      }
+      
+      if (cleanedText.includes('sloan') || 
+          cleanedText.includes('flushmate')) {
+        console.log("Post-processing detected Sloan toilet based on text");
+        return "Sloan";
+      }
+      
+      if (cleanedText.includes('zurn')) {
+        console.log("Post-processing detected Zurn toilet based on text");
+        return "Zurn";
+      }
+    }
+    
+    // For commercial sinks, look for specific manufacturers
+    else if (fixtureType === 'sink') {
+      console.log("Checking sink manufacturers");
+      
+      if (cleanedText.includes('american standard')) {
+        console.log("Post-processing detected American Standard sink based on text");
+        return "American Standard";
+      }
+      
+      if (cleanedText.includes('kohler')) {
+        console.log("Post-processing detected Kohler sink based on text");
+        return "Kohler";
+      }
+      
+      if (cleanedText.includes('elkay')) {
+        console.log("Post-processing detected Elkay sink based on text");
+        return "Elkay";
+      }
+      
+      if (cleanedText.includes('just')) {
+        console.log("Post-processing detected Just sink based on text");
+        return "Just";
+      }
+      
+      if (cleanedText.includes('advance tabco') || cleanedText.includes('advance-tabco')) {
+        console.log("Post-processing detected Advance Tabco sink based on text");
+        return "Advance Tabco";
+      }
     }
     
     // For drains, check specific patterns
-    else if (categoryLower.includes('drain')) {
+    else if (fixtureType === 'drain') {
       // Check for specific Zurn indicators when manufacturer was not detected
       const hasZurnFDPattern = /fd-\d{4}/i.test(cleanedText);
       const hasGeneralPurposeFloorDrain = cleanedText.match(/general purpose floor drain/i);
