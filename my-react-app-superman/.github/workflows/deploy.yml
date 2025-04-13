@@ -31,58 +31,54 @@ jobs:
           pwd
           echo "Files in current directory:"
           ls -la
-          echo "Checking if my-react-app-superman exists:"
-          ls -la my-react-app-superman || echo "Directory not found"
+          echo "Checking public directory:"
+          ls -la public || echo "Public directory not found in root"
+          echo "Checking my-react-app-superman/public directory:"
+          ls -la my-react-app-superman/public || echo "Public directory not found in my-react-app-superman"
 
-      - name: Navigate to correct directory
-        run: |
-          if [ -d "my-react-app-superman" ]; then
-            cd my-react-app-superman
-            echo "Moved to my-react-app-superman directory"
-            ls -la
-          else
-            echo "Using current directory"
-            ls -la
-          fi
-          
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Create temporary public directory if needed
         run: |
-          if [ -d "my-react-app-superman" ]; then
-            cd my-react-app-superman
-            npm install
-          else
-            npm install
+          # If no public directory exists in the root, but it exists in the subdirectory
+          if [ ! -d "public" ] && [ -d "my-react-app-superman/public" ]; then
+            echo "Copying public directory from my-react-app-superman"
+            cp -r my-react-app-superman/public ./public
+          elif [ ! -d "public" ]; then
+            echo "Creating empty public directory"
+            mkdir -p public
+            echo "Creating basic index.html"
+            echo '<html><body><h1>PIMFeeder</h1><p>Loading...</p></body></html>' > public/index.html
           fi
+          
+          # Ensure we have all necessary public files
+          if [ ! -f "public/index.html" ]; then
+            echo "Creating basic index.html"
+            echo '<html><body><h1>PIMFeeder</h1><p>Loading...</p></body></html>' > public/index.html
+          fi
+          
+          echo "Public directory contents:"
+          ls -la public
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Build
-        run: |
-          if [ -d "my-react-app-superman" ]; then
-            cd my-react-app-superman
-            CI=false npm run build
-          else
-            CI=false npm run build
-          fi
+        run: CI=false npm run build
         env:
           REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
           REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
+          BUILD_PATH: '.'
+          GITHUB_PAGES: 'true'
 
-      - name: Determine build path
-        id: build-path
+      - name: Check build output
         run: |
-          if [ -d "my-react-app-superman/build" ]; then
-            echo "path=my-react-app-superman/build" >> $GITHUB_OUTPUT
-          elif [ -d "build" ]; then
-            echo "path=build" >> $GITHUB_OUTPUT
-          else
-            echo "No build directory found"
-            exit 1
-          fi
+          echo "Build directory contents:"
+          ls -la build || echo "Build directory not found"
 
       # GitHub Pages deployment
       - name: Setup Pages
@@ -91,7 +87,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./${{ steps.build-path.outputs.path }}
+          path: ./build
 
       - name: Deploy to GitHub Pages
         id: deployment
