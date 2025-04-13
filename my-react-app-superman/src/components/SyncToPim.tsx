@@ -6,7 +6,12 @@ import {
   Typography, 
   Alert,
   Snackbar,
-  Stack
+  Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Paper
 } from '@mui/material';
 import SyncIcon from '@mui/icons-material/Sync';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -24,16 +29,48 @@ const SyncToPim: React.FC<SyncToPimProps> = ({ results, disabled }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState<string>('');
   const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
+  const [showJsonPreview, setShowJsonPreview] = useState(false);
+  const [jsonData, setJsonData] = useState<string>('');
+
+  // Generate formatted JSON data
+  const generateJsonData = () => {
+    // Create a cleaned up JSON object with all attributes
+    const data = {
+      metadata: {
+        extractedAt: new Date().toISOString(),
+        totalAttributes: results.attributes.length,
+        source: "PIMFeeder"
+      },
+      attributes: results.attributes.map(attr => ({
+        name: attr.name,
+        description: attr.value,
+        ...(attr.suffix ? { suffix_code: attr.suffix } : {})
+      }))
+    };
+    
+    // Convert to a JSON string with nice formatting
+    return JSON.stringify(data, null, 2);
+  };
 
   const handleSync = async () => {
     setIsSyncing(true);
     
     try {
+      // For mock data, show a preview of what would be sent
+      const formattedJson = generateJsonData();
+      setJsonData(formattedJson);
+      setShowJsonPreview(true);
+      
+      // Simulate API call for mock purposes
       const success = await syncToPim(results);
       setSyncSuccess(success);
-      setNotificationMessage('Successfully synced attributes to PIM!');
-      setNotificationType('success');
-      setShowNotification(true);
+      
+      // Only show notification if the dialog is closed
+      if (!showJsonPreview) {
+        setNotificationMessage('Successfully synced attributes to PIM!');
+        setNotificationType('success');
+        setShowNotification(true);
+      }
     } catch (error) {
       console.error('Error syncing to PIM:', error);
       setSyncSuccess(false);
@@ -47,19 +84,8 @@ const SyncToPim: React.FC<SyncToPimProps> = ({ results, disabled }) => {
 
   const handleDownloadJson = () => {
     try {
-      // Create a formatted JSON object with all attributes
-      const jsonData = {
-        extractedAt: new Date().toISOString(),
-        totalAttributes: results.attributes.length,
-        attributes: results.attributes.map(attr => ({
-          name: attr.name,
-          value: attr.value,
-          ...(attr.suffix && { suffix: attr.suffix })
-        }))
-      };
-      
-      // Convert to a JSON string with nice formatting
-      const jsonString = JSON.stringify(jsonData, null, 2);
+      // Generate the JSON data
+      const jsonString = generateJsonData();
       
       // Create a blob with the JSON data
       const blob = new Blob([jsonString], { type: 'application/json' });
@@ -94,6 +120,15 @@ const SyncToPim: React.FC<SyncToPimProps> = ({ results, disabled }) => {
 
   const handleCloseNotification = () => {
     setShowNotification(false);
+  };
+
+  const handleCloseJsonPreview = () => {
+    setShowJsonPreview(false);
+    if (syncSuccess) {
+      setNotificationMessage('Successfully synced attributes to PIM!');
+      setNotificationType('success');
+      setShowNotification(true);
+    }
   };
 
   return (
@@ -133,6 +168,37 @@ const SyncToPim: React.FC<SyncToPimProps> = ({ results, disabled }) => {
           Process a PDF to enable syncing
         </Typography>
       )}
+
+      {/* JSON Preview Dialog */}
+      <Dialog
+        open={showJsonPreview}
+        onClose={handleCloseJsonPreview}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>Data to be sent to PIM</DialogTitle>
+        <DialogContent>
+          <Paper 
+            elevation={0} 
+            sx={{ 
+              p: 2, 
+              maxHeight: '60vh', 
+              overflow: 'auto',
+              backgroundColor: '#f5f5f5',
+              fontFamily: 'monospace'
+            }}
+          >
+            <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+              {jsonData}
+            </pre>
+          </Paper>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseJsonPreview} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Snackbar
         open={showNotification}

@@ -232,8 +232,9 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell width="35%"><strong>Attribute</strong></TableCell>
-                  <TableCell width="65%"><strong>Value</strong></TableCell>
+                  <TableCell width="30%"><strong>Attribute Name</strong></TableCell>
+                  <TableCell width="50%"><strong>Description</strong></TableCell>
+                  <TableCell width="20%"><strong>Suffix Code</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -249,30 +250,30 @@ const AllAttributesView: React.FC<AllAttributesViewProps> = ({ attributes }) => 
                       {attr.name}
                     </TableCell>
                     <TableCell>
-                      <Stack direction="row" spacing={1} alignItems="center">
-                        {attr.suffix && (
-                          <Chip 
-                            label={attr.suffix} 
-                            size="small" 
-                            color="primary" 
-                            variant="outlined"
-                            sx={{ 
-                              fontFamily: 'monospace',
-                              fontWeight: 'bold' 
-                            }}
-                          />
-                        )}
-                        <Typography 
-                          variant="body2" 
-                          component="span"
+                      <Typography 
+                        variant="body2" 
+                        component="span"
+                        sx={{ 
+                          wordBreak: 'break-word',
+                          fontWeight: attr.updated ? 'bold' : 'normal'
+                        }}
+                      >
+                        {formatValue(attr.value)}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      {attr.suffix && (
+                        <Chip 
+                          label={attr.suffix} 
+                          size="small" 
+                          color="primary" 
+                          variant="outlined"
                           sx={{ 
-                            wordBreak: 'break-word',
-                            fontWeight: attr.updated ? 'bold' : 'normal'
+                            fontFamily: 'monospace',
+                            fontWeight: 'bold' 
                           }}
-                        >
-                          {formatValue(attr.value)}
-                        </Typography>
-                      </Stack>
+                        />
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
