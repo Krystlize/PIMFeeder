@@ -2,79 +2,139 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ main, stable-build ]
+  workflow_dispatch:  # Allows manual triggering
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
-
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  deployments: write
 
 env:
-  BUILD_PATH: "my-react-app-superman" # Point to your actual React application directory
+  REACT_APP_HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Debug directory structure
+        run: |
+          echo "Current directory structure:"
+          ls -la
+          echo "my-react-app-superman directory structure:"
+          ls -la my-react-app-superman
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
           cache: 'npm'
-          cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+          cache-dependency-path: my-react-app-superman/package-lock.json
 
       - name: Install dependencies
-        working-directory: ${{ env.BUILD_PATH }}
-        run: npm ci
+        run: |
+          cd my-react-app-superman
+          echo "Installing dependencies..."
+          npm install --no-audit --no-fund --legacy-peer-deps
+          if [ $? -ne 0 ]; then
+            echo "Failed to install dependencies"
+            exit 1
+          fi
+          echo "Dependencies installed successfully"
 
       - name: Build
-        working-directory: ${{ env.BUILD_PATH }}
+        run: |
+          cd my-react-app-superman
+          echo "Starting build process..."
+          export NODE_OPTIONS="--max-old-space-size=4096"
+          # Ensure PUBLIC_URL is set correctly for GitHub Pages
+          REACT_APP_PUBLIC_URL="/PIMFeeder" DISABLE_ESLINT_PLUGIN=true CI=false npm run build
+          if [ $? -ne 0 ]; then
+            echo "Build failed"
+            exit 1
+          fi
+          echo "Build completed successfully"
+          # Ensure .nojekyll file exists in build
+          touch build/.nojekyll
         env:
-          CI: false # Disable treating warnings as errors
           REACT_APP_API_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app'
           REACT_APP_API_BASE_URL: 'https://pimfeederplus-git-main-krystlizes-projects.vercel.app/api'
           REACT_APP_ENV: 'production'
-        run: |
-          npm run build
-          ls -la build || echo "Build directory not found"
+          NODE_ENV: 'production'
+          REACT_APP_HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}
+          PUBLIC_URL: '/PIMFeeder'
 
-      - name: Debug directory structure
+      - name: Save logs
+        if: always()
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Directory contents:"
-          ls -la
-          echo "Build path contents:"
-          ls -la ${{ env.BUILD_PATH }}
-          echo "Build directory contents (if exists):"
-          ls -la ${{ env.BUILD_PATH }}/build || echo "Build directory not found"
+          echo "=== Build Logs ===" > logs.txt
+          if [ -f my-react-app-superman/build.log ]; then
+            cat my-react-app-superman/build.log >> logs.txt
+          else
+            echo "No build log found" >> logs.txt
+          fi
+          echo "=== NPM Install Logs ===" >> logs.txt
+          if [ -f my-react-app-superman/npm-install.log ]; then
+            cat my-react-app-superman/npm-install.log >> logs.txt
+          else
+            echo "No npm install log found" >> logs.txt
+          fi
+          echo "=== Package.json ===" >> logs.txt
+          cat my-react-app-superman/package.json >> logs.txt
+          echo "=== Node Version ===" >> logs.txt
+          node -v >> logs.txt
+          echo "=== NPM Version ===" >> logs.txt
+          npm -v >> logs.txt
 
-      - name: Upload artifact
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-logs
+          path: logs.txt
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          enablement: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create docs directory
+        run: |
+          mkdir -p docs
+          if [ -d my-react-app-superman/build ]; then
+            cp -r my-react-app-superman/build/* docs/
+            cp -r my-react-app-superman/build/.nojekyll docs/
+            echo "Build files copied successfully"
+          else
+            echo "Build directory not found"
+            exit 1
+          fi
+
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_PATH }}/build
+          name: github-pages
+          path: docs
+          retention-days: 1
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3 
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: github-pages
+        timeout-minutes: 5
+        continue-on-error: false 
