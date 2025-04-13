@@ -281,24 +281,44 @@ function extractWithManufacturerTemplate(text, manufacturer, division = '', cate
   // Get the template for this manufacturer, or use a generic one
   let template = manufacturerTemplates[manufacturer];
   
+  // Debug info for category matching
+  console.log('====== TEMPLATE SELECTION DEBUG ======');
+  console.log('Division:', division);
+  console.log('Category:', category);
+  console.log('Manufacturer:', manufacturer);
+  
   // If no template found, find a template based on division and category
   if (!template) {
     // Convert division and category to lowercase for comparison
     const divisionLower = division.toLowerCase();
     const categoryLower = category.toLowerCase();
     
+    console.log('Division (lower):', divisionLower);
+    console.log('Category (lower):', categoryLower);
+    console.log('Category includes "fixture":', categoryLower.includes('fixture'));
+    console.log('Category includes "faucet":', categoryLower.includes('faucet'));
+    console.log('Category includes "commercial fixtures":', categoryLower.includes('commercial fixtures'));
+    
     // Try to match a template based on division and category
     if ((divisionLower.includes('plumbing') || divisionLower.includes('22'))) {
-      if (categoryLower.includes('fixture') || categoryLower.includes('faucet')) {
+      // Check for any indication this is a faucet or commercial fixture
+      const isFaucetOrFixture = 
+        categoryLower.includes('fixture') || 
+        categoryLower.includes('faucet') || 
+        categoryLower === 'commercial fixtures' ||
+        categoryLower === 'commercial fixture' ||
+        category === 'Commercial Fixtures';
+      
+      if (isFaucetOrFixture) {
         // Use a faucet template
         template = Object.values(manufacturerTemplates)
           .find(t => t.category === 'faucets') || manufacturerTemplates["American Standard"];
-        console.log('Selected faucet template based on category');
+        console.log('Selected faucet template based on category:', category);
       } else if (categoryLower.includes('drain')) {
         // Use a drain template
         template = Object.values(manufacturerTemplates)
           .find(t => t.category === 'drains') || manufacturerTemplates["Watts Drains"];
-        console.log('Selected drain template based on category');
+        console.log('Selected drain template based on category:', category);
       }
     }
     
@@ -1004,7 +1024,13 @@ const generateAttributeTemplate = async (division, category, productDescription)
   }
   // Mock template for commercial faucets
   else if ((division && division.toLowerCase().includes('plumbing') || division === '22') && 
-           (category && (category.toLowerCase().includes('fixture') || category.toLowerCase().includes('faucet')))) {
+           (category && (category.toLowerCase().includes('fixture') || 
+                        category.toLowerCase().includes('faucet') || 
+                        category.toLowerCase() === 'commercial fixtures' ||
+                        category.toLowerCase() === 'commercial fixture' ||
+                        category === 'Commercial Fixtures'))) {
+    
+    console.log("Selected commercial faucet template for category:", category);
     
     mockTemplate = [
       {
@@ -1515,7 +1541,16 @@ function postProcessManufacturerDetection(text, division = '', category = '') {
   // Special case handling based on division and category
   if (divisionLower.includes('22') || divisionLower.includes('plumbing')) {
     // For commercial faucets, look for specific manufacturers
-    if (categoryLower.includes('fixture') || categoryLower.includes('faucet')) {
+    const isFaucetOrFixture = 
+      categoryLower.includes('fixture') || 
+      categoryLower.includes('faucet') || 
+      categoryLower === 'commercial fixtures' ||
+      categoryLower === 'commercial fixture' ||
+      category === 'Commercial Fixtures';
+    
+    if (isFaucetOrFixture) {
+      console.log("Detected Commercial Fixture/Faucet category:", category);
+      
       if (cleanedText.includes('american standard') || 
           cleanedText.includes('colony') || 
           cleanedText.includes('cadet') || 
@@ -1599,7 +1634,15 @@ INSTRUCTIONS:
 `;
 
   // Add category-specific instructions
-  if (category.toLowerCase().includes('faucet') || category.toLowerCase().includes('fixture')) {
+  const isFaucetOrFixture = 
+    category.toLowerCase().includes('fixture') || 
+    category.toLowerCase().includes('faucet') || 
+    category.toLowerCase() === 'commercial fixtures' ||
+    category.toLowerCase() === 'commercial fixture' ||
+    category === 'Commercial Fixtures';
+    
+  if (isFaucetOrFixture) {
+    console.log("Using faucet-specific prompt for category:", category);
     prompt += `
 7. For faucets, look specifically for these attributes:
    - Flow Rate (GPM)

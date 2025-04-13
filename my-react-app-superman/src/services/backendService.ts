@@ -275,7 +275,13 @@ function getMockTemplateForCategory(division: string, category: string): Attribu
   }
   // Mock template for commercial faucets
   else if ((divisionLower.includes('plumbing') || divisionLower.includes('22')) && 
-           (categoryLower.includes('fixture') || categoryLower.includes('faucet'))) {
+           (categoryLower.includes('fixture') || 
+            categoryLower.includes('faucet') || 
+            categoryLower === 'commercial fixtures' ||
+            categoryLower === 'commercial fixture' ||
+            category === 'Commercial Fixtures')) {
+    
+    console.log("Selected commercial faucet template for category:", category);
     
     return [
       {
