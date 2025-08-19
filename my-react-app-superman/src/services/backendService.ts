@@ -3,11 +3,19 @@ import { ProcessingResult, ProcessedAttribute, AttributeGroup } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
 const HUGGING_FACE_TOKEN = process.env.REACT_APP_HUGGING_FACE_TOKEN;
+const LOCAL_MODEL_URL = process.env.REACT_APP_LOCAL_MODEL_URL || 'http://localhost:8000/api';
 
 // Create an axios instance with default headers
 const api = axios.create({
   headers: {
     'Authorization': `Bearer ${HUGGING_FACE_TOKEN}`,
+    'Content-Type': 'application/json'
+  }
+});
+
+// Local model API instance without auth headers
+const localApi = axios.create({
+  headers: {
     'Content-Type': 'application/json'
   }
 });
@@ -29,16 +37,40 @@ export const processPDFWithAI = async (
   console.log('File size:', Math.round(file.size / 1024), 'KB');
 
   try {
-    // Add a longer timeout since PDF processing can take time, especially for complex documents
-    const response = await api.post(`${API_BASE_URL}/process-pdf`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      timeout: 60000, // 60 second timeout for PDF processing
-    });
+    // First try the Hugging Face endpoint
+    let response;
+    let usingLocalModel = false;
+    
+    try {
+      // Try Hugging Face API first
+      response = await api.post(`${API_BASE_URL}/process-pdf`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        timeout: 60000, // 60 second timeout for PDF processing
+      });
+    } catch (hfError) {
+      console.warn('Hugging Face API error, falling back to local model:', hfError);
+      
+      // If HF fails, try the local model server
+      if (LOCAL_MODEL_URL) {
+        console.log('Attempting to use local model at:', LOCAL_MODEL_URL);
+        response = await localApi.post(`${LOCAL_MODEL_URL}/process-pdf`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          timeout: 120000, // Local models may be slower, use longer timeout
+        });
+        usingLocalModel = true;
+      } else {
+        // If no local model URL is configured, rethrow the error
+        throw hfError;
+      }
+    }
     
     console.log('====== RECEIVED RESPONSE ======');
     console.log('Response status:', response.status);
+    console.log('Using local model:', usingLocalModel);
     console.log('Number of attributes:', response.data.attributes?.length || 0);
     console.log('First attribute:', response.data.attributes?.[0]);
     
@@ -279,11 +311,32 @@ export const chatWithLLM = async (
   context: string
 ): Promise<string> => {
   try {
-    const response = await api.post(`${API_BASE_URL}/chat`, {
-      message,
-      attributes,
-      context
-    });
+    let response;
+    
+    try {
+      // First try Hugging Face API
+      response = await api.post(`${API_BASE_URL}/chat`, {
+        message,
+        attributes,
+        context
+      });
+    } catch (hfError) {
+      console.warn('Hugging Face API error, falling back to local model:', hfError);
+      
+      // If HF fails, try the local model server
+      if (LOCAL_MODEL_URL) {
+        console.log('Attempting to use local model for chat');
+        response = await localApi.post(`${LOCAL_MODEL_URL}/chat`, {
+          message,
+          attributes,
+          context
+        });
+      } else {
+        // If no local model URL is configured, rethrow the error
+        throw hfError;
+      }
+    }
+    
     return response.data.response;
   } catch (error) {
     console.error('Error communicating with LLM:', error);
@@ -297,18 +350,46 @@ export const updateAttributesWithLLM = async (
   context: string
 ): Promise<ProcessedAttribute[]> => {
   try {
-    const response = await api.post(`${API_BASE_URL}/update-attributes`, {
-      message,
-      attributes: currentAttributes,
-      context,
-      instructions: `
-        When extracting or updating attributes, pay special attention to:
-        1. Pipe size attributes - create separate attributes for nominal size, actual size, etc.
-        2. Properly format dimensions with correct units
-        3. Group similar attributes together for easier PIM synchronization
-        4. Maintain all original attributes unless explicitly asked to modify them
-      `
-    });
+    let response;
+    
+    try {
+      // First try Hugging Face API
+      response = await api.post(`${API_BASE_URL}/update-attributes`, {
+        message,
+        attributes: currentAttributes,
+        context,
+        instructions: `
+          When extracting or updating attributes, pay special attention to:
+          1. Pipe size attributes - create separate attributes for nominal size, actual size, etc.
+          2. Properly format dimensions with correct units
+          3. Group similar attributes together for easier PIM synchronization
+          4. Maintain all original attributes unless explicitly asked to modify them
+        `
+      });
+    } catch (hfError) {
+      console.warn('Hugging Face API error, falling back to local model:', hfError);
+      
+      // If HF fails, try the local model server
+      if (LOCAL_MODEL_URL) {
+        console.log('Attempting to use local model for updating attributes');
+        response = await localApi.post(`${LOCAL_MODEL_URL}/update-attributes`, {
+          message,
+          attributes: currentAttributes,
+          context,
+          instructions: `
+            When extracting or updating attributes, pay special attention to:
+            1. Pipe size attributes - create separate attributes for nominal size, actual size, etc.
+            2. Properly format dimensions with correct units
+            3. Group similar attributes together for easier PIM synchronization
+            4. Maintain all original attributes unless explicitly asked to modify them
+          `
+        });
+      } else {
+        // If no local model URL is configured, rethrow the error
+        throw hfError;
+      }
+    }
+    
     return response.data.updatedAttributes;
   } catch (error) {
     console.error('Error updating attributes:', error);

@@ -1,0 +1,14 @@
+2025-04-16 22:17:15,168 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:17:17,654 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:17:25,277 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:17:25,279 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:17:25,280 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:17:25,280 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:17:30,280 - WARNING - Error occurred, increased delay to 10s
+2025-04-16 22:17:30,282 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains: 'NoneType' object has no attribute 'text'
+2025-04-16 22:17:30,282 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 22:17:30,282 - INFO - 
+Scraping Summary:
+2025-04-16 22:17:30,283 - INFO - Total time: 5.00 seconds
+2025-04-16 22:17:30,283 - INFO - Failed downloads: 0

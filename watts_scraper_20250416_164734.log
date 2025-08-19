@@ -1,0 +1,22 @@
+2025-04-16 16:47:34,962 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 16:47:34,962 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:47:45,974 - INFO - 
+Starting to scrape category: Roof Drains
+2025-04-16 16:47:45,975 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 16:47:56,463 - INFO - 
+Starting to scrape category: Dead Level Trench Drains
+2025-04-16 16:47:56,464 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 16:48:06,933 - INFO - 
+Starting to scrape category: Cleanouts
+2025-04-16 16:48:06,934 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 16:48:17,370 - INFO - 
+Starting to scrape category: Interceptors
+2025-04-16 16:48:17,370 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 16:48:27,845 - INFO - 
+Starting to scrape category: Green Roof Drains
+2025-04-16 16:48:27,846 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 16:48:38,407 - INFO - 
+Starting to scrape category: Parking Deck Drains
+2025-04-16 16:48:38,408 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/roof-drains/parking-deck-drains
+2025-04-16 16:48:38,922 - ERROR - Error getting product links: 404 Client Error: Not Found for url: https://www.watts.com/products/drainage-solutions/roof-drains/parking-deck-drains

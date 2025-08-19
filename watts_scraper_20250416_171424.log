@@ -1,0 +1,39 @@
+2025-04-16 17:14:24,949 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:14:24,949 - INFO - Checking URL: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:14:25,548 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:14:25,548 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:14:25,549 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 17:14:25,550 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 17:14:25,550 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 17:14:25,551 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 17:14:25,551 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 17:14:25,551 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 17:14:25,551 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 17:14:25,552 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 17:14:25,552 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 17:14:25,552 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 17:14:25,552 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 17:14:25,553 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 17:14:25,553 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench
+2025-04-16 17:14:25,553 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:14:27,760 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:14:29,969 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 17:14:32,854 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 17:14:35,121 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 17:14:37,326 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 17:14:39,684 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 17:14:41,880 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 17:14:44,050 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 17:14:46,256 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 17:14:48,445 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 17:14:50,638 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 17:14:52,837 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 17:14:55,048 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 17:14:57,283 - INFO - Processing subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench
+2025-04-16 17:14:59,565 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:14:59,566 - INFO - Category Floor & Area Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 17:14:59,566 - INFO - 
+Scraping Summary:
+2025-04-16 17:14:59,567 - INFO - Total time: 34.62 seconds
+2025-04-16 17:14:59,567 - INFO - Failed downloads: 0

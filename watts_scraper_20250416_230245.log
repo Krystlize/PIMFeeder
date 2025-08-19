@@ -1,0 +1,23 @@
+2025-04-16 23:02:45,523 - INFO - Checking for existing Selenium processes...
+2025-04-16 23:02:48,002 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 23:02:56,046 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 23:02:56,049 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 23:02:56,050 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 23:02:56,050 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 23:02:56,050 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 23:03:01,885 - INFO - Making API request to https://www.watts.com/api/sitecore/ProductGrid/GetProducts with params: {'categoryId': 'green-roof-drains', 'pageSize': 100, 'page': 1, 'sortBy': 'name', 'sortOrder': 'asc'}
+2025-04-16 23:03:02,254 - INFO - Found spec URL from initiator: https://www.watts.com/Areas/Watts/Content/images/favicons/watts/site.webmanifest
+2025-04-16 23:03:02,255 - INFO - Found spec URL from initiator: https://www.watts.com/Areas/Watts/Content/images/favicons/watts/favicon.ico
+2025-04-16 23:03:02,256 - INFO - Found potential spec URL in network traffic: https://www.watts.com/Areas/Watts/Content/images/favicons/watts/favicon.ico
+2025-04-16 23:03:02,256 - INFO - Found potential spec URL in network traffic: https://www.watts.com/Areas/Watts/Content/images/favicons/watts/site.webmanifest
+2025-04-16 23:03:02,259 - INFO - Found spec URL from initiator: https://www.watts.com/Areas/Watts/Content/images/favicons/watts/site.webmanifest
+2025-04-16 23:03:02,259 - INFO - Found potential spec URL in network traffic: https://www.watts.com/Areas/Watts/Content/images/favicons/watts/site.webmanifest
+2025-04-16 23:03:02,260 - INFO - Found 6 potential spec URLs in network traffic
+2025-04-16 23:03:02,260 - WARNING - No products found in API response
+2025-04-16 23:03:02,261 - INFO - Saved API response to api_response_1744858982.html
+2025-04-16 23:03:02,262 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 23:03:02,262 - INFO - 
+Scraping Summary:
+2025-04-16 23:03:02,262 - INFO - Total time: 6.21 seconds
+2025-04-16 23:03:02,262 - INFO - Failed downloads: 0

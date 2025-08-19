@@ -1,0 +1,98 @@
+2025-04-16 22:11:05,385 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:11:05,386 - INFO - 
+Starting to scrape category: Green Roof Drains
+2025-04-16 22:11:05,386 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 22:11:05,386 - DEBUG - POST http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/url {"url": "https://www.watts.com/products/drainage-solutions/green-roof-drains"}
+2025-04-16 22:11:06,074 - DEBUG - http://localhost:56840 "POST /session/e4c81c577bd8df3645055f1490785ab6/url HTTP/1.1" 200 0
+2025-04-16 22:11:06,076 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:11:06,076 - DEBUG - Finished Request
+2025-04-16 22:11:11,077 - DEBUG - GET http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/title {}
+2025-04-16 22:11:11,086 - DEBUG - http://localhost:56840 "GET /session/e4c81c577bd8df3645055f1490785ab6/title HTTP/1.1" 200 0
+2025-04-16 22:11:11,086 - DEBUG - Remote response: status=200 | data={"value":"404 | Watts"} | headers=HTTPHeaderDict({'Content-Length': '23', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:11:11,087 - DEBUG - Finished Request
+2025-04-16 22:11:11,087 - INFO - Page title: 404 | Watts
+2025-04-16 22:11:11,087 - DEBUG - GET http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/source {}
+2025-04-16 22:11:11,101 - DEBUG - http://localhost:56840 "GET /session/e4c81c577bd8df3645055f1490785ab6/source HTTP/1.1" 200 0
+2025-04-16 22:11:11,707 - DEBUG - Finished Request
+2025-04-16 22:11:11,709 - INFO - Saved initial page HTML for analysis
+2025-04-16 22:11:11,751 - INFO - 
+=== Page Structure Analysis ===
+2025-04-16 22:11:11,758 - INFO - 
+Found 4 potential product containers:
+2025-04-16 22:11:11,758 - INFO - Container class: ['link--grid-item']
+2025-04-16 22:11:11,759 - INFO - Container class: ['link--grid-item']
+2025-04-16 22:11:11,759 - INFO - Container class: ['link--grid-item']
+2025-04-16 22:11:11,759 - INFO - Container class: ['link--grid-item']
+2025-04-16 22:11:11,759 - INFO - 
+Searching for product links using multiple patterns:
+2025-04-16 22:11:11,762 - INFO - Pattern a with {'href': <function WattsSpecScraper.get_product_links.<locals>.<lambda> at 0x000002479CB6F920>}: found 16 links
+2025-04-16 22:11:11,762 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 22:11:11,763 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 22:11:11,763 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 22:11:11,763 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 22:11:11,764 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:11:11,764 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 22:11:11,764 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 22:11:11,765 - DEBUG - Found product link: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 22:11:11,767 - INFO - Pattern a with {'class': <function WattsSpecScraper.get_product_links.<locals>.<lambda> at 0x000002479D1D0AE0>}: found 0 links
+2025-04-16 22:11:11,770 - INFO - Pattern a with {'href': <function WattsSpecScraper.get_product_links.<locals>.<lambda> at 0x000002479D1D0B80>}: found 90 links
+2025-04-16 22:11:11,770 - DEBUG - Found product link: https://www.watts.com/products
+2025-04-16 22:11:11,771 - DEBUG - Found product link: https://www.watts.com/products/plumbing-and-flow-control
+2025-04-16 22:11:11,771 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/automatic-control-valves
+2025-04-16 22:11:11,771 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/backflow-preventers
+2025-04-16 22:11:11,772 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/gas-water-connection-solutions
+2025-04-16 22:11:11,772 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/high-purity-piping-and-fittings-and-lab-accessories
+2025-04-16 22:11:11,773 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/hydronic-steam-heating
+2025-04-16 22:11:11,773 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/mixing-valves
+2025-04-16 22:11:11,773 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/pex-plumbing-radiant-heating-systems
+2025-04-16 22:11:11,774 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/pressure-reducing-valves
+2025-04-16 22:11:11,774 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/relief-valves
+2025-04-16 22:11:11,774 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/risers
+2025-04-16 22:11:11,775 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/shutoff-valves
+2025-04-16 22:11:11,775 - DEBUG - Found product link: https://www.watts.com/products/plumbing-flow-control-solutions/strainers
+2025-04-16 22:11:11,775 - DEBUG - Found product link: https://www.watts.com/products/waterquality
+2025-04-16 22:11:11,775 - DEBUG - Found product link: https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/conditioning-solutions
+2025-04-16 22:11:11,776 - DEBUG - Found product link: https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/disinfection-solutions
+2025-04-16 22:11:11,776 - DEBUG - Found product link: https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/filtration-solutions
+2025-04-16 22:11:11,776 - DEBUG - Found product link: https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/instrumentation-solutions
+2025-04-16 22:11:11,776 - DEBUG - Found product link: https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/oneflow-scale-prevention-solutions
+2025-04-16 22:11:11,777 - DEBUG - Found product link: https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/water-quality-parts-accessories
+2025-04-16 22:11:11,777 - DEBUG - Found product link: https://www.watts.com/products/drainage
+2025-04-16 22:11:11,777 - DEBUG - Found product link: https://www.watts.com/products/drainage/specificationdrainage
+2025-04-16 22:11:11,777 - DEBUG - Found product link: https://www.watts.com/products/hvac-and-hot-water-solutions
+2025-04-16 22:11:11,778 - DEBUG - Found product link: https://www.aerco.com/products/condensing-boilers
+2025-04-16 22:11:11,778 - DEBUG - Found product link: https://lyncbywatts.com/products/water-heating-solutions
+2025-04-16 22:11:11,778 - DEBUG - Found product link: https://www.watts.com/our-story/brands/tekmar/products
+2025-04-16 22:11:11,778 - DEBUG - Found product link: https://www.suntouch.com/products/hvac-hot-water-solutions/electric-floor-heating
+2025-04-16 22:11:11,778 - DEBUG - Found product link: https://www.watts.com/products/hvac-hot-water-solutions/floor-heating
+2025-04-16 22:11:11,779 - DEBUG - Found product link: https://lyncbywatts.com/products/heat-pumps
+2025-04-16 22:11:11,779 - DEBUG - Found product link: https://www.watts.com/products/hvac-hot-water-solutions/heating-valves-accessories
+2025-04-16 22:11:11,779 - DEBUG - Found product link: https://www.suntouch.com/products/hvac-hot-water-solutions/electric-snow-melting
+2025-04-16 22:11:11,779 - DEBUG - Found product link: https://www.watts.com/products/hvac-hot-water-solutions/snow-melting
+2025-04-16 22:11:11,779 - DEBUG - Found product link: https://www.aerco.com/products/high-efficiency-water-heaters
+2025-04-16 22:11:11,779 - DEBUG - Found product link: https://products-specpoint.mydeltek.com/products/company/2e5d5377-6aec-43d6-b62e-507c395e75fa?groupby=sectionNumber%2520false%252CproductType%2520false&sortby=sectionNumber%252CproductType%252Ctype%252ClastUpdated%2520desc&ia=true&defaultFilter=true&df=%27WATTS+Water+Technologies%3B+A+WATTS+Company%27%25%7C%25%27WATTS+Water+Technologies%3B+A+WATTS+Company%27%2C%27Ames+Fire+%26+Waterworks%3B+A+WATTS+Brand%27%25%7C%25%27Ames+Fire+%26+Waterworks%3B+A+WATTS+Brand%27%2C%27BL%C3%9CCHER%3B+A+WATTS+Brand%27%25%7C%25%27BL%C3%9CCHER%3B+A+WATTS+Brand%27%2C%27Dormont%3B+A+WATTS+Brand%27%25%7C%25%27Dormont%3B+A+WATTS+Brand%27%2C%27Orion+Fittings%3B+A+WATTS+Brand%27%25%7C%25%27Orion+Fittings%3B+A+WATTS+Brand%27%2C%27POWERS%3B+A+WATTS+Brand%27%25%7C%25%27POWERS%3B+A+WATTS+Brand%27
+2025-04-16 22:11:11,780 - DEBUG - Found product link: https://www.onetrust.com/products/cookie-consent/
+2025-04-16 22:11:11,780 - DEBUG - POST http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 22:11:11,784 - DEBUG - http://localhost:56840 "POST /session/e4c81c577bd8df3645055f1490785ab6/execute/sync HTTP/1.1" 200 0
+2025-04-16 22:11:11,785 - DEBUG - Remote response: status=200 | data={"value":795} | headers=HTTPHeaderDict({'Content-Length': '13', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:11:11,785 - DEBUG - Finished Request
+2025-04-16 22:11:11,785 - DEBUG - POST http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 22:11:11,789 - DEBUG - http://localhost:56840 "POST /session/e4c81c577bd8df3645055f1490785ab6/execute/sync HTTP/1.1" 200 0
+2025-04-16 22:11:11,789 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:11:11,789 - DEBUG - Finished Request
+2025-04-16 22:11:13,790 - DEBUG - POST http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 22:11:13,799 - DEBUG - http://localhost:56840 "POST /session/e4c81c577bd8df3645055f1490785ab6/execute/sync HTTP/1.1" 200 0
+2025-04-16 22:11:13,799 - DEBUG - Remote response: status=200 | data={"value":795} | headers=HTTPHeaderDict({'Content-Length': '13', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:11:13,800 - DEBUG - Finished Request
+2025-04-16 22:11:13,800 - DEBUG - GET http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6/source {}
+2025-04-16 22:11:13,813 - DEBUG - http://localhost:56840 "GET /session/e4c81c577bd8df3645055f1490785ab6/source HTTP/1.1" 200 0
+2025-04-16 22:11:14,417 - DEBUG - Finished Request
+2025-04-16 22:11:14,419 - INFO - Saved final page HTML for analysis
+2025-04-16 22:11:14,465 - INFO - 
+Total unique product links found: 44
+2025-04-16 22:11:14,466 - INFO - 
+Scraping Summary:
+2025-04-16 22:11:14,466 - INFO - Total time: 9.08 seconds
+2025-04-16 22:11:14,467 - INFO - Failed downloads: 0
+2025-04-16 22:11:14,494 - DEBUG - DELETE http://localhost:56840/session/e4c81c577bd8df3645055f1490785ab6 {}
+2025-04-16 22:11:14,495 - DEBUG - Starting new HTTP connection (2): localhost:56840

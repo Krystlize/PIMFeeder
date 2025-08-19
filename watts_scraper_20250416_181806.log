@@ -1,0 +1,177 @@
+2025-04-16 18:18:06,567 - INFO - 
+Starting to scrape category: Green Roof Drains
+2025-04-16 18:18:06,567 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 18:18:06,567 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/green-roof-drains'}
+2025-04-16 18:18:07,460 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:07,460 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:07,462 - DEBUG - Finished Request
+2025-04-16 18:18:12,462 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:12,470 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:12,470 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/green-roof-drains"} | headers=HTTPHeaderDict({'Content-Length': '79', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:12,470 - DEBUG - Finished Request
+2025-04-16 18:18:12,471 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 18:18:12,471 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:12,486 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:13,268 - DEBUG - Finished Request
+2025-04-16 18:18:13,309 - DEBUG - Found 353 total links on the page
+2025-04-16 18:18:13,316 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 18:18:13,318 - INFO - Saved page source to debug_page_source_1744841893.html for debugging
+2025-04-16 18:18:13,318 - INFO - No product links found, looking for subcategories...
+2025-04-16 18:18:13,319 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/green-roof-drains'}
+2025-04-16 18:18:13,751 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:13,751 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:13,752 - DEBUG - Finished Request
+2025-04-16 18:18:16,752 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:16,782 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:17,567 - DEBUG - Finished Request
+2025-04-16 18:18:17,613 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 18:18:17,614 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 18:18:17,614 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 18:18:17,614 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 18:18:17,614 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 18:18:17,614 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 18:18:17,615 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 18:18:17,615 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 18:18:17,615 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 18:18:17,615 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 18:18:17,616 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts'}
+2025-04-16 18:18:18,219 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:18,219 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:18,219 - DEBUG - Finished Request
+2025-04-16 18:18:23,220 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:23,228 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:23,228 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts"} | headers=HTTPHeaderDict({'Content-Length': '100', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:23,228 - DEBUG - Finished Request
+2025-04-16 18:18:23,229 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 18:18:23,229 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:23,243 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:23,852 - DEBUG - Finished Request
+2025-04-16 18:18:23,898 - DEBUG - Found 356 total links on the page
+2025-04-16 18:18:23,906 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 18:18:23,908 - INFO - Saved page source to debug_page_source_1744841903.html for debugging
+2025-04-16 18:18:23,909 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 18:18:23,909 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 18:18:23,909 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-dra...'}
+2025-04-16 18:18:24,393 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:24,393 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:24,394 - DEBUG - Finished Request
+2025-04-16 18:18:29,394 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:29,401 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:29,402 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains"} | headers=HTTPHeaderDict({'Content-Length': '115', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:29,402 - DEBUG - Finished Request
+2025-04-16 18:18:29,402 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 18:18:29,403 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:29,416 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:30,009 - DEBUG - Finished Request
+2025-04-16 18:18:30,067 - DEBUG - Found 357 total links on the page
+2025-04-16 18:18:30,076 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 18:18:30,079 - INFO - Saved page source to debug_page_source_1744841910.html for debugging
+2025-04-16 18:18:30,080 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 18:18:30,081 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 18:18:30,081 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/fixture-carriers'}
+2025-04-16 18:18:30,582 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:30,583 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:30,583 - DEBUG - Finished Request
+2025-04-16 18:18:35,583 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:35,591 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:35,592 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/fixture-carriers"} | headers=HTTPHeaderDict({'Content-Length': '78', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:35,592 - DEBUG - Finished Request
+2025-04-16 18:18:35,592 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 18:18:35,593 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:35,607 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:36,230 - DEBUG - Finished Request
+2025-04-16 18:18:36,270 - DEBUG - Found 356 total links on the page
+2025-04-16 18:18:36,277 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 18:18:36,279 - INFO - Saved page source to debug_page_source_1744841916.html for debugging
+2025-04-16 18:18:36,279 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 18:18:36,280 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 18:18:36,280 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains'}
+2025-04-16 18:18:36,733 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:36,733 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:36,734 - DEBUG - Finished Request
+2025-04-16 18:18:41,734 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:41,741 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:41,742 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains"} | headers=HTTPHeaderDict({'Content-Length': '108', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:41,742 - DEBUG - Finished Request
+2025-04-16 18:18:41,743 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 18:18:41,743 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:41,756 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:42,325 - DEBUG - Finished Request
+2025-04-16 18:18:42,447 - DEBUG - Found 357 total links on the page
+2025-04-16 18:18:42,454 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 18:18:42,456 - INFO - Saved page source to debug_page_source_1744841922.html for debugging
+2025-04-16 18:18:42,457 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 18:18:42,457 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 18:18:42,457 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains'}
+2025-04-16 18:18:42,988 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:42,988 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:42,989 - DEBUG - Finished Request
+2025-04-16 18:18:47,989 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:47,996 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:47,997 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains"} | headers=HTTPHeaderDict({'Content-Length': '91', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:47,997 - DEBUG - Finished Request
+2025-04-16 18:18:47,997 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 18:18:47,998 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:48,011 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:48,613 - DEBUG - Finished Request
+2025-04-16 18:18:48,654 - DEBUG - Found 356 total links on the page
+2025-04-16 18:18:48,661 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 18:18:48,663 - INFO - Saved page source to debug_page_source_1744841928.html for debugging
+2025-04-16 18:18:48,664 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 18:18:48,664 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 18:18:48,664 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/interceptors'}
+2025-04-16 18:18:49,121 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:49,121 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:49,121 - DEBUG - Finished Request
+2025-04-16 18:18:54,122 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:18:54,129 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:54,129 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/interceptors"} | headers=HTTPHeaderDict({'Content-Length': '74', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:54,130 - DEBUG - Finished Request
+2025-04-16 18:18:54,130 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 18:18:54,130 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:18:54,144 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:18:54,658 - DEBUG - Finished Request
+2025-04-16 18:18:54,819 - DEBUG - Found 355 total links on the page
+2025-04-16 18:18:54,825 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 18:18:54,827 - INFO - Saved page source to debug_page_source_1744841934.html for debugging
+2025-04-16 18:18:54,828 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 18:18:54,828 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 18:18:54,828 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/parking-deck-drains'}
+2025-04-16 18:18:55,363 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:18:55,364 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:18:55,364 - DEBUG - Finished Request
+2025-04-16 18:19:00,365 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:19:00,372 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:19:00,372 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/parking-deck-drains"} | headers=HTTPHeaderDict({'Content-Length': '81', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:19:00,373 - DEBUG - Finished Request
+2025-04-16 18:19:00,373 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 18:19:00,374 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:19:00,387 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:19:01,014 - DEBUG - Finished Request
+2025-04-16 18:19:01,054 - DEBUG - Found 357 total links on the page
+2025-04-16 18:19:01,061 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 18:19:01,063 - INFO - Saved page source to debug_page_source_1744841941.html for debugging
+2025-04-16 18:19:01,063 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 18:19:01,064 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 18:19:01,064 - DEBUG - POST http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {'url': 'https://www.watts.com/products/drainage-solutions/roof-drains'}
+2025-04-16 18:19:01,539 - DEBUG - http://localhost:64802 "POST /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:19:01,540 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:19:01,540 - DEBUG - Finished Request
+2025-04-16 18:19:06,541 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/url {}
+2025-04-16 18:19:06,548 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/url HTTP/1.1" 200 0
+2025-04-16 18:19:06,549 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/roof-drains"} | headers=HTTPHeaderDict({'Content-Length': '73', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 18:19:06,549 - DEBUG - Finished Request
+2025-04-16 18:19:06,549 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 18:19:06,550 - DEBUG - GET http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe/source {}
+2025-04-16 18:19:06,563 - DEBUG - http://localhost:64802 "GET /session/ed65c577855d747df3a59bb9370b66fe/source HTTP/1.1" 200 0
+2025-04-16 18:19:07,190 - DEBUG - Finished Request
+2025-04-16 18:19:07,233 - DEBUG - Found 355 total links on the page
+2025-04-16 18:19:07,240 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 18:19:07,242 - INFO - Saved page source to debug_page_source_1744841947.html for debugging
+2025-04-16 18:19:07,243 - INFO - Category Green Roof Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 18:19:07,243 - INFO - 
+Scraping Summary:
+2025-04-16 18:19:07,244 - INFO - Total time: 60.68 seconds
+2025-04-16 18:19:07,244 - INFO - Failed downloads: 0
+2025-04-16 18:19:07,278 - DEBUG - DELETE http://localhost:64802/session/ed65c577855d747df3a59bb9370b66fe {}
+2025-04-16 18:19:07,279 - DEBUG - Starting new HTTP connection (2): localhost:64802

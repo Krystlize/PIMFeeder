@@ -1,0 +1,6 @@
+2025-04-16 16:58:48,031 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 16:58:48,032 - INFO - Trying API endpoint with payload: {'categoryUrl': '/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains', 'pageSize': 100, 'currentPage': 1, 'sortBy': 'ProductName', 'sortDirection': 'asc'}
+2025-04-16 16:58:48,649 - WARNING - Could not parse API response as JSON
+2025-04-16 16:58:48,650 - WARNING - API approach failed, falling back to HTML scraping
+2025-04-16 16:58:49,111 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains

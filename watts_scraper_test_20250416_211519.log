@@ -1,0 +1,59 @@
+2025-04-16 21:15:19,778 - DEBUG - Selenium Manager binary found at: C:\Users\hood_\my-react-app-superman\venv\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2025-04-16 21:15:19,778 - DEBUG - Executing process: C:\Users\hood_\my-react-app-superman\venv\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --output json
+2025-04-16 21:15:20,170 - DEBUG - chromedriver not found in PATH
+2025-04-16 21:15:20,170 - DEBUG - chrome detected at C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-16 21:15:20,171 - DEBUG - Running command: wmic datafile where name='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2025-04-16 21:15:20,171 - DEBUG - Output: "\r\r\n\r\r\nVersion=135.0.7049.96\r\r\n\r\r\n\r\r\n\r"
+2025-04-16 21:15:20,171 - DEBUG - Detected browser: chrome 135.0.7049.96
+2025-04-16 21:15:20,172 - DEBUG - Required driver: chromedriver 135.0.7049.95
+2025-04-16 21:15:20,172 - DEBUG - chromedriver 135.0.7049.95 already in the cache
+2025-04-16 21:15:20,172 - DEBUG - Driver path: C:\Users\hood_\.cache\selenium\chromedriver\win64\135.0.7049.95\chromedriver.exe
+2025-04-16 21:15:20,172 - DEBUG - Browser path: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-16 21:15:20,173 - DEBUG - Using driver at: C:\Users\hood_\.cache\selenium\chromedriver\win64\135.0.7049.95\chromedriver.exe
+2025-04-16 21:15:20,240 - DEBUG - Started executable: `C:\Users\hood_\.cache\selenium\chromedriver\win64\135.0.7049.95\chromedriver.exe` in a child process with pid: 22344
+2025-04-16 21:15:20,761 - DEBUG - POST http://localhost:53636/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "pageLoadStrategy": "normal", "browserVersion": null, "goog:chromeOptions": {"extensions": [], "binary": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "args": ["--headless", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--window-size=1920,1080"]}}}}
+2025-04-16 21:15:20,762 - DEBUG - Starting new HTTP connection (1): localhost:53636
+2025-04-16 21:15:21,295 - DEBUG - http://localhost:53636 "POST /session HTTP/1.1" 200 0
+2025-04-16 21:15:21,295 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"135.0.7049.96","chrome":{"chromedriverVersion":"135.0.7049.95 (de2eb485a1951079e63bdb57ce25544d2dc79c15-refs/branch-heads/7049@{#1836})","userDataDir":"C:\\Users\\hood_\\AppData\\Local\\Temp\\scoped_dir22344_1941489670"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:53639"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"828186a12e907682c53e6631bd739708"}} | headers=HTTPHeaderDict({'Content-Length': '882', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:15:21,295 - DEBUG - Finished Request
+2025-04-16 21:15:21,295 - INFO - Selenium WebDriver initialized
+2025-04-16 21:15:21,296 - INFO - Session initialized for PDF downloads
+2025-04-16 21:15:21,296 - INFO - Created main directory: watts_specs_test
+2025-04-16 21:15:21,296 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 21:15:21,297 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 21:15:21,297 - DEBUG - POST http://localhost:53636/session/828186a12e907682c53e6631bd739708/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains"}
+2025-04-16 21:15:22,060 - DEBUG - http://localhost:53636 "POST /session/828186a12e907682c53e6631bd739708/url HTTP/1.1" 200 0
+2025-04-16 21:15:22,060 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:15:22,061 - DEBUG - Finished Request
+2025-04-16 21:15:27,061 - DEBUG - POST http://localhost:53636/session/828186a12e907682c53e6631bd739708/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 21:15:27,071 - DEBUG - http://localhost:53636 "POST /session/828186a12e907682c53e6631bd739708/execute/sync HTTP/1.1" 200 0
+2025-04-16 21:15:27,071 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:15:27,071 - DEBUG - Finished Request
+2025-04-16 21:15:30,072 - DEBUG - GET http://localhost:53636/session/828186a12e907682c53e6631bd739708/source {}
+2025-04-16 21:15:30,087 - DEBUG - http://localhost:53636 "GET /session/828186a12e907682c53e6631bd739708/source HTTP/1.1" 200 0
+2025-04-16 21:15:30,833 - DEBUG - Finished Request
+2025-04-16 21:15:30,878 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 21:15:30,879 - DEBUG - GET http://localhost:53636/session/828186a12e907682c53e6631bd739708/source {}
+2025-04-16 21:15:30,892 - DEBUG - http://localhost:53636 "GET /session/828186a12e907682c53e6631bd739708/source HTTP/1.1" 200 0
+2025-04-16 21:15:31,643 - DEBUG - Finished Request
+2025-04-16 21:15:31,678 - INFO - Saved page source to debug_page_source_1744852530.html
+2025-04-16 21:15:31,678 - INFO - Category Floor & Area Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 21:15:37,679 - INFO - 
+Scraping completed in 16.38 seconds
+2025-04-16 21:15:37,679 - INFO - Failed downloads: 0
+2025-04-16 21:15:37,681 - DEBUG - DELETE http://localhost:53636/session/828186a12e907682c53e6631bd739708 {}
+2025-04-16 21:15:37,710 - DEBUG - http://localhost:53636 "DELETE /session/828186a12e907682c53e6631bd739708 HTTP/1.1" 200 0
+2025-04-16 21:15:37,710 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:15:37,711 - DEBUG - Finished Request
+2025-04-16 21:15:39,800 - DEBUG - DELETE http://localhost:53636/session/828186a12e907682c53e6631bd739708 {}
+2025-04-16 21:15:39,801 - DEBUG - Starting new HTTP connection (1): localhost:53636
+2025-04-16 21:15:43,872 - DEBUG - Incremented Retry for (url='/session/828186a12e907682c53e6631bd739708'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-16 21:15:43,873 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000199822A82D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/828186a12e907682c53e6631bd739708
+2025-04-16 21:15:43,873 - DEBUG - Starting new HTTP connection (2): localhost:53636
+2025-04-16 21:15:47,965 - DEBUG - Incremented Retry for (url='/session/828186a12e907682c53e6631bd739708'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+2025-04-16 21:15:47,966 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000199822AA210>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/828186a12e907682c53e6631bd739708
+2025-04-16 21:15:47,966 - DEBUG - Starting new HTTP connection (3): localhost:53636
+2025-04-16 21:15:52,065 - DEBUG - Incremented Retry for (url='/session/828186a12e907682c53e6631bd739708'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+2025-04-16 21:15:52,065 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001998229B230>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/828186a12e907682c53e6631bd739708
+2025-04-16 21:15:52,066 - DEBUG - Starting new HTTP connection (4): localhost:53636

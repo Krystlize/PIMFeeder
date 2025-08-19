@@ -1,0 +1,15 @@
+2025-04-16 22:26:20,394 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:26:22,867 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:26:30,627 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:26:30,630 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:26:30,631 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:26:30,631 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:26:30,631 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:26:41,326 - WARNING - Timeout waiting for product grid: Message: 
+
+2025-04-16 22:26:41,327 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 22:26:41,327 - INFO - 
+Scraping Summary:
+2025-04-16 22:26:41,327 - INFO - Total time: 10.70 seconds
+2025-04-16 22:26:41,328 - INFO - Failed downloads: 0

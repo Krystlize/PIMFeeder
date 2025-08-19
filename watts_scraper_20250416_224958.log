@@ -1,0 +1,9 @@
+2025-04-16 22:49:58,165 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:49:58,395 - INFO - Killing process: chromedriver.exe (PID: 3296)
+2025-04-16 22:49:58,638 - INFO - Killing process: chrome.exe (PID: 8180)
+2025-04-16 22:49:58,687 - INFO - Killing process: chrome.exe (PID: 14448)
+2025-04-16 22:49:58,699 - INFO - Killing process: chrome.exe (PID: 18044)
+2025-04-16 22:49:58,700 - INFO - Killing process: chrome.exe (PID: 18560)
+2025-04-16 22:49:58,707 - INFO - Killing process: chrome.exe (PID: 23304)
+2025-04-16 22:49:58,714 - INFO - Killing process: chrome.exe (PID: 24512)
+2025-04-16 22:49:58,735 - INFO - Killing process: chrome.exe (PID: 24876)

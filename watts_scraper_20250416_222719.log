@@ -1,0 +1,22 @@
+2025-04-16 22:27:19,160 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:27:21,616 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:27:29,350 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:27:29,352 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:27:29,353 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:27:29,354 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:27:29,354 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:27:29,811 - INFO - Trying to find product grid with selector: .product-grid
+2025-04-16 22:27:34,929 - INFO - Trying to find product grid with selector: .products-container
+2025-04-16 22:27:40,029 - INFO - Trying to find product grid with selector: .product-list
+2025-04-16 22:27:45,127 - INFO - Trying to find product grid with selector: [data-component='ProductGrid']
+2025-04-16 22:27:50,224 - INFO - Trying to find product grid with selector: .search-results
+2025-04-16 22:27:55,324 - INFO - Trying to find product grid with selector: .category-products
+2025-04-16 22:28:00,422 - INFO - Trying to find product grid with selector: .product-items
+2025-04-16 22:28:05,517 - WARNING - No product grid found with any selector
+2025-04-16 22:28:05,534 - INFO - Saved page source to debug_page_source_1744856885.html
+2025-04-16 22:28:05,535 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 22:28:05,535 - INFO - 
+Scraping Summary:
+2025-04-16 22:28:05,536 - INFO - Total time: 36.18 seconds
+2025-04-16 22:28:05,536 - INFO - Failed downloads: 0

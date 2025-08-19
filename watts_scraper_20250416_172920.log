@@ -1,0 +1,28 @@
+2025-04-16 17:29:20,249 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:29:20,251 - DEBUG - Starting new HTTPS connection (1): www.watts.com:443
+2025-04-16 17:29:20,713 - DEBUG - https://www.watts.com:443 "GET /products/drainage-solutions/floor-drains-channels-trench/floor-area-drains HTTP/1.1" 200 None
+2025-04-16 17:29:20,753 - INFO - Trying API endpoint: https://www.watts.com/api/sitecore/ProductGrid/GetProducts?categoryId=floor-area-drains
+2025-04-16 17:29:20,917 - DEBUG - https://www.watts.com:443 "GET /api/sitecore/ProductGrid/GetProducts?categoryId=floor-area-drains HTTP/1.1" 302 None
+2025-04-16 17:29:20,992 - DEBUG - https://www.watts.com:443 "GET /error.html?aspxerrorpath=/api/sitecore/ProductGrid/GetProducts HTTP/1.1" 200 None
+2025-04-16 17:29:20,993 - WARNING - API endpoint failed: https://www.watts.com/api/sitecore/ProductGrid/GetProducts?categoryId=floor-area-drains - Expecting value: line 1 column 1 (char 0)
+2025-04-16 17:29:20,994 - INFO - Trying API endpoint: https://www.watts.com/api/sitecore/Products/GetProducts?categoryId=floor-area-drains
+2025-04-16 17:29:21,118 - DEBUG - https://www.watts.com:443 "GET /api/sitecore/Products/GetProducts?categoryId=floor-area-drains HTTP/1.1" 302 None
+2025-04-16 17:29:21,192 - DEBUG - https://www.watts.com:443 "GET /error.html?aspxerrorpath=/api/sitecore/Products/GetProducts HTTP/1.1" 200 None
+2025-04-16 17:29:21,193 - WARNING - API endpoint failed: https://www.watts.com/api/sitecore/Products/GetProducts?categoryId=floor-area-drains - Expecting value: line 1 column 1 (char 0)
+2025-04-16 17:29:21,193 - INFO - Trying API endpoint: https://www.watts.com/api/watts/v1/products/search?categoryId=floor-area-drains
+2025-04-16 17:29:21,284 - DEBUG - https://www.watts.com:443 "GET /api/watts/v1/products/search?categoryId=floor-area-drains HTTP/1.1" 302 None
+2025-04-16 17:29:21,438 - DEBUG - https://www.watts.com:443 "GET /page-not-found?item=%2Fapi%2Fwatts%2Fv1%2Fproducts%2Fsearch&user=extranet%5CAnonymous&site=Watts HTTP/1.1" 200 None
+2025-04-16 17:29:21,439 - WARNING - API endpoint failed: https://www.watts.com/api/watts/v1/products/search?categoryId=floor-area-drains - Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2025-04-16 17:29:21,440 - INFO - Trying API endpoint: https://www.watts.com/api/watts/v1/products?filter=categoryId eq 'floor-area-drains'
+2025-04-16 17:29:21,540 - DEBUG - https://www.watts.com:443 "GET /api/watts/v1/products?filter=categoryId%20eq%20'floor-area-drains' HTTP/1.1" 302 None
+2025-04-16 17:29:21,691 - DEBUG - https://www.watts.com:443 "GET /page-not-found?item=%2Fapi%2Fwatts%2Fv1%2Fproducts&user=extranet%5CAnonymous&site=Watts HTTP/1.1" 200 None
+2025-04-16 17:29:21,693 - WARNING - API endpoint failed: https://www.watts.com/api/watts/v1/products?filter=categoryId eq 'floor-area-drains' - Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2025-04-16 17:29:21,693 - INFO - No products found via API, trying page parsing...
+2025-04-16 17:29:21,694 - INFO - No products found in scripts, trying HTML parsing...
+2025-04-16 17:29:21,700 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:29:21,700 - INFO - Category Floor & Area Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 17:29:21,700 - INFO - 
+Scraping Summary:
+2025-04-16 17:29:21,701 - INFO - Total time: 1.45 seconds
+2025-04-16 17:29:21,701 - INFO - Failed downloads: 0

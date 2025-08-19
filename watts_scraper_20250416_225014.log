@@ -1,0 +1,43 @@
+2025-04-16 22:50:14,238 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:50:16,715 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:50:26,586 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:50:26,588 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:50:26,589 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:50:26,589 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:50:26,590 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:50:56,609 - ERROR - Error getting product links: Message: timeout: Timed out receiving message from renderer: -0.007
+  (Session info: chrome=135.0.7049.96)
+Stacktrace:
+	GetHandleVerifier [0x00007FF645095355+78597]
+	GetHandleVerifier [0x00007FF6450953B0+78688]
+	(No symbol) [0x00007FF644E491AA]
+	(No symbol) [0x00007FF644E365AC]
+	(No symbol) [0x00007FF644E3629A]
+	(No symbol) [0x00007FF644E33F4A]
+	(No symbol) [0x00007FF644E348FF]
+	(No symbol) [0x00007FF644E434FE]
+	(No symbol) [0x00007FF644E59931]
+	(No symbol) [0x00007FF644E608DA]
+	(No symbol) [0x00007FF644E3506D]
+	(No symbol) [0x00007FF644E59665]
+	(No symbol) [0x00007FF644EEF194]
+	(No symbol) [0x00007FF644EC6EC3]
+	(No symbol) [0x00007FF644E903F8]
+	(No symbol) [0x00007FF644E91163]
+	GetHandleVerifier [0x00007FF64533EF0D+2870973]
+	GetHandleVerifier [0x00007FF6453396B8+2848360]
+	GetHandleVerifier [0x00007FF645356993+2967875]
+	GetHandleVerifier [0x00007FF6450B019A+188746]
+	GetHandleVerifier [0x00007FF6450B847F+222255]
+	GetHandleVerifier [0x00007FF64509D2D4+111236]
+	GetHandleVerifier [0x00007FF64509D482+111666]
+	GetHandleVerifier [0x00007FF6450835A9+5465]
+	BaseThreadInitThunk [0x00007FFD57A1E8D7+23]
+	RtlUserThreadStart [0x00007FFD594B14FC+44]
+
+2025-04-16 22:50:56,609 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 22:50:56,609 - INFO - 
+Scraping Summary:
+2025-04-16 22:50:56,610 - INFO - Total time: 30.02 seconds
+2025-04-16 22:50:56,610 - INFO - Failed downloads: 0

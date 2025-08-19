@@ -1,0 +1,39 @@
+2025-04-16 21:44:19,120 - DEBUG - Selenium Manager binary found at: C:\Users\hood_\my-react-app-superman\venv\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2025-04-16 21:44:19,121 - DEBUG - Executing process: C:\Users\hood_\my-react-app-superman\venv\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --output json
+2025-04-16 21:44:19,479 - DEBUG - chromedriver not found in PATH
+2025-04-16 21:44:19,479 - DEBUG - chrome detected at C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-16 21:44:19,480 - DEBUG - Running command: wmic datafile where name='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2025-04-16 21:44:19,481 - DEBUG - Output: "\r\r\n\r\r\nVersion=135.0.7049.96\r\r\n\r\r\n\r\r\n\r"
+2025-04-16 21:44:19,481 - DEBUG - Detected browser: chrome 135.0.7049.96
+2025-04-16 21:44:19,481 - DEBUG - Required driver: chromedriver 135.0.7049.95
+2025-04-16 21:44:19,482 - DEBUG - chromedriver 135.0.7049.95 already in the cache
+2025-04-16 21:44:19,482 - DEBUG - Driver path: C:\Users\hood_\.cache\selenium\chromedriver\win64\135.0.7049.95\chromedriver.exe
+2025-04-16 21:44:19,482 - DEBUG - Browser path: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-16 21:44:19,483 - DEBUG - Using driver at: C:\Users\hood_\.cache\selenium\chromedriver\win64\135.0.7049.95\chromedriver.exe
+2025-04-16 21:44:19,557 - DEBUG - Started executable: `C:\Users\hood_\.cache\selenium\chromedriver\win64\135.0.7049.95\chromedriver.exe` in a child process with pid: 19320
+2025-04-16 21:44:20,069 - DEBUG - POST http://localhost:55053/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "pageLoadStrategy": "normal", "browserVersion": null, "goog:chromeOptions": {"prefs": {"download.prompt_for_download": false, "download.directory_upgrade": true, "safebrowsing.enabled": true}, "extensions": [], "binary": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "args": ["--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--window-size=1920,1080", "--disable-notifications", "--disable-popup-blocking", "--ignore-certificate-errors", "--disable-extensions"]}}}}
+2025-04-16 21:44:20,069 - DEBUG - Starting new HTTP connection (1): localhost:55053
+2025-04-16 21:44:20,598 - DEBUG - http://localhost:55053 "POST /session HTTP/1.1" 200 0
+2025-04-16 21:44:20,598 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"135.0.7049.96","chrome":{"chromedriverVersion":"135.0.7049.95 (de2eb485a1951079e63bdb57ce25544d2dc79c15-refs/branch-heads/7049@{#1836})","userDataDir":"C:\\Users\\hood_\\AppData\\Local\\Temp\\scoped_dir19320_945418005"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:55056"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"c78b30292bd745cf2f9cfb2b6dc479e1"}} | headers=HTTPHeaderDict({'Content-Length': '881', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:44:20,598 - DEBUG - Finished Request
+2025-04-16 21:44:20,598 - DEBUG - POST http://localhost:55053/session/c78b30292bd745cf2f9cfb2b6dc479e1/timeouts {"pageLoad": 30000}
+2025-04-16 21:44:20,600 - DEBUG - http://localhost:55053 "POST /session/c78b30292bd745cf2f9cfb2b6dc479e1/timeouts HTTP/1.1" 200 0
+2025-04-16 21:44:20,600 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:44:20,600 - DEBUG - Finished Request
+2025-04-16 21:44:20,601 - INFO - Selenium WebDriver initialized with headless mode
+2025-04-16 21:44:20,601 - INFO - Session initialized for PDF downloads
+2025-04-16 21:44:20,605 - DEBUG - DELETE http://localhost:55053/session/c78b30292bd745cf2f9cfb2b6dc479e1 {}
+2025-04-16 21:44:20,627 - DEBUG - http://localhost:55053 "DELETE /session/c78b30292bd745cf2f9cfb2b6dc479e1 HTTP/1.1" 200 0
+2025-04-16 21:44:20,627 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 21:44:20,627 - DEBUG - Finished Request
+2025-04-16 21:44:22,682 - DEBUG - DELETE http://localhost:55053/session/c78b30292bd745cf2f9cfb2b6dc479e1 {}
+2025-04-16 21:44:22,682 - DEBUG - Starting new HTTP connection (1): localhost:55053
+2025-04-16 21:44:26,769 - DEBUG - Incremented Retry for (url='/session/c78b30292bd745cf2f9cfb2b6dc479e1'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-16 21:44:26,769 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002871A6582D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c78b30292bd745cf2f9cfb2b6dc479e1
+2025-04-16 21:44:26,770 - DEBUG - Starting new HTTP connection (2): localhost:55053
+2025-04-16 21:44:30,854 - DEBUG - Incremented Retry for (url='/session/c78b30292bd745cf2f9cfb2b6dc479e1'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+2025-04-16 21:44:30,854 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002871A65A210>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c78b30292bd745cf2f9cfb2b6dc479e1
+2025-04-16 21:44:30,855 - DEBUG - Starting new HTTP connection (3): localhost:55053
+2025-04-16 21:44:34,937 - DEBUG - Incremented Retry for (url='/session/c78b30292bd745cf2f9cfb2b6dc479e1'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+2025-04-16 21:44:34,938 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002871A64B230>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c78b30292bd745cf2f9cfb2b6dc479e1
+2025-04-16 21:44:34,938 - DEBUG - Starting new HTTP connection (4): localhost:55053

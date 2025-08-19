@@ -1,0 +1,19 @@
+2025-04-16 22:54:55,562 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:54:58,055 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:55:05,714 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:55:05,716 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:55:05,717 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:55:05,718 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:55:05,718 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:55:11,254 - INFO - Found parent ID: {20726947-837B-4701-8786-0AEFC60B5747}
+2025-04-16 22:55:11,259 - INFO - Making API request to https://www.watts.com/api/watts/series/search with params: {'parent': '20726947-837B-4701-8786-0AEFC60B5747', 'pageSize': 100, 'page': 1, 'sortBy': 'ProductName', 'sortOrder': 'ascending', 'includeResults': 'true', 'includeFacets': 'true', 'includeCount': 'true', 'filters': '[{"Name": "Type", "Values": ["Multi-Level", "Overflow Drainage", "Plaza Areas", "Primary Drainage"]}]'}
+2025-04-16 22:55:11,853 - INFO - API response: {'HasDiscontinuedResults': False, 'Query': {'Parent': '20726947-837b-4701-8786-0aefc60b5747', 'ShowDiscontinued': False, 'SortBy': 'ProductName', 'SortOrder': 'ascending', 'Page': 1, 'PageSize': 100, 'Facets': []}, 'Results': [], 'EndCount': 100, 'TotalResults': 10, 'Facets': [{'Name': 'Type', 'DisplayName': 'Product Type', 'Values': [{'Value': 'Multi-Level', 'DisplayValue': 'Multi-Level', 'Count': 2}, {'Value': 'Overflow Drainage', 'DisplayValue': 'Overflow Drainage', 'Count': 1}, {'Value': 'Plaza Areas', 'DisplayValue': 'Plaza Areas', 'Count': 2}, {'Value': 'Primary Drainage', 'DisplayValue': 'Primary Drainage', 'Count': 5}]}]}
+2025-04-16 22:55:11,853 - WARNING - No products found in API response
+2025-04-16 22:55:11,854 - INFO - Retrying without filters...
+2025-04-16 22:55:12,074 - INFO - Second API response: {'HasDiscontinuedResults': False, 'Query': {'Parent': '20726947-837b-4701-8786-0aefc60b5747', 'ShowDiscontinued': False, 'SortBy': 'ProductName', 'SortOrder': 'ascending', 'Page': 1, 'PageSize': 100, 'Facets': []}, 'Results': [], 'EndCount': 100, 'TotalResults': 10, 'Facets': [{'Name': 'Type', 'DisplayName': 'Product Type', 'Values': [{'Value': 'Multi-Level', 'DisplayValue': 'Multi-Level', 'Count': 2}, {'Value': 'Overflow Drainage', 'DisplayValue': 'Overflow Drainage', 'Count': 1}, {'Value': 'Plaza Areas', 'DisplayValue': 'Plaza Areas', 'Count': 2}, {'Value': 'Primary Drainage', 'DisplayValue': 'Primary Drainage', 'Count': 5}]}]}
+2025-04-16 22:55:12,075 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 22:55:12,075 - INFO - 
+Scraping Summary:
+2025-04-16 22:55:12,075 - INFO - Total time: 6.36 seconds
+2025-04-16 22:55:12,076 - INFO - Failed downloads: 0

@@ -1,0 +1,41 @@
+2025-04-16 17:01:49,750 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:01:50,316 - INFO - Found product link: /products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:01:50,316 - INFO - Found product link: /products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 17:01:50,317 - INFO - Found product link: /products/drainage-solutions/fixture-carriers
+2025-04-16 17:01:50,317 - INFO - Found product link: /products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:01:50,318 - INFO - Found product link: /products/drainage-solutions/interceptors
+2025-04-16 17:01:50,319 - INFO - Found product link: /products/drainage-solutions/parking-deck-drains
+2025-04-16 17:01:50,319 - INFO - Found 6 unique product links
+2025-04-16 17:01:50,320 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:01:50,826 - WARNING - Could not parse literature API response as JSON
+2025-04-16 17:01:50,827 - INFO - Falling back to HTML scraping for spec sheet
+2025-04-16 17:01:51,423 - WARNING - No spec sheet found for product: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 17:01:54,425 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 17:01:54,908 - WARNING - Could not parse literature API response as JSON
+2025-04-16 17:01:54,909 - INFO - Falling back to HTML scraping for spec sheet
+2025-04-16 17:01:56,177 - INFO - Found spec sheet via URL pattern: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-dead-level-trench-drains
+2025-04-16 17:01:56,178 - INFO - Downloading: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-dead-level-trench-drains
+2025-04-16 17:01:56,531 - INFO - Successfully downloaded: watts_specs\Floor & Area Drains\dead-level-trench-drains.pdf
+2025-04-16 17:02:04,534 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 17:02:05,032 - WARNING - Could not parse literature API response as JSON
+2025-04-16 17:02:05,033 - INFO - Falling back to HTML scraping for spec sheet
+2025-04-16 17:02:06,225 - INFO - Found spec sheet via URL pattern: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-fixture-carriers
+2025-04-16 17:02:06,227 - INFO - Downloading: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-fixture-carriers
+2025-04-16 17:02:06,556 - INFO - Successfully downloaded: watts_specs\Floor & Area Drains\fixture-carriers.pdf
+2025-04-16 17:02:14,557 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:02:15,107 - WARNING - Could not parse literature API response as JSON
+2025-04-16 17:02:15,108 - INFO - Falling back to HTML scraping for spec sheet
+2025-04-16 17:02:16,102 - INFO - Found spec sheet via URL pattern: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-floor-area-drains
+2025-04-16 17:02:16,103 - INFO - Downloading: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-floor-area-drains
+2025-04-16 17:02:16,434 - INFO - Successfully downloaded: watts_specs\Floor & Area Drains\floor-area-drains.pdf
+2025-04-16 17:02:24,435 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 17:02:24,939 - WARNING - Could not parse literature API response as JSON
+2025-04-16 17:02:24,939 - INFO - Falling back to HTML scraping for spec sheet
+2025-04-16 17:02:25,455 - WARNING - No spec sheet found for product: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 17:02:28,457 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 17:02:28,983 - WARNING - Could not parse literature API response as JSON
+2025-04-16 17:02:28,984 - INFO - Falling back to HTML scraping for spec sheet
+2025-04-16 17:02:30,240 - INFO - Found spec sheet via URL pattern: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-parking-deck-drains
+2025-04-16 17:02:30,241 - INFO - Downloading: https://www.watts.com/dfsmedia/0533dbba17714b1ab581ab07a4cbb521/18153-source/es-wd-parking-deck-drains
+2025-04-16 17:02:30,555 - INFO - Successfully downloaded: watts_specs\Floor & Area Drains\parking-deck-drains.pdf

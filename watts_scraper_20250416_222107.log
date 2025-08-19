@@ -1,0 +1,24 @@
+2025-04-16 22:21:07,180 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:21:09,624 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:21:17,323 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:21:17,325 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:21:17,326 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:21:17,327 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:21:17,327 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:21:24,904 - INFO - Found product link: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:21:24,905 - INFO - Found 1 product links in https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:21:24,905 - INFO - Found 1 products to process
+2025-04-16 22:21:24,905 - INFO - 
+Processing product 1/1
+2025-04-16 22:21:24,905 - INFO - URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:21:24,907 - ERROR - Request failed for get: Invalid URL 'get': No scheme supplied. Perhaps you meant https://get?
+2025-04-16 22:21:24,907 - ERROR - Failed to get product page: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:21:24,908 - INFO - 
+Scraping Summary:
+2025-04-16 22:21:24,908 - INFO - Total time: 7.58 seconds
+2025-04-16 22:21:24,908 - INFO - Failed downloads: 1
+2025-04-16 22:21:24,909 - INFO - 
+Scraping Summary:
+2025-04-16 22:21:24,909 - INFO - Total time: 7.58 seconds
+2025-04-16 22:21:24,909 - INFO - Failed downloads: 0

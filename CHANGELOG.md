@@ -1,5 +1,54 @@
 # CHANGELOG
 
+## 2025-04-15
+
+### AI Integration Alternatives
+
+* **Best AI Options for 95%+ Extraction Accuracy**:
+  * **OpenAI GPT-4o mini API**:
+    * ~$5/1M tokens (~2¢ per PDF)
+    * Strong structured extraction capabilities
+    * Excellent at understanding product specifications
+    * Can handle PDF text format peculiarities
+
+  * **Anthropic Claude 3 Haiku API**:
+    * Similar pricing to GPT-4o mini
+    * Excellent at following structured output instructions
+    * Good option if you prefer more verbose reasoning
+  
+  * **Ollama with Llama 3 70B (self-hosted)**:
+    * One-time setup cost (requires 80GB+ VRAM across GPUs)
+    * 90-95% accuracy for structured data extraction
+    * Free to run after setup
+    * Great for high-volume processing
+
+* **AWS AI Integration Options**:
+  * **Amazon Bedrock**:
+    * Access to Claude, Llama 2, and Titan models
+    * Pay-per-use pricing starting at $0.10/1000 tokens
+    * Simple API integration similar to current HF setup
+    * Most similar to existing implementation, just swap API endpoints
+  
+  * **Amazon Comprehend**:
+    * Managed NLP service good for basic entity extraction
+    * Custom classification for plumbing/fixture types
+    * Simpler than full LLMs but more efficient for specific tasks
+  
+  * **Amazon Textract**:
+    * Specifically designed for PDF document processing
+    * Extracts tables and forms (great for spec sheets)
+    * Can be combined with Bedrock for complete solution
+  
+  * **AWS Lambda + SageMaker**:
+    * Host your own models on SageMaker with serverless Lambda
+    * Complete control but more complex setup
+    * Best for high-volume production
+
+* **Backend Fallback System Improvements**:
+  * Added support for local model fallback when Hugging Face token is exhausted
+  * Implemented timeout adjustments for local model (slower) processing
+  * Enhanced error detection for token limit and rate limiting issues
+
 ## 2025-04-13
 
 ### GitHub Pages Deployment Fixes

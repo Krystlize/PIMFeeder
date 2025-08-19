@@ -1,0 +1,44 @@
+2025-04-16 23:01:49,514 - INFO - Checking for existing Selenium processes...
+2025-04-16 23:01:52,051 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 23:01:59,831 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 23:01:59,832 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 23:01:59,833 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 23:01:59,833 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 23:01:59,833 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 23:02:05,413 - INFO - Found parent ID: {20726947-837B-4701-8786-0AEFC60B5747}
+2025-04-16 23:02:05,427 - WARNING - Could not find CSRF token: Message: no such element: Unable to locate element: {"method":"css selector","selector":"meta[name="csrf-token"]"}
+  (Session info: chrome=135.0.7049.96); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+	GetHandleVerifier [0x00007FF645095355+78597]
+	GetHandleVerifier [0x00007FF6450953B0+78688]
+	(No symbol) [0x00007FF644E491AA]
+	(No symbol) [0x00007FF644E9F149]
+	(No symbol) [0x00007FF644E9F3FC]
+	(No symbol) [0x00007FF644EF2467]
+	(No symbol) [0x00007FF644EC712F]
+	(No symbol) [0x00007FF644EEF2BB]
+	(No symbol) [0x00007FF644EC6EC3]
+	(No symbol) [0x00007FF644E903F8]
+	(No symbol) [0x00007FF644E91163]
+	GetHandleVerifier [0x00007FF64533EF0D+2870973]
+	GetHandleVerifier [0x00007FF6453396B8+2848360]
+	GetHandleVerifier [0x00007FF645356993+2967875]
+	GetHandleVerifier [0x00007FF6450B019A+188746]
+	GetHandleVerifier [0x00007FF6450B847F+222255]
+	GetHandleVerifier [0x00007FF64509D2D4+111236]
+	GetHandleVerifier [0x00007FF64509D482+111666]
+	GetHandleVerifier [0x00007FF6450835A9+5465]
+	BaseThreadInitThunk [0x00007FFD57A1E8D7+23]
+	RtlUserThreadStart [0x00007FFD594B14FC+44]
+
+2025-04-16 23:02:05,427 - INFO - Making API request to https://www.watts.com/api/watts/series/search with params: {'parent': '20726947-837B-4701-8786-0AEFC60B5747', 'pageSize': 100, 'page': 1, 'sortBy': 'ProductName', 'sortOrder': 'ascending', 'includeResults': 'true', 'includeFacets': 'true', 'includeCount': 'true', 'filters': '[{"Name": "Type", "Values": ["Multi-Level", "Overflow Drainage", "Plaza Areas", "Primary Drainage"]}]'}
+2025-04-16 23:02:05,798 - INFO - API response: {'HasDiscontinuedResults': False, 'Query': {'Parent': '20726947-837b-4701-8786-0aefc60b5747', 'ShowDiscontinued': False, 'SortBy': 'ProductName', 'SortOrder': 'ascending', 'Page': 1, 'PageSize': 100, 'Facets': []}, 'Results': [], 'EndCount': 100, 'TotalResults': 10, 'Facets': [{'Name': 'Type', 'DisplayName': 'Product Type', 'Values': [{'Value': 'Multi-Level', 'DisplayValue': 'Multi-Level', 'Count': 2}, {'Value': 'Overflow Drainage', 'DisplayValue': 'Overflow Drainage', 'Count': 1}, {'Value': 'Plaza Areas', 'DisplayValue': 'Plaza Areas', 'Count': 2}, {'Value': 'Primary Drainage', 'DisplayValue': 'Primary Drainage', 'Count': 5}]}]}
+2025-04-16 23:02:05,798 - WARNING - No products found in API response
+2025-04-16 23:02:05,799 - INFO - Retrying without filters...
+2025-04-16 23:02:05,999 - INFO - Second API response: {'HasDiscontinuedResults': False, 'Query': {'Parent': '20726947-837b-4701-8786-0aefc60b5747', 'ShowDiscontinued': False, 'SortBy': 'ProductName', 'SortOrder': 'ascending', 'Page': 1, 'PageSize': 100, 'Facets': []}, 'Results': [], 'EndCount': 100, 'TotalResults': 10, 'Facets': [{'Name': 'Type', 'DisplayName': 'Product Type', 'Values': [{'Value': 'Multi-Level', 'DisplayValue': 'Multi-Level', 'Count': 2}, {'Value': 'Overflow Drainage', 'DisplayValue': 'Overflow Drainage', 'Count': 1}, {'Value': 'Plaza Areas', 'DisplayValue': 'Plaza Areas', 'Count': 2}, {'Value': 'Primary Drainage', 'DisplayValue': 'Primary Drainage', 'Count': 5}]}]}
+2025-04-16 23:02:05,999 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 23:02:05,999 - INFO - 
+Scraping Summary:
+2025-04-16 23:02:06,000 - INFO - Total time: 6.17 seconds
+2025-04-16 23:02:06,000 - INFO - Failed downloads: 0

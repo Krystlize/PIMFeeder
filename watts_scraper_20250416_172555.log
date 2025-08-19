@@ -1,0 +1,12 @@
+2025-04-16 17:25:55,742 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:25:55,744 - DEBUG - Starting new HTTPS connection (1): www.watts.com:443
+2025-04-16 17:25:56,181 - DEBUG - https://www.watts.com:443 "GET /products/drainage-solutions/floor-drains-channels-trench/floor-area-drains HTTP/1.1" 200 None
+2025-04-16 17:25:56,332 - DEBUG - https://www.watts.com:443 "GET /api/watts/v1/products?categoryId=floor-area-drains&page=1&pageSize=100&sort=name HTTP/1.1" 302 None
+2025-04-16 17:25:56,455 - DEBUG - https://www.watts.com:443 "GET /page-not-found?item=%2Fapi%2Fwatts%2Fv1%2Fproducts&user=extranet%5CAnonymous&site=Watts HTTP/1.1" 200 None
+2025-04-16 17:25:56,457 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2025-04-16 17:25:56,457 - INFO - Category Floor & Area Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 17:25:56,458 - INFO - 
+Scraping Summary:
+2025-04-16 17:25:56,458 - INFO - Total time: 0.72 seconds
+2025-04-16 17:25:56,459 - INFO - Failed downloads: 0

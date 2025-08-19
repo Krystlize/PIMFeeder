@@ -1,0 +1,997 @@
+2025-04-16 19:59:38,347 - INFO - 
+Starting to scrape category: Green Roof Drains
+2025-04-16 19:59:38,348 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 19:59:38,348 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/green-roof-drains"}
+2025-04-16 19:59:39,225 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 19:59:39,226 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:39,226 - DEBUG - Finished Request
+2025-04-16 19:59:39,226 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:39,236 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:39,237 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:39,237 - DEBUG - Finished Request
+2025-04-16 19:59:39,737 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:39,747 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:39,748 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:39,748 - DEBUG - Finished Request
+2025-04-16 19:59:40,249 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:40,275 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:40,275 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:40,276 - DEBUG - Finished Request
+2025-04-16 19:59:40,776 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:40,786 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:40,787 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:40,787 - DEBUG - Finished Request
+2025-04-16 19:59:41,288 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:41,297 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:41,298 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:41,298 - DEBUG - Finished Request
+2025-04-16 19:59:41,799 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:41,806 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:41,806 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:41,807 - DEBUG - Finished Request
+2025-04-16 19:59:42,307 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:42,317 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:42,317 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:42,317 - DEBUG - Finished Request
+2025-04-16 19:59:42,818 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:42,828 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:42,828 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:42,828 - DEBUG - Finished Request
+2025-04-16 19:59:43,329 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:43,338 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:43,339 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:43,339 - DEBUG - Finished Request
+2025-04-16 19:59:43,840 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:43,850 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:43,851 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:43,851 - DEBUG - Finished Request
+2025-04-16 19:59:44,352 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:44,361 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:44,362 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:44,362 - DEBUG - Finished Request
+2025-04-16 19:59:44,863 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:44,873 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:44,873 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:44,874 - DEBUG - Finished Request
+2025-04-16 19:59:45,375 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:45,384 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:45,385 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:45,385 - DEBUG - Finished Request
+2025-04-16 19:59:45,886 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:45,895 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:45,896 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:45,896 - DEBUG - Finished Request
+2025-04-16 19:59:46,397 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:46,407 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:46,407 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:46,408 - DEBUG - Finished Request
+2025-04-16 19:59:46,909 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:46,918 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:46,918 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:46,918 - DEBUG - Finished Request
+2025-04-16 19:59:47,419 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:47,446 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:47,447 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:47,447 - DEBUG - Finished Request
+2025-04-16 19:59:47,948 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:47,954 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:47,954 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:47,955 - DEBUG - Finished Request
+2025-04-16 19:59:48,455 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:48,461 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:48,461 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:48,461 - DEBUG - Finished Request
+2025-04-16 19:59:48,962 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:48,967 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 404 0
+2025-04-16 19:59:48,968 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']\"}\n  (Session info: chrome=135.0.7049.96)","stacktrace":"\tGetHandleVerifier [0x00007FF645095355+78597]\n\tGetHandleVerifier [0x00007FF6450953B0+78688]\n\t(No symbol) [0x00007FF644E491AA]\n\t(No symbol) [0x00007FF644E9F149]\n\t(No symbol) [0x00007FF644E9F3FC]\n\t(No symbol) [0x00007FF644EF2467]\n\t(No symbol) [0x00007FF644EC712F]\n\t(No symbol) [0x00007FF644EEF2BB]\n\t(No symbol) [0x00007FF644EC6EC3]\n\t(No symbol) [0x00007FF644E903F8]\n\t(No symbol) [0x00007FF644E91163]\n\tGetHandleVerifier [0x00007FF64533EF0D+2870973]\n\tGetHandleVerifier [0x00007FF6453396B8+2848360]\n\tGetHandleVerifier [0x00007FF645356993+2967875]\n\tGetHandleVerifier [0x00007FF6450B019A+188746]\n\tGetHandleVerifier [0x00007FF6450B847F+222255]\n\tGetHandleVerifier [0x00007FF64509D2D4+111236]\n\tGetHandleVerifier [0x00007FF64509D482+111666]\n\tGetHandleVerifier [0x00007FF6450835A9+5465]\n\tBaseThreadInitThunk [0x00007FFD57A1E8D7+23]\n\tRtlUserThreadStart [0x00007FFD594B14FC+44]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1182', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:48,968 - DEBUG - Finished Request
+2025-04-16 19:59:49,469 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 19:59:49,469 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 19:59:49,484 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 19:59:50,119 - DEBUG - Finished Request
+2025-04-16 19:59:50,156 - DEBUG - Found 353 total links on the page
+2025-04-16 19:59:50,165 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 19:59:50,167 - INFO - Saved page source to debug_page_source_1744847990.html for debugging
+2025-04-16 19:59:50,168 - INFO - No product links found, looking for subcategories...
+2025-04-16 19:59:50,168 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/green-roof-drains"}
+2025-04-16 19:59:50,605 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 19:59:50,605 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:50,605 - DEBUG - Finished Request
+2025-04-16 19:59:53,606 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 19:59:53,635 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 19:59:54,220 - DEBUG - Finished Request
+2025-04-16 19:59:54,259 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:59:54,260 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 19:59:54,260 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 19:59:54,260 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 19:59:54,261 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 19:59:54,261 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 19:59:54,261 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 19:59:54,262 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 19:59:54,262 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:59:54,262 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:59:54,263 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts"}
+2025-04-16 19:59:54,711 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 19:59:54,712 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:54,712 - DEBUG - Finished Request
+2025-04-16 19:59:54,712 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 19:59:54,721 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 19:59:54,721 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.7D05FFF881874E90E21DC4A9FC567D24.e.104"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:54,721 - DEBUG - Finished Request
+2025-04-16 19:59:54,722 - INFO - Found product grid container
+2025-04-16 19:59:54,722 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 19:59:54,727 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 19:59:54,727 - DEBUG - Remote response: status=200 | data={"value":1324} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:54,728 - DEBUG - Finished Request
+2025-04-16 19:59:54,728 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 19:59:54,731 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 19:59:54,732 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:54,732 - DEBUG - Finished Request
+2025-04-16 19:59:56,733 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 19:59:56,739 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 19:59:56,740 - DEBUG - Remote response: status=200 | data={"value":1324} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:56,740 - DEBUG - Finished Request
+2025-04-16 19:59:56,741 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:56,751 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:56,751 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:56,751 - DEBUG - Finished Request
+2025-04-16 19:59:57,252 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:57,261 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:57,261 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:57,261 - DEBUG - Finished Request
+2025-04-16 19:59:57,762 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:57,770 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:57,771 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:57,771 - DEBUG - Finished Request
+2025-04-16 19:59:58,272 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:58,280 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:58,280 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:58,280 - DEBUG - Finished Request
+2025-04-16 19:59:58,781 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:58,790 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:58,790 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:58,791 - DEBUG - Finished Request
+2025-04-16 19:59:59,292 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:59,300 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:59,301 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:59,301 - DEBUG - Finished Request
+2025-04-16 19:59:59,802 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 19:59:59,810 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 19:59:59,810 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:59:59,810 - DEBUG - Finished Request
+2025-04-16 20:00:00,311 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:00,320 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:00,320 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:00,321 - DEBUG - Finished Request
+2025-04-16 20:00:00,821 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:00,830 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:00,831 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:00,831 - DEBUG - Finished Request
+2025-04-16 20:00:01,332 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:01,340 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:01,341 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:01,341 - DEBUG - Finished Request
+2025-04-16 20:00:01,841 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:01,850 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:01,850 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:01,851 - DEBUG - Finished Request
+2025-04-16 20:00:02,352 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:02,359 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:02,360 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:02,360 - DEBUG - Finished Request
+2025-04-16 20:00:02,861 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:02,869 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:02,870 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:02,870 - DEBUG - Finished Request
+2025-04-16 20:00:03,371 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:03,380 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:03,380 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:03,380 - DEBUG - Finished Request
+2025-04-16 20:00:03,881 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:03,890 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:03,890 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:03,890 - DEBUG - Finished Request
+2025-04-16 20:00:04,391 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:04,400 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:04,400 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:04,401 - DEBUG - Finished Request
+2025-04-16 20:00:04,901 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:04,909 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:04,910 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:04,910 - DEBUG - Finished Request
+2025-04-16 20:00:05,410 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:05,418 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:05,419 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:05,419 - DEBUG - Finished Request
+2025-04-16 20:00:05,920 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:05,928 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:05,928 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:05,929 - DEBUG - Finished Request
+2025-04-16 20:00:06,429 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:06,438 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:06,438 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:06,439 - DEBUG - Finished Request
+2025-04-16 20:00:06,939 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:00:06,940 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:00:06,954 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:00:07,557 - DEBUG - Finished Request
+2025-04-16 20:00:07,785 - DEBUG - Found 356 total links on the page
+2025-04-16 20:00:07,792 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 20:00:07,794 - INFO - Saved page source to debug_page_source_1744848007.html for debugging
+2025-04-16 20:00:07,794 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 20:00:07,795 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 20:00:07,795 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains"}
+2025-04-16 20:00:08,303 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:00:08,303 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:08,303 - DEBUG - Finished Request
+2025-04-16 20:00:08,303 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:00:08,309 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:00:08,309 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.60245734B72FCD1FC796849BD65F57A3.e.163"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:08,309 - DEBUG - Finished Request
+2025-04-16 20:00:08,309 - INFO - Found product grid container
+2025-04-16 20:00:08,309 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:08,312 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:08,313 - DEBUG - Remote response: status=200 | data={"value":1923} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:08,313 - DEBUG - Finished Request
+2025-04-16 20:00:08,313 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:00:08,318 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:08,318 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:08,319 - DEBUG - Finished Request
+2025-04-16 20:00:10,319 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:10,326 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:10,327 - DEBUG - Remote response: status=200 | data={"value":1923} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:10,327 - DEBUG - Finished Request
+2025-04-16 20:00:10,328 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:10,333 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:10,334 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:10,334 - DEBUG - Finished Request
+2025-04-16 20:00:10,834 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:10,842 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:10,843 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:10,843 - DEBUG - Finished Request
+2025-04-16 20:00:11,343 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:11,352 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:11,352 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:11,353 - DEBUG - Finished Request
+2025-04-16 20:00:11,853 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:11,862 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:11,862 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:11,862 - DEBUG - Finished Request
+2025-04-16 20:00:12,363 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:12,372 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:12,372 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:12,372 - DEBUG - Finished Request
+2025-04-16 20:00:12,873 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:12,881 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:12,882 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:12,882 - DEBUG - Finished Request
+2025-04-16 20:00:13,383 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:13,391 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:13,392 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:13,392 - DEBUG - Finished Request
+2025-04-16 20:00:13,892 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:13,901 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:13,901 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:13,901 - DEBUG - Finished Request
+2025-04-16 20:00:14,402 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:14,411 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:14,411 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:14,412 - DEBUG - Finished Request
+2025-04-16 20:00:14,912 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:14,921 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:14,921 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:14,922 - DEBUG - Finished Request
+2025-04-16 20:00:15,422 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:15,430 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:15,430 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:15,431 - DEBUG - Finished Request
+2025-04-16 20:00:15,931 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:15,941 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:15,941 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:15,941 - DEBUG - Finished Request
+2025-04-16 20:00:16,442 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:16,452 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:16,452 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:16,453 - DEBUG - Finished Request
+2025-04-16 20:00:16,953 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:16,970 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:16,971 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:16,971 - DEBUG - Finished Request
+2025-04-16 20:00:17,472 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:17,481 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:17,481 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:17,481 - DEBUG - Finished Request
+2025-04-16 20:00:17,982 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:17,991 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:17,991 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:17,991 - DEBUG - Finished Request
+2025-04-16 20:00:18,492 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:18,500 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:18,500 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:18,501 - DEBUG - Finished Request
+2025-04-16 20:00:19,002 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:19,010 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:19,011 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:19,011 - DEBUG - Finished Request
+2025-04-16 20:00:19,512 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:19,521 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:19,521 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:19,521 - DEBUG - Finished Request
+2025-04-16 20:00:20,022 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:20,030 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:20,031 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:20,031 - DEBUG - Finished Request
+2025-04-16 20:00:20,532 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:00:20,532 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:00:20,546 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:00:21,362 - DEBUG - Finished Request
+2025-04-16 20:00:21,407 - DEBUG - Found 357 total links on the page
+2025-04-16 20:00:21,415 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 20:00:21,417 - INFO - Saved page source to debug_page_source_1744848021.html for debugging
+2025-04-16 20:00:21,417 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 20:00:21,418 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 20:00:21,418 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/fixture-carriers"}
+2025-04-16 20:00:21,892 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:00:21,892 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:21,892 - DEBUG - Finished Request
+2025-04-16 20:00:21,893 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:00:21,900 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:00:21,900 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.D116070F708D71EF7B0E7CE1346EE7B9.e.206"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:21,901 - DEBUG - Finished Request
+2025-04-16 20:00:21,901 - INFO - Found product grid container
+2025-04-16 20:00:21,901 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:21,905 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:21,906 - DEBUG - Remote response: status=200 | data={"value":1891} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:21,906 - DEBUG - Finished Request
+2025-04-16 20:00:21,906 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:00:21,910 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:21,910 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:21,910 - DEBUG - Finished Request
+2025-04-16 20:00:23,911 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:23,917 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:23,918 - DEBUG - Remote response: status=200 | data={"value":1891} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:23,918 - DEBUG - Finished Request
+2025-04-16 20:00:23,918 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:23,924 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:23,925 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:23,925 - DEBUG - Finished Request
+2025-04-16 20:00:24,425 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:24,434 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:24,435 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:24,435 - DEBUG - Finished Request
+2025-04-16 20:00:24,936 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:24,944 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:24,944 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:24,945 - DEBUG - Finished Request
+2025-04-16 20:00:25,445 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:25,454 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:25,455 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:25,455 - DEBUG - Finished Request
+2025-04-16 20:00:25,955 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:25,964 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:25,964 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:25,964 - DEBUG - Finished Request
+2025-04-16 20:00:26,466 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:26,474 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:26,474 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:26,475 - DEBUG - Finished Request
+2025-04-16 20:00:26,975 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:26,984 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:26,984 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:26,985 - DEBUG - Finished Request
+2025-04-16 20:00:27,486 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:27,494 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:27,494 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:27,495 - DEBUG - Finished Request
+2025-04-16 20:00:27,995 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:28,004 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:28,004 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:28,005 - DEBUG - Finished Request
+2025-04-16 20:00:28,505 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:28,514 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:28,514 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:28,514 - DEBUG - Finished Request
+2025-04-16 20:00:29,015 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:29,023 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:29,024 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:29,024 - DEBUG - Finished Request
+2025-04-16 20:00:29,525 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:29,533 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:29,533 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:29,534 - DEBUG - Finished Request
+2025-04-16 20:00:30,035 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:30,044 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:30,044 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:30,044 - DEBUG - Finished Request
+2025-04-16 20:00:30,545 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:30,554 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:30,554 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:30,554 - DEBUG - Finished Request
+2025-04-16 20:00:31,055 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:31,064 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:31,064 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:31,064 - DEBUG - Finished Request
+2025-04-16 20:00:31,565 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:31,574 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:31,574 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:31,574 - DEBUG - Finished Request
+2025-04-16 20:00:32,075 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:32,084 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:32,084 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:32,085 - DEBUG - Finished Request
+2025-04-16 20:00:32,586 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:32,595 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:32,595 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:32,595 - DEBUG - Finished Request
+2025-04-16 20:00:33,096 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:33,105 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:33,105 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:33,106 - DEBUG - Finished Request
+2025-04-16 20:00:33,606 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:33,614 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:33,615 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:33,615 - DEBUG - Finished Request
+2025-04-16 20:00:34,116 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:00:34,117 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:00:34,130 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:00:34,744 - DEBUG - Finished Request
+2025-04-16 20:00:34,786 - DEBUG - Found 356 total links on the page
+2025-04-16 20:00:34,795 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 20:00:34,796 - INFO - Saved page source to debug_page_source_1744848034.html for debugging
+2025-04-16 20:00:34,797 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 20:00:34,797 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 20:00:34,798 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains"}
+2025-04-16 20:00:35,312 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:00:35,313 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:35,313 - DEBUG - Finished Request
+2025-04-16 20:00:35,313 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:00:35,333 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:00:35,333 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.F78D519BBB09A5A85AE4D5C399204DDA.e.228"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:35,334 - DEBUG - Finished Request
+2025-04-16 20:00:35,334 - INFO - Found product grid container
+2025-04-16 20:00:35,335 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:35,340 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:35,341 - DEBUG - Remote response: status=200 | data={"value":1556} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:35,341 - DEBUG - Finished Request
+2025-04-16 20:00:35,341 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:00:35,346 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:35,346 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:35,346 - DEBUG - Finished Request
+2025-04-16 20:00:37,347 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:37,354 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:37,355 - DEBUG - Remote response: status=200 | data={"value":1556} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:37,355 - DEBUG - Finished Request
+2025-04-16 20:00:37,355 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:37,362 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:37,363 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:37,363 - DEBUG - Finished Request
+2025-04-16 20:00:37,864 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:37,872 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:37,872 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:37,872 - DEBUG - Finished Request
+2025-04-16 20:00:38,373 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:38,382 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:38,382 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:38,383 - DEBUG - Finished Request
+2025-04-16 20:00:38,884 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:38,892 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:38,893 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:38,893 - DEBUG - Finished Request
+2025-04-16 20:00:39,394 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:39,404 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:39,404 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:39,404 - DEBUG - Finished Request
+2025-04-16 20:00:39,905 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:39,913 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:39,913 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:39,913 - DEBUG - Finished Request
+2025-04-16 20:00:40,414 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:40,422 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:40,423 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:40,423 - DEBUG - Finished Request
+2025-04-16 20:00:40,924 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:40,933 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:40,933 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:40,933 - DEBUG - Finished Request
+2025-04-16 20:00:41,434 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:41,443 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:41,443 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:41,443 - DEBUG - Finished Request
+2025-04-16 20:00:41,944 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:41,953 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:41,954 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:41,954 - DEBUG - Finished Request
+2025-04-16 20:00:42,455 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:42,464 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:42,464 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:42,465 - DEBUG - Finished Request
+2025-04-16 20:00:42,966 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:42,974 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:42,974 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:42,975 - DEBUG - Finished Request
+2025-04-16 20:00:43,475 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:43,485 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:43,485 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:43,485 - DEBUG - Finished Request
+2025-04-16 20:00:43,986 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:43,994 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:43,995 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:43,995 - DEBUG - Finished Request
+2025-04-16 20:00:44,496 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:44,505 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:44,506 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:44,506 - DEBUG - Finished Request
+2025-04-16 20:00:45,007 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:45,015 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:45,015 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:45,016 - DEBUG - Finished Request
+2025-04-16 20:00:45,516 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:45,524 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:45,524 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:45,525 - DEBUG - Finished Request
+2025-04-16 20:00:46,026 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:46,034 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:46,034 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:46,035 - DEBUG - Finished Request
+2025-04-16 20:00:46,536 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:46,544 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:46,544 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:46,544 - DEBUG - Finished Request
+2025-04-16 20:00:47,045 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:47,053 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:47,054 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:47,054 - DEBUG - Finished Request
+2025-04-16 20:00:47,555 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:00:47,555 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:00:47,569 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:00:48,250 - DEBUG - Finished Request
+2025-04-16 20:00:48,293 - DEBUG - Found 357 total links on the page
+2025-04-16 20:00:48,301 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 20:00:48,303 - INFO - Saved page source to debug_page_source_1744848048.html for debugging
+2025-04-16 20:00:48,303 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 20:00:48,304 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 20:00:48,304 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains"}
+2025-04-16 20:00:48,805 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:00:48,805 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:48,805 - DEBUG - Finished Request
+2025-04-16 20:00:48,806 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:00:48,815 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:00:48,815 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.14330725BD87D4D0E3504FE5A245A42F.e.262"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:48,816 - DEBUG - Finished Request
+2025-04-16 20:00:48,816 - INFO - Found product grid container
+2025-04-16 20:00:48,816 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:48,819 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:48,820 - DEBUG - Remote response: status=200 | data={"value":1364} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:48,820 - DEBUG - Finished Request
+2025-04-16 20:00:48,820 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:00:48,824 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:48,824 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:48,824 - DEBUG - Finished Request
+2025-04-16 20:00:50,825 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:00:50,831 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:00:50,831 - DEBUG - Remote response: status=200 | data={"value":1364} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:50,831 - DEBUG - Finished Request
+2025-04-16 20:00:50,832 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:50,838 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:50,838 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:50,838 - DEBUG - Finished Request
+2025-04-16 20:00:51,339 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:51,347 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:51,348 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:51,348 - DEBUG - Finished Request
+2025-04-16 20:00:51,849 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:51,857 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:51,858 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:51,858 - DEBUG - Finished Request
+2025-04-16 20:00:52,359 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:52,368 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:52,369 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:52,369 - DEBUG - Finished Request
+2025-04-16 20:00:52,870 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:52,878 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:52,878 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:52,879 - DEBUG - Finished Request
+2025-04-16 20:00:53,380 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:53,389 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:53,389 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:53,390 - DEBUG - Finished Request
+2025-04-16 20:00:53,890 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:53,899 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:53,900 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:53,900 - DEBUG - Finished Request
+2025-04-16 20:00:54,400 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:54,408 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:54,409 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:54,409 - DEBUG - Finished Request
+2025-04-16 20:00:54,910 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:54,918 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:54,919 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:54,919 - DEBUG - Finished Request
+2025-04-16 20:00:55,420 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:55,429 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:55,430 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:55,430 - DEBUG - Finished Request
+2025-04-16 20:00:55,931 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:55,939 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:55,939 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:55,940 - DEBUG - Finished Request
+2025-04-16 20:00:56,440 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:56,450 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:56,450 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:56,450 - DEBUG - Finished Request
+2025-04-16 20:00:56,951 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:56,960 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:56,960 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:56,960 - DEBUG - Finished Request
+2025-04-16 20:00:57,461 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:57,470 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:57,470 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:57,471 - DEBUG - Finished Request
+2025-04-16 20:00:57,971 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:57,980 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:57,980 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:57,981 - DEBUG - Finished Request
+2025-04-16 20:00:58,482 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:58,491 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:58,491 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:58,491 - DEBUG - Finished Request
+2025-04-16 20:00:58,992 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:59,000 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:59,000 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:59,000 - DEBUG - Finished Request
+2025-04-16 20:00:59,501 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:00:59,509 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:00:59,510 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:00:59,510 - DEBUG - Finished Request
+2025-04-16 20:01:00,011 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:00,020 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:00,020 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:00,021 - DEBUG - Finished Request
+2025-04-16 20:01:00,522 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:00,531 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:00,531 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:00,531 - DEBUG - Finished Request
+2025-04-16 20:01:01,032 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:01:01,033 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:01:01,047 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:01:01,609 - DEBUG - Finished Request
+2025-04-16 20:01:01,722 - DEBUG - Found 356 total links on the page
+2025-04-16 20:01:01,736 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 20:01:01,738 - INFO - Saved page source to debug_page_source_1744848061.html for debugging
+2025-04-16 20:01:01,739 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 20:01:01,739 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 20:01:01,739 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/interceptors"}
+2025-04-16 20:01:03,691 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:01:03,692 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:03,692 - DEBUG - Finished Request
+2025-04-16 20:01:03,692 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:01:03,699 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:01:03,700 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.42167C94D27DCBB89AD36176E9B9F603.e.302"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:03,700 - DEBUG - Finished Request
+2025-04-16 20:01:03,700 - INFO - Found product grid container
+2025-04-16 20:01:03,700 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:01:03,704 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:03,704 - DEBUG - Remote response: status=200 | data={"value":1404} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:03,705 - DEBUG - Finished Request
+2025-04-16 20:01:03,705 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:01:03,708 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:03,708 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:03,708 - DEBUG - Finished Request
+2025-04-16 20:01:05,709 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:01:05,716 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:05,716 - DEBUG - Remote response: status=200 | data={"value":1404} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:05,716 - DEBUG - Finished Request
+2025-04-16 20:01:05,717 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:05,724 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:05,725 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:05,725 - DEBUG - Finished Request
+2025-04-16 20:01:06,225 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:06,233 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:06,233 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:06,234 - DEBUG - Finished Request
+2025-04-16 20:01:06,735 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:06,743 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:06,743 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:06,744 - DEBUG - Finished Request
+2025-04-16 20:01:07,245 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:07,253 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:07,253 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:07,253 - DEBUG - Finished Request
+2025-04-16 20:01:07,754 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:07,762 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:07,762 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:07,763 - DEBUG - Finished Request
+2025-04-16 20:01:08,264 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:08,273 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:08,273 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:08,273 - DEBUG - Finished Request
+2025-04-16 20:01:08,774 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:08,782 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:08,783 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:08,783 - DEBUG - Finished Request
+2025-04-16 20:01:09,284 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:09,292 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:09,292 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:09,293 - DEBUG - Finished Request
+2025-04-16 20:01:09,793 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:09,802 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:09,802 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:09,803 - DEBUG - Finished Request
+2025-04-16 20:01:10,304 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:10,312 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:10,313 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:10,313 - DEBUG - Finished Request
+2025-04-16 20:01:10,814 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:10,823 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:10,823 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:10,823 - DEBUG - Finished Request
+2025-04-16 20:01:11,324 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:11,333 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:11,333 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:11,334 - DEBUG - Finished Request
+2025-04-16 20:01:11,834 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:11,842 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:11,843 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:11,843 - DEBUG - Finished Request
+2025-04-16 20:01:12,344 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:12,352 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:12,352 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:12,353 - DEBUG - Finished Request
+2025-04-16 20:01:12,853 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:12,862 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:12,863 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:12,863 - DEBUG - Finished Request
+2025-04-16 20:01:13,364 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:13,372 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:13,373 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:13,373 - DEBUG - Finished Request
+2025-04-16 20:01:13,874 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:13,882 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:13,883 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:13,883 - DEBUG - Finished Request
+2025-04-16 20:01:14,384 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:14,392 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:14,393 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:14,393 - DEBUG - Finished Request
+2025-04-16 20:01:14,893 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:14,902 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:14,902 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:14,903 - DEBUG - Finished Request
+2025-04-16 20:01:15,403 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:15,411 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:15,411 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:15,412 - DEBUG - Finished Request
+2025-04-16 20:01:15,912 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:01:15,913 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:01:15,926 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:01:16,975 - DEBUG - Finished Request
+2025-04-16 20:01:17,127 - DEBUG - Found 355 total links on the page
+2025-04-16 20:01:17,136 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 20:01:17,139 - INFO - Saved page source to debug_page_source_1744848077.html for debugging
+2025-04-16 20:01:17,139 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 20:01:17,139 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 20:01:17,140 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/parking-deck-drains"}
+2025-04-16 20:01:17,600 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:01:17,600 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:17,600 - DEBUG - Finished Request
+2025-04-16 20:01:17,601 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:01:17,608 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:01:17,609 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.909994C450ACD0457BA9B57798791A53.e.363"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:17,609 - DEBUG - Finished Request
+2025-04-16 20:01:17,609 - INFO - Found product grid container
+2025-04-16 20:01:17,609 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:01:17,614 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:17,614 - DEBUG - Remote response: status=200 | data={"value":1891} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:17,614 - DEBUG - Finished Request
+2025-04-16 20:01:17,615 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:01:17,620 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:17,620 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:17,620 - DEBUG - Finished Request
+2025-04-16 20:01:19,621 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:01:19,628 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:19,629 - DEBUG - Remote response: status=200 | data={"value":1891} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:19,629 - DEBUG - Finished Request
+2025-04-16 20:01:19,629 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:19,637 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:19,637 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:19,637 - DEBUG - Finished Request
+2025-04-16 20:01:20,138 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:20,146 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:20,146 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:20,147 - DEBUG - Finished Request
+2025-04-16 20:01:20,647 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:20,656 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:20,656 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:20,657 - DEBUG - Finished Request
+2025-04-16 20:01:21,157 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:21,166 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:21,166 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:21,166 - DEBUG - Finished Request
+2025-04-16 20:01:21,667 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:21,676 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:21,676 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:21,676 - DEBUG - Finished Request
+2025-04-16 20:01:22,177 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:22,186 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:22,186 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:22,187 - DEBUG - Finished Request
+2025-04-16 20:01:22,687 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:22,696 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:22,696 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:22,696 - DEBUG - Finished Request
+2025-04-16 20:01:23,197 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:23,206 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:23,206 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:23,206 - DEBUG - Finished Request
+2025-04-16 20:01:23,707 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:23,715 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:23,715 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:23,716 - DEBUG - Finished Request
+2025-04-16 20:01:24,216 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:24,225 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:24,226 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:24,226 - DEBUG - Finished Request
+2025-04-16 20:01:24,727 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:24,735 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:24,735 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:24,736 - DEBUG - Finished Request
+2025-04-16 20:01:25,237 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:25,245 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:25,245 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:25,246 - DEBUG - Finished Request
+2025-04-16 20:01:25,746 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:25,756 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:25,757 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:25,757 - DEBUG - Finished Request
+2025-04-16 20:01:26,258 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:26,266 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:26,267 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:26,267 - DEBUG - Finished Request
+2025-04-16 20:01:26,768 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:26,777 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:26,777 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:26,778 - DEBUG - Finished Request
+2025-04-16 20:01:27,278 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:27,286 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:27,287 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:27,287 - DEBUG - Finished Request
+2025-04-16 20:01:27,788 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:27,796 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:27,797 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:27,797 - DEBUG - Finished Request
+2025-04-16 20:01:28,298 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:28,306 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:28,306 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:28,307 - DEBUG - Finished Request
+2025-04-16 20:01:28,807 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:28,817 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:28,817 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:28,817 - DEBUG - Finished Request
+2025-04-16 20:01:29,318 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:29,326 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:29,327 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:29,327 - DEBUG - Finished Request
+2025-04-16 20:01:29,828 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:01:29,828 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:01:29,842 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:01:30,601 - DEBUG - Finished Request
+2025-04-16 20:01:30,644 - DEBUG - Found 357 total links on the page
+2025-04-16 20:01:30,653 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 20:01:30,655 - INFO - Saved page source to debug_page_source_1744848090.html for debugging
+2025-04-16 20:01:30,655 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 20:01:30,656 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 20:01:30,656 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/url {"url": "https://www.watts.com/products/drainage-solutions/roof-drains"}
+2025-04-16 20:01:31,141 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/url HTTP/1.1" 200 0
+2025-04-16 20:01:31,141 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:31,141 - DEBUG - Finished Request
+2025-04-16 20:01:31,141 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/element {"using": "css selector", "value": ".js-filtered-grid, .filtered-grid, .product-grid, [data-component='ProductGrid']"}
+2025-04-16 20:01:31,147 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/element HTTP/1.1" 200 0
+2025-04-16 20:01:31,148 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.1DF08509FCFE3F778EAD0661C932DD2A.d.1A292EC6B5572A98226287E4846ECB4D.e.403"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:31,148 - DEBUG - Finished Request
+2025-04-16 20:01:31,148 - INFO - Found product grid container
+2025-04-16 20:01:31,148 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:01:31,155 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:31,156 - DEBUG - Remote response: status=200 | data={"value":1891} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:31,156 - DEBUG - Finished Request
+2025-04-16 20:01:31,156 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 20:01:31,159 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:31,159 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:31,159 - DEBUG - Finished Request
+2025-04-16 20:01:33,160 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 20:01:33,167 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/execute/sync HTTP/1.1" 200 0
+2025-04-16 20:01:33,168 - DEBUG - Remote response: status=200 | data={"value":1891} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:33,168 - DEBUG - Finished Request
+2025-04-16 20:01:33,168 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:33,175 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:33,175 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:33,176 - DEBUG - Finished Request
+2025-04-16 20:01:33,676 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:33,685 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:33,685 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:33,685 - DEBUG - Finished Request
+2025-04-16 20:01:34,187 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:34,195 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:34,196 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:34,196 - DEBUG - Finished Request
+2025-04-16 20:01:34,697 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:34,703 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:34,704 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:34,704 - DEBUG - Finished Request
+2025-04-16 20:01:35,204 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:35,212 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:35,213 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:35,213 - DEBUG - Finished Request
+2025-04-16 20:01:35,714 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:35,722 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:35,722 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:35,723 - DEBUG - Finished Request
+2025-04-16 20:01:36,223 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:36,231 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:36,232 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:36,232 - DEBUG - Finished Request
+2025-04-16 20:01:36,733 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:36,741 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:36,742 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:36,742 - DEBUG - Finished Request
+2025-04-16 20:01:37,243 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:37,252 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:37,252 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:37,253 - DEBUG - Finished Request
+2025-04-16 20:01:37,753 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:37,762 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:37,762 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:37,763 - DEBUG - Finished Request
+2025-04-16 20:01:38,264 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:38,272 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:38,272 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:38,273 - DEBUG - Finished Request
+2025-04-16 20:01:38,773 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:38,782 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:38,783 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:38,783 - DEBUG - Finished Request
+2025-04-16 20:01:39,284 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:39,292 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:39,292 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:39,292 - DEBUG - Finished Request
+2025-04-16 20:01:39,793 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:39,802 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:39,802 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:39,803 - DEBUG - Finished Request
+2025-04-16 20:01:40,303 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:40,312 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:40,313 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:40,313 - DEBUG - Finished Request
+2025-04-16 20:01:40,814 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:40,822 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:40,823 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:40,823 - DEBUG - Finished Request
+2025-04-16 20:01:41,323 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:41,332 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:41,332 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:41,333 - DEBUG - Finished Request
+2025-04-16 20:01:41,834 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:41,843 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:41,843 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:41,843 - DEBUG - Finished Request
+2025-04-16 20:01:42,344 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:42,352 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:42,352 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:42,353 - DEBUG - Finished Request
+2025-04-16 20:01:42,853 - DEBUG - POST http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/elements {"using": "css selector", "value": ".product-card, .product-tile, [data-product-id], [class*='product-']"}
+2025-04-16 20:01:42,862 - DEBUG - http://localhost:52087 "POST /session/adf1037351fff057ccd9303ae6a62b60/elements HTTP/1.1" 200 0
+2025-04-16 20:01:42,862 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 20:01:42,862 - DEBUG - Finished Request
+2025-04-16 20:01:43,364 - WARNING - Product grid not found, trying alternative selectors
+2025-04-16 20:01:43,364 - DEBUG - GET http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60/source {}
+2025-04-16 20:01:43,378 - DEBUG - http://localhost:52087 "GET /session/adf1037351fff057ccd9303ae6a62b60/source HTTP/1.1" 200 0
+2025-04-16 20:01:44,069 - DEBUG - Finished Request
+2025-04-16 20:01:44,137 - DEBUG - Found 355 total links on the page
+2025-04-16 20:01:44,145 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 20:01:44,147 - INFO - Saved page source to debug_page_source_1744848104.html for debugging
+2025-04-16 20:01:44,147 - INFO - Category Green Roof Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 20:01:44,148 - INFO - 
+Scraping Summary:
+2025-04-16 20:01:44,148 - INFO - Total time: 125.80 seconds
+2025-04-16 20:01:44,148 - INFO - Failed downloads: 0
+2025-04-16 20:01:44,189 - DEBUG - DELETE http://localhost:52087/session/adf1037351fff057ccd9303ae6a62b60 {}
+2025-04-16 20:01:44,190 - DEBUG - Starting new HTTP connection (2): localhost:52087

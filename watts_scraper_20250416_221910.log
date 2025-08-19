@@ -1,0 +1,35 @@
+2025-04-16 22:19:10,566 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:19:13,043 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:19:20,585 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:19:20,588 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:19:20,589 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:19:20,589 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:19:20,589 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:19:28,234 - INFO - Found 43 product links in https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:19:28,234 - INFO - Found 43 products to process
+2025-04-16 22:19:28,235 - INFO - 
+Processing product 1/43
+2025-04-16 22:19:28,235 - INFO - URL: https://www.watts.com/products/plumbing-and-flow-control
+2025-04-16 22:19:28,235 - WARNING - Error occurred, increased delay to 10s
+2025-04-16 22:19:28,236 - ERROR - Failed to get product page: https://www.watts.com/products/plumbing-and-flow-control
+2025-04-16 22:19:28,236 - INFO - 
+Processing product 2/43
+2025-04-16 22:19:28,236 - INFO - URL: https://www.watts.com/products/plumbing-flow-control-solutions/automatic-control-valves
+2025-04-16 22:19:38,236 - WARNING - Error occurred, increased delay to 20s
+2025-04-16 22:19:38,237 - ERROR - Failed to get product page: https://www.watts.com/products/plumbing-flow-control-solutions/automatic-control-valves
+2025-04-16 22:19:38,237 - INFO - 
+Processing product 3/43
+2025-04-16 22:19:38,237 - INFO - URL: https://www.watts.com/products/plumbing-flow-control-solutions/backflow-preventers
+2025-04-16 22:19:58,236 - WARNING - Error occurred, increased delay to 30s
+2025-04-16 22:19:58,237 - ERROR - Failed to get product page: https://www.watts.com/products/plumbing-flow-control-solutions/backflow-preventers
+2025-04-16 22:19:58,237 - INFO - 
+Processing product 4/43
+2025-04-16 22:19:58,237 - INFO - URL: https://www.watts.com/products/plumbing-flow-control-solutions/gas-water-connection-solutions
+2025-04-16 22:20:15,030 - INFO - 
+Scraping Summary:
+2025-04-16 22:20:15,030 - INFO - Total time: 54.44 seconds
+2025-04-16 22:20:15,031 - INFO - Failed downloads: 0
+2025-04-16 22:20:19,134 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000220557B8B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/3bad609323beee0c5f3b7a0e453c0f70
+2025-04-16 22:20:23,232 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002205559B750>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/3bad609323beee0c5f3b7a0e453c0f70
+2025-04-16 22:20:27,339 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002205582C3E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/3bad609323beee0c5f3b7a0e453c0f70

@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-pimfeeder": "react-scripts start",
     "build": "PUBLIC_URL=/PIMFeeder react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

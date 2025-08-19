@@ -1,0 +1,14 @@
+2025-04-16 17:20:06,292 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:20:06,293 - INFO - Checking URL: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:20:06,293 - DEBUG - Extracted category: floor-area-drains
+2025-04-16 17:20:06,293 - DEBUG - Making API request to https://www.watts.com/api/sitecore/ProductGrid/GetProducts with payload: {"filters": [{"Name": "Product Category", "Values": ["floor area drains"]}], "page": 0, "pageSize": 100, "sortBy": "relevance", "sortDirection": "asc"}
+2025-04-16 17:20:06,296 - DEBUG - Starting new HTTPS connection (1): www.watts.com:443
+2025-04-16 17:20:06,734 - DEBUG - https://www.watts.com:443 "POST /api/sitecore/ProductGrid/GetProducts HTTP/1.1" 302 None
+2025-04-16 17:20:06,799 - DEBUG - https://www.watts.com:443 "GET /error.html?aspxerrorpath=/api/sitecore/ProductGrid/GetProducts HTTP/1.1" 200 None
+2025-04-16 17:20:06,800 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains: Expecting value: line 1 column 1 (char 0)
+2025-04-16 17:20:06,800 - INFO - Category Floor & Area Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 17:20:06,801 - INFO - 
+Scraping Summary:
+2025-04-16 17:20:06,801 - INFO - Total time: 0.51 seconds
+2025-04-16 17:20:06,801 - INFO - Failed downloads: 0

@@ -1,0 +1,7 @@
+2025-04-16 17:00:56,646 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:00:57,115 - INFO - Trying GraphQL API endpoint
+2025-04-16 17:00:57,314 - INFO - GraphQL failed, trying REST API
+2025-04-16 17:00:57,536 - WARNING - Could not parse REST API response: Expecting value: line 1 column 1 (char 0)
+2025-04-16 17:00:57,536 - WARNING - API approaches failed, falling back to HTML scraping
+2025-04-16 17:00:57,584 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains

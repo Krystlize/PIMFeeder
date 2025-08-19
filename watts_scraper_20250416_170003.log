@@ -1,0 +1,6 @@
+2025-04-16 17:00:03,553 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:00:04,012 - INFO - Trying API endpoint: https://www.watts.com/api/watts/product/getproducts
+2025-04-16 17:00:04,273 - WARNING - Could not parse API response as JSON: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2025-04-16 17:00:04,273 - WARNING - API approach failed, falling back to HTML scraping
+2025-04-16 17:00:04,316 - WARNING - No product links found for category: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains

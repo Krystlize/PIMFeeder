@@ -1,0 +1,7 @@
+2025-04-16 16:57:23,556 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 16:57:24,154 - INFO - Page title: Floor & Area Drains
+2025-04-16 16:57:24,161 - WARNING - No product links found on page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:57:24,161 - INFO - HTML content saved to debug_page.html for inspection
+2025-04-16 16:57:24,164 - INFO - Found pagination - multiple pages of results exist
+2025-04-16 16:57:24,165 - INFO - Number of pagination links found: 0

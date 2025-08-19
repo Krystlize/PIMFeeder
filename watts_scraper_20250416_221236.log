@@ -1,0 +1,150 @@
+2025-04-16 22:12:36,126 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:12:36,127 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:12:36,127 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:12:36,127 - INFO - Getting product links from https://www.watts.com/products/drainage-solutions/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:12:36,128 - DEBUG - POST http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4/url {"url": "https://www.watts.com/products/drainage-solutions/drainage-solutions/roof-drains/green-roof-drains"}
+2025-04-16 22:12:37,149 - DEBUG - http://localhost:56914 "POST /session/e1a7fcb433483c0bc17356ebc48694c4/url HTTP/1.1" 200 0
+2025-04-16 22:12:37,149 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:12:37,149 - DEBUG - Finished Request
+2025-04-16 22:12:37,150 - INFO - Page loaded, waiting for content...
+2025-04-16 22:12:42,150 - DEBUG - GET http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4/source {}
+2025-04-16 22:12:42,164 - DEBUG - http://localhost:56914 "GET /session/e1a7fcb433483c0bc17356ebc48694c4/source HTTP/1.1" 200 0
+2025-04-16 22:12:42,805 - DEBUG - Finished Request
+2025-04-16 22:12:42,806 - DEBUG - POST http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 22:12:42,812 - DEBUG - http://localhost:56914 "POST /session/e1a7fcb433483c0bc17356ebc48694c4/execute/sync HTTP/1.1" 200 0
+2025-04-16 22:12:42,812 - DEBUG - Remote response: status=200 | data={"value":795} | headers=HTTPHeaderDict({'Content-Length': '13', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:12:42,812 - DEBUG - Finished Request
+2025-04-16 22:12:42,812 - DEBUG - POST http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4/execute/sync {"script": "window.scrollTo(0, document.body.scrollHeight);", "args": []}
+2025-04-16 22:12:42,816 - DEBUG - http://localhost:56914 "POST /session/e1a7fcb433483c0bc17356ebc48694c4/execute/sync HTTP/1.1" 200 0
+2025-04-16 22:12:42,816 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:12:42,817 - DEBUG - Finished Request
+2025-04-16 22:12:44,817 - DEBUG - POST http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2025-04-16 22:12:44,825 - DEBUG - http://localhost:56914 "POST /session/e1a7fcb433483c0bc17356ebc48694c4/execute/sync HTTP/1.1" 200 0
+2025-04-16 22:12:44,825 - DEBUG - Remote response: status=200 | data={"value":795} | headers=HTTPHeaderDict({'Content-Length': '13', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 22:12:44,826 - DEBUG - Finished Request
+2025-04-16 22:12:44,826 - DEBUG - GET http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4/source {}
+2025-04-16 22:12:44,838 - DEBUG - http://localhost:56914 "GET /session/e1a7fcb433483c0bc17356ebc48694c4/source HTTP/1.1" 200 0
+2025-04-16 22:12:45,457 - DEBUG - Finished Request
+2025-04-16 22:12:45,499 - WARNING - No product grid container found
+2025-04-16 22:12:45,502 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 22:12:45,503 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 22:12:45,503 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 22:12:45,503 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 22:12:45,504 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:12:45,504 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 22:12:45,504 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 22:12:45,505 - INFO - Found additional link with pattern 'drainage-solutions': https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 22:12:45,507 - INFO - Found additional link with pattern 'products': https://www.watts.com/products
+2025-04-16 22:12:45,508 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-and-flow-control
+2025-04-16 22:12:45,508 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/automatic-control-valves
+2025-04-16 22:12:45,508 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/backflow-preventers
+2025-04-16 22:12:45,509 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/gas-water-connection-solutions
+2025-04-16 22:12:45,509 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/high-purity-piping-and-fittings-and-lab-accessories
+2025-04-16 22:12:45,509 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/hydronic-steam-heating
+2025-04-16 22:12:45,510 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/mixing-valves
+2025-04-16 22:12:45,510 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/pex-plumbing-radiant-heating-systems
+2025-04-16 22:12:45,510 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/pressure-reducing-valves
+2025-04-16 22:12:45,510 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/relief-valves
+2025-04-16 22:12:45,511 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/risers
+2025-04-16 22:12:45,511 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/shutoff-valves
+2025-04-16 22:12:45,511 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/plumbing-flow-control-solutions/strainers
+2025-04-16 22:12:45,511 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/waterquality
+2025-04-16 22:12:45,512 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/conditioning-solutions
+2025-04-16 22:12:45,512 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/disinfection-solutions
+2025-04-16 22:12:45,512 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/filtration-solutions
+2025-04-16 22:12:45,512 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/instrumentation-solutions
+2025-04-16 22:12:45,513 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/oneflow-scale-prevention-solutions
+2025-04-16 22:12:45,513 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/water-quality-rainwater-harvesting-solutions/water-quality-parts-accessories
+2025-04-16 22:12:45,513 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/drainage
+2025-04-16 22:12:45,513 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/drainage/specificationdrainage
+2025-04-16 22:12:45,514 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/hvac-and-hot-water-solutions
+2025-04-16 22:12:45,514 - INFO - Found additional link with pattern 'products': https://www.aerco.com/products/condensing-boilers
+2025-04-16 22:12:45,514 - INFO - Found additional link with pattern 'products': https://lyncbywatts.com/products/water-heating-solutions
+2025-04-16 22:12:45,514 - INFO - Found additional link with pattern 'products': https://www.watts.com/our-story/brands/tekmar/products
+2025-04-16 22:12:45,515 - INFO - Found additional link with pattern 'products': https://www.suntouch.com/products/hvac-hot-water-solutions/electric-floor-heating
+2025-04-16 22:12:45,515 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/hvac-hot-water-solutions/floor-heating
+2025-04-16 22:12:45,515 - INFO - Found additional link with pattern 'products': https://lyncbywatts.com/products/heat-pumps
+2025-04-16 22:12:45,515 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/hvac-hot-water-solutions/heating-valves-accessories
+2025-04-16 22:12:45,515 - INFO - Found additional link with pattern 'products': https://www.suntouch.com/products/hvac-hot-water-solutions/electric-snow-melting
+2025-04-16 22:12:45,516 - INFO - Found additional link with pattern 'products': https://www.watts.com/products/hvac-hot-water-solutions/snow-melting
+2025-04-16 22:12:45,516 - INFO - Found additional link with pattern 'products': https://www.aerco.com/products/high-efficiency-water-heaters
+2025-04-16 22:12:45,516 - INFO - Found additional link with pattern 'products': https://products-specpoint.mydeltek.com/products/company/2e5d5377-6aec-43d6-b62e-507c395e75fa?groupby=sectionNumber%2520false%252CproductType%2520false&sortby=sectionNumber%252CproductType%252Ctype%252ClastUpdated%2520desc&ia=true&defaultFilter=true&df=%27WATTS+Water+Technologies%3B+A+WATTS+Company%27%25%7C%25%27WATTS+Water+Technologies%3B+A+WATTS+Company%27%2C%27Ames+Fire+%26+Waterworks%3B+A+WATTS+Brand%27%25%7C%25%27Ames+Fire+%26+Waterworks%3B+A+WATTS+Brand%27%2C%27BL%C3%9CCHER%3B+A+WATTS+Brand%27%25%7C%25%27BL%C3%9CCHER%3B+A+WATTS+Brand%27%2C%27Dormont%3B+A+WATTS+Brand%27%25%7C%25%27Dormont%3B+A+WATTS+Brand%27%2C%27Orion+Fittings%3B+A+WATTS+Brand%27%25%7C%25%27Orion+Fittings%3B+A+WATTS+Brand%27%2C%27POWERS%3B+A+WATTS+Brand%27%25%7C%25%27POWERS%3B+A+WATTS+Brand%27
+2025-04-16 22:12:45,516 - INFO - Found additional link with pattern 'products': https://www.watts.com/search?Filters=[{Name:"Show Discontinued",Values:["Show Discontinued Products"]}]&Page=0
+2025-04-16 22:12:45,516 - INFO - Found additional link with pattern 'products': https://www.onetrust.com/products/cookie-consent/
+2025-04-16 22:12:45,519 - INFO - 
+Total unique product links found: 45
+2025-04-16 22:12:45,519 - INFO - Found 45 products to process
+2025-04-16 22:12:45,519 - INFO - 
+Processing product 1/45
+2025-04-16 22:12:45,520 - INFO - URL: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 22:12:45,520 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:12:45,520 - INFO - 
+Processing product 2/45
+2025-04-16 22:12:45,520 - INFO - URL: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 22:12:45,520 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:12:50,521 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:12:50,521 - INFO - 
+Processing product 3/45
+2025-04-16 22:12:50,522 - INFO - URL: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 22:12:50,522 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:12:55,521 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/fixture-carriers: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:12:55,522 - INFO - 
+Processing product 4/45
+2025-04-16 22:12:55,522 - INFO - URL: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 22:12:55,523 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:00,522 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:00,522 - INFO - 
+Processing product 5/45
+2025-04-16 22:13:00,523 - INFO - URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:13:00,524 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:05,523 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:05,523 - INFO - 
+Processing product 6/45
+2025-04-16 22:13:05,524 - INFO - URL: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 22:13:05,524 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:10,523 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/interceptors: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:10,524 - INFO - 
+Processing product 7/45
+2025-04-16 22:13:10,524 - INFO - URL: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 22:13:10,525 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:15,524 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/parking-deck-drains: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:15,524 - INFO - 
+Processing product 8/45
+2025-04-16 22:13:15,525 - INFO - URL: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 22:13:15,525 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:20,525 - ERROR - Error processing product https://www.watts.com/products/drainage-solutions/roof-drains: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:20,525 - INFO - 
+Processing product 9/45
+2025-04-16 22:13:20,526 - INFO - URL: https://www.watts.com/products
+2025-04-16 22:13:20,526 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:25,525 - ERROR - Error processing product https://www.watts.com/products: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:25,526 - INFO - 
+Processing product 10/45
+2025-04-16 22:13:25,526 - INFO - URL: https://www.watts.com/products/plumbing-and-flow-control
+2025-04-16 22:13:25,526 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:30,526 - ERROR - Error processing product https://www.watts.com/products/plumbing-and-flow-control: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:30,526 - INFO - 
+Processing product 11/45
+2025-04-16 22:13:30,527 - INFO - URL: https://www.watts.com/products/plumbing-flow-control-solutions/automatic-control-valves
+2025-04-16 22:13:30,527 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:35,526 - ERROR - Error processing product https://www.watts.com/products/plumbing-flow-control-solutions/automatic-control-valves: WattsSpecScraper.download_pdf() missing 1 required positional argument: 'output_path'
+2025-04-16 22:13:35,527 - INFO - 
+Processing product 12/45
+2025-04-16 22:13:35,527 - INFO - URL: https://www.watts.com/products/plumbing-flow-control-solutions/backflow-preventers
+2025-04-16 22:13:35,528 - DEBUG - Respecting rate limit, sleeping for 5.00s
+2025-04-16 22:13:37,874 - INFO - 
+Scraping Summary:
+2025-04-16 22:13:37,874 - INFO - Total time: 61.75 seconds
+2025-04-16 22:13:37,875 - INFO - Failed downloads: 0
+2025-04-16 22:13:37,904 - DEBUG - DELETE http://localhost:56914/session/e1a7fcb433483c0bc17356ebc48694c4 {}
+2025-04-16 22:13:37,905 - DEBUG - Starting new HTTP connection (2): localhost:56914
+2025-04-16 22:13:42,005 - DEBUG - Incremented Retry for (url='/session/e1a7fcb433483c0bc17356ebc48694c4'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-16 22:13:42,005 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001ECB2278910>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/e1a7fcb433483c0bc17356ebc48694c4
+2025-04-16 22:13:42,006 - DEBUG - Starting new HTTP connection (3): localhost:56914
+2025-04-16 22:13:46,087 - DEBUG - Incremented Retry for (url='/session/e1a7fcb433483c0bc17356ebc48694c4'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+2025-04-16 22:13:46,088 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001ECB207B750>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/e1a7fcb433483c0bc17356ebc48694c4
+2025-04-16 22:13:46,089 - DEBUG - Starting new HTTP connection (4): localhost:56914
+2025-04-16 22:13:50,188 - DEBUG - Incremented Retry for (url='/session/e1a7fcb433483c0bc17356ebc48694c4'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+2025-04-16 22:13:50,189 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001ECB206BCE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/e1a7fcb433483c0bc17356ebc48694c4
+2025-04-16 22:13:50,189 - DEBUG - Starting new HTTP connection (5): localhost:56914

@@ -1,0 +1,17 @@
+2025-04-16 16:50:47,105 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 16:50:47,106 - INFO - Constructed category URL: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:50:47,106 - INFO - Fetching products from: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:50:47,640 - INFO - Page title: Floor & Area Drains
+2025-04-16 16:50:47,643 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 16:50:47,643 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 16:50:47,644 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 16:50:47,644 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 16:50:47,644 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:50:47,645 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:50:47,645 - INFO - Found product (direct link): https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench
+2025-04-16 16:50:47,657 - INFO - Total products found: 4
+2025-04-16 16:50:47,658 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 16:50:51,496 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 16:50:55,019 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench
+2025-04-16 16:50:58,541 - INFO - Looking for spec sheet at: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts

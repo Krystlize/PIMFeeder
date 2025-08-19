@@ -1,0 +1,222 @@
+2025-04-16 19:14:59,904 - INFO - 
+Starting to scrape category: Green Roof Drains
+2025-04-16 19:14:59,905 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 19:14:59,905 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/green-roof-drains"}
+2025-04-16 19:15:00,629 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:00,629 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:00,632 - DEBUG - Finished Request
+2025-04-16 19:15:05,632 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:05,640 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:05,641 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/green-roof-drains"} | headers=HTTPHeaderDict({'Content-Length': '79', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:05,641 - DEBUG - Finished Request
+2025-04-16 19:15:05,641 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/green-roof-drains
+2025-04-16 19:15:05,642 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:05,656 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:06,425 - DEBUG - Finished Request
+2025-04-16 19:15:06,463 - DEBUG - Found 353 total links on the page
+2025-04-16 19:15:06,470 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/green-roof-drains: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:06,472 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:06,473 - INFO - No product links found, looking for subcategories...
+2025-04-16 19:15:06,473 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/green-roof-drains"}
+2025-04-16 19:15:06,920 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:06,920 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:06,921 - DEBUG - Finished Request
+2025-04-16 19:15:09,921 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:09,935 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:10,725 - DEBUG - Finished Request
+2025-04-16 19:15:10,777 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:15:10,778 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 19:15:10,778 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 19:15:10,778 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 19:15:10,778 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 19:15:10,779 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 19:15:10,779 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 19:15:10,779 - INFO - Found subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 19:15:10,779 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:15:10,780 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:15:10,780 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts"}
+2025-04-16 19:15:11,236 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:11,236 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:11,237 - DEBUG - Finished Request
+2025-04-16 19:15:16,238 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:16,245 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:16,245 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts"} | headers=HTTPHeaderDict({'Content-Length': '100', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:16,245 - DEBUG - Finished Request
+2025-04-16 19:15:16,246 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts
+2025-04-16 19:15:16,246 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:16,260 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:16,889 - DEBUG - Finished Request
+2025-04-16 19:15:16,931 - DEBUG - Found 356 total links on the page
+2025-04-16 19:15:16,937 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/cleanouts: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:16,939 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:16,939 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 19:15:16,939 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 19:15:16,940 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains"}
+2025-04-16 19:15:17,443 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:17,444 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:17,444 - DEBUG - Finished Request
+2025-04-16 19:15:22,445 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:22,452 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:22,453 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains"} | headers=HTTPHeaderDict({'Content-Length': '115', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:22,453 - DEBUG - Finished Request
+2025-04-16 19:15:22,454 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains
+2025-04-16 19:15:22,454 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:22,467 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:23,066 - DEBUG - Finished Request
+2025-04-16 19:15:23,110 - DEBUG - Found 357 total links on the page
+2025-04-16 19:15:23,116 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/dead-level-trench-drains: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:23,118 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:23,118 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 19:15:23,119 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 19:15:23,119 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/fixture-carriers"}
+2025-04-16 19:15:23,649 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:23,650 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:23,650 - DEBUG - Finished Request
+2025-04-16 19:15:28,651 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:28,658 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:28,658 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/fixture-carriers"} | headers=HTTPHeaderDict({'Content-Length': '78', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:28,658 - DEBUG - Finished Request
+2025-04-16 19:15:28,659 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/fixture-carriers
+2025-04-16 19:15:28,659 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:28,672 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:29,296 - DEBUG - Finished Request
+2025-04-16 19:15:29,340 - DEBUG - Found 356 total links on the page
+2025-04-16 19:15:29,346 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/fixture-carriers: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:29,348 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:29,348 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 19:15:29,348 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 19:15:29,349 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains"}
+2025-04-16 19:15:29,784 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:29,785 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:29,785 - DEBUG - Finished Request
+2025-04-16 19:15:34,786 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:34,792 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:34,792 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains"} | headers=HTTPHeaderDict({'Content-Length': '108', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:34,793 - DEBUG - Finished Request
+2025-04-16 19:15:34,793 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 19:15:34,794 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:34,807 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:35,397 - DEBUG - Finished Request
+2025-04-16 19:15:35,441 - DEBUG - Found 357 total links on the page
+2025-04-16 19:15:35,447 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:35,449 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:35,450 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 19:15:35,450 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 19:15:35,451 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains"}
+2025-04-16 19:15:38,321 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:38,322 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:38,322 - DEBUG - Finished Request
+2025-04-16 19:15:43,322 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:43,329 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:43,330 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains"} | headers=HTTPHeaderDict({'Content-Length': '91', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:43,330 - DEBUG - Finished Request
+2025-04-16 19:15:43,330 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 19:15:43,331 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:43,344 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:43,924 - DEBUG - Finished Request
+2025-04-16 19:15:44,087 - DEBUG - Found 356 total links on the page
+2025-04-16 19:15:44,093 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:44,095 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:44,095 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 19:15:44,095 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 19:15:44,096 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/interceptors"}
+2025-04-16 19:15:44,595 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:44,596 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:44,596 - DEBUG - Finished Request
+2025-04-16 19:15:49,596 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:49,604 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:49,605 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/interceptors"} | headers=HTTPHeaderDict({'Content-Length': '74', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:49,605 - DEBUG - Finished Request
+2025-04-16 19:15:49,605 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/interceptors
+2025-04-16 19:15:49,606 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:49,618 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:50,139 - DEBUG - Finished Request
+2025-04-16 19:15:50,300 - DEBUG - Found 355 total links on the page
+2025-04-16 19:15:50,306 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/interceptors: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:50,308 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:50,308 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 19:15:50,308 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 19:15:50,309 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/parking-deck-drains"}
+2025-04-16 19:15:50,838 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:50,838 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:50,838 - DEBUG - Finished Request
+2025-04-16 19:15:55,839 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:15:55,846 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:55,847 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/parking-deck-drains"} | headers=HTTPHeaderDict({'Content-Length': '81', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:55,847 - DEBUG - Finished Request
+2025-04-16 19:15:55,847 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/parking-deck-drains
+2025-04-16 19:15:55,848 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:15:55,861 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:15:56,349 - DEBUG - Finished Request
+2025-04-16 19:15:56,496 - DEBUG - Found 357 total links on the page
+2025-04-16 19:15:56,503 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/parking-deck-drains: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:15:56,505 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:15:56,505 - INFO - Trying subcategory: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 19:15:56,505 - INFO - Loading page: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 19:15:56,506 - DEBUG - POST http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {"url": "https://www.watts.com/products/drainage-solutions/roof-drains"}
+2025-04-16 19:15:56,991 - DEBUG - http://localhost:50860 "POST /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:15:56,991 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:15:56,991 - DEBUG - Finished Request
+2025-04-16 19:16:01,992 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/url {}
+2025-04-16 19:16:01,999 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/url HTTP/1.1" 200 0
+2025-04-16 19:16:01,999 - DEBUG - Remote response: status=200 | data={"value":"https://www.watts.com/products/drainage-solutions/roof-drains"} | headers=HTTPHeaderDict({'Content-Length': '73', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-16 19:16:01,999 - DEBUG - Finished Request
+2025-04-16 19:16:02,000 - INFO - Current URL after loading: https://www.watts.com/products/drainage-solutions/roof-drains
+2025-04-16 19:16:02,000 - DEBUG - GET http://localhost:50860/session/a522215cfce539c9aa6272843bca639a/source {}
+2025-04-16 19:16:02,013 - DEBUG - http://localhost:50860 "GET /session/a522215cfce539c9aa6272843bca639a/source HTTP/1.1" 200 0
+2025-04-16 19:16:02,622 - DEBUG - Finished Request
+2025-04-16 19:16:02,667 - DEBUG - Found 355 total links on the page
+2025-04-16 19:16:02,673 - ERROR - Error getting product links from https://www.watts.com/products/drainage-solutions/roof-drains: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+2025-04-16 19:16:02,675 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\hood_\my-react-app-superman\scrape_watts_specs_new.py", line 206, in get_product_links
+    if self._is_valid_product_url(product_url):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WattsSpecScraper' object has no attribute '_is_valid_product_url'
+
+2025-04-16 19:16:02,675 - INFO - Category Green Roof Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 19:16:02,675 - INFO - 
+Scraping Summary:
+2025-04-16 19:16:02,676 - INFO - Total time: 62.77 seconds
+2025-04-16 19:16:02,676 - INFO - Failed downloads: 0
+2025-04-16 19:16:02,723 - DEBUG - DELETE http://localhost:50860/session/a522215cfce539c9aa6272843bca639a {}
+2025-04-16 19:16:02,724 - DEBUG - Starting new HTTP connection (2): localhost:50860

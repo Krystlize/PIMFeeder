@@ -1,0 +1,10 @@
+2025-04-16 17:24:32,403 - INFO - 
+Starting to scrape category: Floor & Area Drains
+2025-04-16 17:24:32,405 - DEBUG - Starting new HTTPS connection (1): www.watts.com:443
+2025-04-16 17:24:32,823 - DEBUG - https://www.watts.com:443 "GET /products/drainage-solutions/floor-drains-channels-trench/floor-area-drains HTTP/1.1" 200 None
+2025-04-16 17:24:32,862 - WARNING - No product grid found on page: https://www.watts.com/products/drainage-solutions/floor-drains-channels-trench/floor-area-drains
+2025-04-16 17:24:32,863 - INFO - Category Floor & Area Drains complete. Successfully downloaded 0/0 specs.
+2025-04-16 17:24:32,864 - INFO - 
+Scraping Summary:
+2025-04-16 17:24:32,864 - INFO - Total time: 0.46 seconds
+2025-04-16 17:24:32,864 - INFO - Failed downloads: 0

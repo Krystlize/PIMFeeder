@@ -1,0 +1,22 @@
+2025-04-16 22:45:59,443 - INFO - Checking for existing Selenium processes...
+2025-04-16 22:46:01,946 - INFO - Finished cleaning up existing Selenium processes
+2025-04-16 22:46:09,601 - INFO - Session initialized successfully with synchronized cookies
+2025-04-16 22:46:09,603 - INFO - Scraper initialized with enhanced rate limiting and monitoring
+2025-04-16 22:46:09,605 - INFO - 
+Scraping category: Green Roof Drains
+2025-04-16 22:46:09,605 - INFO - Category URL: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:46:09,605 - INFO - Loading category page with Selenium: https://www.watts.com/products/drainage-solutions/roof-drains/green-roof-drains
+2025-04-16 22:46:20,096 - INFO - Scrolling page to trigger lazy loading...
+2025-04-16 22:46:22,128 - INFO - No products found through analytics, trying page content...
+2025-04-16 22:50:02,601 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DF935550>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8/element
+2025-04-16 22:50:06,694 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DF8896D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8/element
+2025-04-16 22:50:10,779 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DF889090>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8/element
+2025-04-16 22:50:14,836 - ERROR - Error getting product links: HTTPConnectionPool(host='localhost', port=58762): Max retries exceeded with url: /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DF89E650>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-04-16 22:50:14,837 - ERROR - No product links found for category: Green Roof Drains
+2025-04-16 22:50:14,837 - INFO - 
+Scraping Summary:
+2025-04-16 22:50:14,838 - INFO - Total time: 245.23 seconds
+2025-04-16 22:50:14,838 - INFO - Failed downloads: 0
+2025-04-16 22:50:18,955 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DC12B5C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8
+2025-04-16 22:50:23,056 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DF8D5130>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8
+2025-04-16 22:50:27,153 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E7DC33C6B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/19e8b39a26c2ecfa5a1f444eaf9cf4d8
